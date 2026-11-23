@@ -1,0 +1,13 @@
+{
+  "name": "spilafelag-vefur",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Vefur Spilafélags Vestfjarða — public site, membership sign-up and member login",
+  "type": "module",
+  "engines": { "node": ">=24" },
+  "scripts": {
+    "dev": "node --watch server.js",
+    "start": "NODE_ENV=production node server.js",
+    "felagar": "node scripts/felagar.js"
+  }
+}

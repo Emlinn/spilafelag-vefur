@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="is">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Innskráning · Spilafélag Vestfjarða</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/site.js" type="module"></script>
+</head>
+<body data-tone="dark">
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="/" aria-label="Spilafélag Vestfjarða, forsíða">
+        <svg class="brand-mark" viewBox="0 0 30 30" aria-hidden="true"><rect x="3" y="6" width="14" height="19" rx="3" transform="rotate(-10 10 15)"/><rect x="12" y="4" width="14" height="19" rx="3" transform="rotate(8 19 13)"/><circle cx="19" cy="13.5" r="2.4"/></svg>
+        <span class="brand-name">Spilafélag Vestfjarða</span>
+      </a>
+      <nav class="nav" aria-label="Aðalvalmynd">
+        <a class="hide-sm" href="/#um">Um félagið</a>
+        <a href="/innskraning" aria-current="page">Innskráning</a>
+        <a class="btn small" href="/ganga-i-felagid">Ganga í félagið</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page narrow">
+    <div class="wrap">
+      <div class="page-intro">
+        <p class="eyebrow reveal">Félagssvæði</p>
+        <h1 class="reveal" style="--d:.06s">Velkomin <em>aftur</em>.</h1>
+        <p class="lede reveal" style="--d:.12s">Skráðu þig inn með netfanginu og lykilorðinu sem þú valdir þegar þú sóttir um.</p>
+      </div>
+
+      <form id="innskraning" class="form reveal" style="--d:.18s" novalidate>
+        <div class="field">
+          <label for="email">Netfang</label>
+          <input id="email" name="email" type="email" autocomplete="username" required>
+        </div>
+        <div class="field">
+          <label for="password">Lykilorð</label>
+          <input id="password" name="password" type="password" autocomplete="current-password" required>
+        </div>
+        <div class="alert" role="alert" hidden></div>
+        <div class="form-foot">
+          <button class="btn" type="submit">Skrá inn <span class="arrow" aria-hidden="true">→</span></button>
+          <a class="link-quiet" href="/ganga-i-felagid">Ekki félagi? Sæktu um</a>
+        </div>
+      </form>
+    </div>
+  </main>
+</body>
+</html>

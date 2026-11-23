@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="is">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Félagssvæði · Spilafélag Vestfjarða</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/site.js" type="module"></script>
+</head>
+<body data-tone="light">
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="/" aria-label="Spilafélag Vestfjarða, forsíða">
+        <svg class="brand-mark" viewBox="0 0 30 30" aria-hidden="true"><rect x="3" y="6" width="14" height="19" rx="3" transform="rotate(-10 10 15)"/><rect x="12" y="4" width="14" height="19" rx="3" transform="rotate(8 19 13)"/><circle cx="19" cy="13.5" r="2.4"/></svg>
+        <span class="brand-name">Spilafélag Vestfjarða</span>
+      </a>
+      <nav class="nav" aria-label="Aðalvalmynd">
+        <a href="/felagar" aria-current="page">Félagssvæði</a>
+        <button id="utskraning" class="btn small ghost" type="button">Skrá út</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page">
+    <div class="wrap" style="display:block">
+      <p class="eyebrow reveal">Félagssvæði</p>
+      <h1 class="reveal" style="--d:.06s">Hæ, <em id="member-name">félagi</em>.</h1>
+      <p class="lede reveal" style="--d:.12s">Hér safnast það sem tilheyrir félögum: viðburðir, skráningar og fréttir frá stjórn. Félagi síðan <span id="member-since">—</span>.</p>
+
+      <div class="member-grid">
+        <div class="form reveal"><h3>Næstu viðburðir</h3><p>Viðburðadagatalið kemur hér.</p></div>
+        <div class="form reveal" style="--d:.08s"><h3>Mínar skráningar</h3><p>Viðburðir sem þú hefur skráð þig á birtast hér.</p></div>
+        <div class="form reveal" style="--d:.16s"><h3>Frá stjórninni</h3><p>Tilkynningar og fundargerðir.</p></div>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

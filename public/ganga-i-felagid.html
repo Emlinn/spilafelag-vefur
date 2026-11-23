@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="is">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ganga í félagið · Spilafélag Vestfjarða</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/site.js" type="module"></script>
+</head>
+<body data-tone="light">
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="/" aria-label="Spilafélag Vestfjarða, forsíða">
+        <svg class="brand-mark" viewBox="0 0 30 30" aria-hidden="true"><rect x="3" y="6" width="14" height="19" rx="3" transform="rotate(-10 10 15)"/><rect x="12" y="4" width="14" height="19" rx="3" transform="rotate(8 19 13)"/><circle cx="19" cy="13.5" r="2.4"/></svg>
+        <span class="brand-name">Spilafélag Vestfjarða</span>
+      </a>
+      <nav class="nav" aria-label="Aðalvalmynd">
+        <a class="hide-sm" href="/#um">Um félagið</a>
+        <a href="/innskraning">Innskráning</a>
+        <a class="btn small" href="/ganga-i-felagid" aria-current="page">Ganga í félagið</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page">
+    <div class="wrap">
+      <div class="page-intro">
+        <p class="eyebrow reveal">Aðild</p>
+        <h1 class="reveal" style="--d:.06s">Gakktu í <em>félagið</em>.</h1>
+        <p class="lede reveal" style="--d:.12s">Fylltu út eyðublaðið og veldu þér lykilorð. Stjórnin fer yfir umsóknina og virkjar aðganginn þinn.</p>
+        <ul class="aside-list reveal" style="--d:.18s">
+          <li><b>1</b>Þú sendir umsókn — tekur um mínútu.</li>
+          <li><b>2</b>Stjórnin samþykkir og lætur þig vita.</li>
+          <li><b>3</b>Þú skráir þig inn með netfanginu og lykilorðinu.</li>
+        </ul>
+      </div>
+
+      <div class="reveal" style="--d:.1s">
+        <form id="umsokn" class="form" novalidate>
+          <div class="field">
+            <label for="name">Fullt nafn</label>
+            <input id="name" name="name" type="text" autocomplete="name" required maxlength="120">
+            <span class="err" aria-live="polite"></span>
+          </div>
+          <div class="row">
+            <div class="field">
+              <label for="email">Netfang</label>
+              <input id="email" name="email" type="email" autocomplete="email" required maxlength="200">
+              <span class="err" aria-live="polite"></span>
+            </div>
+            <div class="field">
+              <label for="phone">Sími <span class="opt">(valkvætt)</span></label>
+              <input id="phone" name="phone" type="tel" autocomplete="tel" maxlength="40">
+              <span class="err" aria-live="polite"></span>
+            </div>
+          </div>
+          <fieldset class="field">
+            <legend>Hvað viltu helst spila? <span class="opt">(veldu eins mörg og þú vilt)</span></legend>
+            <div class="chips">
+              <label class="chip"><input type="checkbox" name="interests" value="bordspil"><span>Borðspil</span></label>
+              <label class="chip"><input type="checkbox" name="interests" value="safnkortaspil"><span>Safnkortaspil</span></label>
+              <label class="chip"><input type="checkbox" name="interests" value="hlutverkaspil"><span>Hlutverkaspil</span></label>
+              <label class="chip"><input type="checkbox" name="interests" value="mot"><span>Mót</span></label>
+              <label class="chip"><input type="checkbox" name="interests" value="annad"><span>Annað</span></label>
+            </div>
+          </fieldset>
+          <div class="field">
+            <label for="message">Eitthvað sem stjórnin ætti að vita? <span class="opt">(valkvætt)</span></label>
+            <textarea id="message" name="message" maxlength="2000"></textarea>
+          </div>
+          <div class="row">
+            <div class="field">
+              <label for="password">Lykilorð</label>
+              <input id="password" name="password" type="password" autocomplete="new-password" required minlength="10">
+              <span class="hint">Minnst 10 stafir.</span>
+              <span class="err" aria-live="polite"></span>
+            </div>
+            <div class="field">
+              <label for="password2">Lykilorð aftur</label>
+              <input id="password2" name="password2" type="password" autocomplete="new-password" required>
+              <span class="err" aria-live="polite"></span>
+            </div>
+          </div>
+          <div class="hp" aria-hidden="true"><label>Vefsíða <input name="website" type="text" tabindex="-1" autocomplete="off"></label></div>
+          <div class="field">
+            <label class="check"><input type="checkbox" name="consent" required><span>Ég samþykki að Spilafélag Vestfjarða geymi þessar upplýsingar til að halda utan um félagaskrá. Þeim er ekki deilt með öðrum.</span></label>
+            <span class="err" aria-live="polite"></span>
+          </div>
+          <div class="alert" role="alert" hidden></div>
+          <div class="form-foot">
+            <button class="btn" type="submit">Senda umsókn <span class="arrow" aria-hidden="true">→</span></button>
+            <a class="link-quiet" href="/innskraning">Áttu aðgang? Skráðu þig inn</a>
+          </div>
+        </form>
+
+        <div id="umsokn-takk" class="form done" hidden>
+          <p class="eyebrow">Umsókn móttekin</p>
+          <h2 class="display" tabindex="-1">Takk — við <em>heyrumst</em>.</h2>
+          <p>Stjórnin fer yfir umsóknina og virkjar aðganginn þinn. Þá geturðu skráð þig inn með netfanginu og lykilorðinu sem þú valdir.</p>
+          <div class="form-foot"><a class="btn ghost" href="/">Aftur á forsíðu</a></div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>© Spilafélag Vestfjarða</span>
+      <nav aria-label="Fótur"><a href="/">Forsíða</a><a href="/innskraning">Innskráning</a></nav>
+    </div>
+  </footer>
+</body>
+</html>
