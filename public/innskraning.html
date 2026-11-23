@@ -7,34 +7,32 @@
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,300;1,6..72,300&family=Roboto+Mono:wght@400;500&display=swap">
   <link rel="stylesheet" href="/styles.css">
   <script src="/site.js" type="module"></script>
 </head>
-<body data-tone="dark">
+<body>
   <header class="site-header">
-    <div class="wrap">
+    <div class="bar">
       <a class="brand" href="/" aria-label="Spilafélag Vestfjarða, forsíða">
-        <svg class="brand-mark" viewBox="0 0 30 30" aria-hidden="true"><rect x="3" y="6" width="14" height="19" rx="3" transform="rotate(-10 10 15)"/><rect x="12" y="4" width="14" height="19" rx="3" transform="rotate(8 19 13)"/><circle cx="19" cy="13.5" r="2.4"/></svg>
+        <svg class="brand-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="6"/><circle cx="12" cy="12" r="2.2" fill="currentColor" stroke="none"/></svg>
         <span class="brand-name">Spilafélag Vestfjarða</span>
       </a>
-      <nav class="nav" aria-label="Aðalvalmynd">
-        <a class="hide-sm" href="/#um">Um félagið</a>
-        <a href="/innskraning" aria-current="page">Innskráning</a>
-        <a class="btn small" href="/ganga-i-felagid">Ganga í félagið</a>
-      </nav>
+      <nav class="nav-center" aria-label="Aðalvalmynd"><a class="nav-link" href="/#spilin">Spilin</a><a class="nav-link" href="/#adild">Aðild</a></nav>
+      <div class="nav-right"><a class="nav-link plain" href="/innskraning" aria-current="page">Innskráning</a><a class="btn small" href="/ganga-i-felagid">Ganga í félagið <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></svg></a></div>
     </div>
   </header>
 
   <main class="page narrow">
+    <div class="glow" aria-hidden="true"><img src="/img/fjord.svg" alt=""></div>
     <div class="wrap">
       <div class="page-intro">
-        <p class="eyebrow reveal">Félagssvæði</p>
-        <h1 class="reveal" style="--d:.06s">Velkomin <em>aftur</em>.</h1>
-        <p class="lede reveal" style="--d:.12s">Skráðu þig inn með netfanginu og lykilorðinu sem þú valdir þegar þú sóttir um.</p>
+        <p class="label rise">Félagssvæði</p>
+        <h1 class="rise" style="--d:.08s"><em>Velkomin</em> aftur</h1>
+        <p class="sub rise" style="--d:.16s">Skráðu þig inn með netfanginu og lykilorðinu sem þú valdir þegar þú sóttir um.</p>
       </div>
 
-      <form id="innskraning" class="form reveal" style="--d:.18s" novalidate>
+      <form id="innskraning" class="form rise" style="--d:.24s" novalidate>
         <div class="field">
           <label for="email">Netfang</label>
           <input id="email" name="email" type="email" autocomplete="username" required>
@@ -45,7 +43,7 @@
         </div>
         <div class="alert" role="alert" hidden></div>
         <div class="form-foot">
-          <button class="btn" type="submit">Skrá inn <span class="arrow" aria-hidden="true">→</span></button>
+          <button class="btn" type="submit">Skrá inn <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></svg></button>
           <a class="link-quiet" href="/ganga-i-felagid">Ekki félagi? Sæktu um</a>
         </div>
       </form>

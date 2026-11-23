@@ -7,39 +7,37 @@
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,300;1,6..72,300&family=Roboto+Mono:wght@400;500&display=swap">
   <link rel="stylesheet" href="/styles.css">
   <script src="/site.js" type="module"></script>
 </head>
-<body data-tone="light">
+<body>
   <header class="site-header">
-    <div class="wrap">
+    <div class="bar">
       <a class="brand" href="/" aria-label="Spilafélag Vestfjarða, forsíða">
-        <svg class="brand-mark" viewBox="0 0 30 30" aria-hidden="true"><rect x="3" y="6" width="14" height="19" rx="3" transform="rotate(-10 10 15)"/><rect x="12" y="4" width="14" height="19" rx="3" transform="rotate(8 19 13)"/><circle cx="19" cy="13.5" r="2.4"/></svg>
+        <svg class="brand-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="6"/><circle cx="12" cy="12" r="2.2" fill="currentColor" stroke="none"/></svg>
         <span class="brand-name">Spilafélag Vestfjarða</span>
       </a>
-      <nav class="nav" aria-label="Aðalvalmynd">
-        <a class="hide-sm" href="/#um">Um félagið</a>
-        <a href="/innskraning">Innskráning</a>
-        <a class="btn small" href="/ganga-i-felagid" aria-current="page">Ganga í félagið</a>
-      </nav>
+      <nav class="nav-center" aria-label="Aðalvalmynd"><a class="nav-link" href="/#spilin">Spilin</a><a class="nav-link" href="/#adild">Aðild</a></nav>
+      <div class="nav-right"><a class="nav-link plain" href="/innskraning">Innskráning</a><a class="btn small" href="/ganga-i-felagid">Ganga í félagið <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></svg></a></div>
     </div>
   </header>
 
   <main class="page">
+    <div class="glow" aria-hidden="true"><img src="/img/fjord.svg" alt=""></div>
     <div class="wrap">
       <div class="page-intro">
-        <p class="eyebrow reveal">Aðild</p>
-        <h1 class="reveal" style="--d:.06s">Gakktu í <em>félagið</em>.</h1>
-        <p class="lede reveal" style="--d:.12s">Fylltu út eyðublaðið og veldu þér lykilorð. Stjórnin fer yfir umsóknina og virkjar aðganginn þinn.</p>
-        <ul class="aside-list reveal" style="--d:.18s">
-          <li><b>1</b>Þú sendir umsókn — tekur um mínútu.</li>
-          <li><b>2</b>Stjórnin samþykkir og lætur þig vita.</li>
-          <li><b>3</b>Þú skráir þig inn með netfanginu og lykilorðinu.</li>
+        <p class="label rise">Aðild</p>
+        <h1 class="rise" style="--d:.08s"><em>Gakktu</em> í félagið</h1>
+        <p class="sub rise" style="--d:.16s">Fylltu út eyðublaðið og veldu þér lykilorð. Stjórnin fer yfir umsóknina og virkjar aðganginn þinn.</p>
+        <ul class="aside-list rise" style="--d:.24s">
+          <li><b>01</b>Þú sendir umsókn — tekur um mínútu.</li>
+          <li><b>02</b>Stjórnin samþykkir og lætur þig vita.</li>
+          <li><b>03</b>Þú skráir þig inn með netfanginu og lykilorðinu.</li>
         </ul>
       </div>
 
-      <div class="reveal" style="--d:.1s">
+      <div class="rise" style="--d:.2s">
         <form id="umsokn" class="form" novalidate>
           <div class="field">
             <label for="name">Fullt nafn</label>
@@ -92,14 +90,14 @@
           </div>
           <div class="alert" role="alert" hidden></div>
           <div class="form-foot">
-            <button class="btn" type="submit">Senda umsókn <span class="arrow" aria-hidden="true">→</span></button>
+            <button class="btn" type="submit">Senda umsókn <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></svg></button>
             <a class="link-quiet" href="/innskraning">Áttu aðgang? Skráðu þig inn</a>
           </div>
         </form>
 
         <div id="umsokn-takk" class="form done" hidden>
-          <p class="eyebrow">Umsókn móttekin</p>
-          <h2 class="display" tabindex="-1">Takk — við <em>heyrumst</em>.</h2>
+          <p class="label">Umsókn móttekin</p>
+          <h2 class="display" tabindex="-1"><em>Takk</em> — við heyrumst</h2>
           <p>Stjórnin fer yfir umsóknina og virkjar aðganginn þinn. Þá geturðu skráð þig inn með netfanginu og lykilorðinu sem þú valdir.</p>
           <div class="form-foot"><a class="btn ghost" href="/">Aftur á forsíðu</a></div>
         </div>
@@ -109,8 +107,12 @@
 
   <footer class="site-footer">
     <div class="wrap">
-      <span>© Spilafélag Vestfjarða</span>
-      <nav aria-label="Fótur"><a href="/">Forsíða</a><a href="/innskraning">Innskráning</a></nav>
+      <span>© Spilafélag Vestfjarða · Ísafjörður</span>
+      <nav aria-label="Fótur">
+        <a href="/#spilin">Spilin</a>
+        <a href="/ganga-i-felagid">Ganga í félagið</a>
+        <a href="/innskraning">Innskráning</a>
+      </nav>
     </div>
   </footer>
 </body>

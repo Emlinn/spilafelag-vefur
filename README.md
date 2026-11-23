@@ -23,10 +23,11 @@ npm run dev                                   # → http://localhost:3200 (resta
 
 ## Design
 
-Calm and editorial: Instrument Serif headlines with one *italic gold* word,
-Inter for text, two tones (ink `#13120f`, paper `#f3ede2`). Every `<section>`
-has a `data-tone`, and the page background eases between dark and light as each
-section reaches the middle of the screen. Elements with `.reveal` fade up as
+Modelled on useorigin.com (fonts/colours read from its CSS): near-black `#0f1011`,
+light serif headlines opening on an italic word (Newsreader ≈ Lyon Display),
+Inter (≈ Suisse Intl), Roboto Mono uppercase for nav/buttons, frosted floating
+nav, full-bleed landscape dissolving into black, tall photo cards with glass
+panels. Photos go in `public/img/` (see `img/README.txt`); a drawn fjord stands in.
 they enter. Navigating between pages cross-fades via cross-document View
 Transitions (Chrome/Edge/Safari; Firefox just navigates normally). All motion
 turns off under `prefers-reduced-motion`.

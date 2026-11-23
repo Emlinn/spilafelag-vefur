@@ -3,36 +3,57 @@
 
 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-/* ── body tone follows whichever section is in the middle of the screen ── */
-const toned = document.querySelectorAll('[data-tone]:not(body)');
-if (toned.length) {
-  const io = new IntersectionObserver((entries) => {
-    for (const e of entries) if (e.isIntersecting) document.body.dataset.tone = e.target.dataset.tone;
-  }, { rootMargin: '-50% 0px -50% 0px' });
-  toned.forEach((s) => io.observe(s));
-}
-
-/* ── reveal ── */
+/* ── reveal on scroll ── */
 const reveals = document.querySelectorAll('.reveal');
 if (reduced || !('IntersectionObserver' in window)) {
   reveals.forEach((el) => el.classList.add('in'));
 } else {
   const io = new IntersectionObserver((entries) => {
     for (const e of entries) if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
-  }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+  }, { rootMargin: '0px 0px -10% 0px', threshold: 0.1 });
   reveals.forEach((el) => io.observe(el));
 }
 
-/* ── header gets a glass background once you leave the top ── */
+/* ── header turns to frosted glass once you leave the top ── */
 const header = document.querySelector('.site-header');
-const onScroll = () => header?.classList.toggle('scrolled', scrollY > 24);
+const onScroll = () => header?.classList.toggle('scrolled', scrollY > 16);
 addEventListener('scroll', onScroll, { passive: true });
 onScroll();
 
-/* ── slow parallax on the card fan ── */
-const fan = document.querySelector('.fan');
-if (fan && !reduced) {
-  addEventListener('scroll', () => { fan.style.translate = `0 ${Math.min(scrollY, 900) * -0.12}px`; }, { passive: true });
+/* ── hero: the copy drifts up and fades, the landscape sinks slower (parallax) ── */
+const hero = document.querySelector('.hero');
+if (hero && !reduced) {
+  const content = hero.querySelector('.hero-content');
+  const media = hero.querySelector('.hero-media');
+  let ticking = false;
+  const update = () => {
+    ticking = false;
+    const p = Math.min(Math.max(scrollY / hero.offsetHeight, 0), 1);
+    content.style.transform = `translateY(${p * -80}px) scale(${1 - p * 0.04})`;
+    content.style.opacity = String(1 - p * 1.4);
+    media.style.translate = `0 ${p * 22}%`;
+  };
+  addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+}
+
+/* ── typewriter in the glass pill ── */
+const typed = document.querySelector('.typed[data-words]');
+if (typed && !reduced) {
+  const words = typed.dataset.words.split('|');
+  let w = 0, i = words[0].length, deleting = true;
+  const tick = () => {
+    const word = words[w];
+    if (deleting) {
+      i--;
+      if (i <= 0) { deleting = false; w = (w + 1) % words.length; }
+    } else {
+      i++;
+      if (i >= words[w].length) { deleting = true; typed.textContent = words[w]; return setTimeout(tick, 2200); }
+    }
+    typed.textContent = (deleting ? word : words[w]).slice(0, Math.max(i, 0));
+    setTimeout(tick, deleting ? 45 : 85);
+  };
+  setTimeout(tick, 2600);
 }
 
 /* ── helpers ── */

@@ -8,34 +8,33 @@
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,300;1,6..72,300&family=Roboto+Mono:wght@400;500&display=swap">
   <link rel="stylesheet" href="/styles.css">
   <script src="/site.js" type="module"></script>
 </head>
-<body data-tone="light">
+<body>
   <header class="site-header">
-    <div class="wrap">
+    <div class="bar">
       <a class="brand" href="/" aria-label="Spilafélag Vestfjarða, forsíða">
-        <svg class="brand-mark" viewBox="0 0 30 30" aria-hidden="true"><rect x="3" y="6" width="14" height="19" rx="3" transform="rotate(-10 10 15)"/><rect x="12" y="4" width="14" height="19" rx="3" transform="rotate(8 19 13)"/><circle cx="19" cy="13.5" r="2.4"/></svg>
+        <svg class="brand-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="6"/><circle cx="12" cy="12" r="2.2" fill="currentColor" stroke="none"/></svg>
         <span class="brand-name">Spilafélag Vestfjarða</span>
       </a>
-      <nav class="nav" aria-label="Aðalvalmynd">
-        <a href="/felagar" aria-current="page">Félagssvæði</a>
-        <button id="utskraning" class="btn small ghost" type="button">Skrá út</button>
-      </nav>
+      <nav class="nav-center" aria-label="Aðalvalmynd"><a class="nav-link" href="/felagar" aria-current="page">Félagssvæði</a></nav>
+      <div class="nav-right"><button id="utskraning" class="btn small ghost" type="button">Skrá út</button></div>
     </div>
   </header>
 
   <main class="page">
+    <div class="glow" aria-hidden="true"><img src="/img/fjord.svg" alt=""></div>
     <div class="wrap" style="display:block">
-      <p class="eyebrow reveal">Félagssvæði</p>
-      <h1 class="reveal" style="--d:.06s">Hæ, <em id="member-name">félagi</em>.</h1>
-      <p class="lede reveal" style="--d:.12s">Hér safnast það sem tilheyrir félögum: viðburðir, skráningar og fréttir frá stjórn. Félagi síðan <span id="member-since">—</span>.</p>
+      <p class="label rise">Félagssvæði</p>
+      <h1 class="rise" style="--d:.08s"><em>Hæ</em>, <span id="member-name">félagi</span></h1>
+      <p class="sub rise" style="--d:.16s;margin-left:0">Hér safnast það sem tilheyrir félögum: viðburðir, skráningar og fréttir frá stjórn. Félagi síðan <span id="member-since">—</span>.</p>
 
       <div class="member-grid">
-        <div class="form reveal"><h3>Næstu viðburðir</h3><p>Viðburðadagatalið kemur hér.</p></div>
-        <div class="form reveal" style="--d:.08s"><h3>Mínar skráningar</h3><p>Viðburðir sem þú hefur skráð þig á birtast hér.</p></div>
-        <div class="form reveal" style="--d:.16s"><h3>Frá stjórninni</h3><p>Tilkynningar og fundargerðir.</p></div>
+        <div class="form reveal"><p class="label" style="margin:0">Dagatal</p><h3>Næstu viðburðir</h3><p>Viðburðadagatalið kemur hér.</p></div>
+        <div class="form reveal" style="--d:.08s"><p class="label" style="margin:0">Þú</p><h3>Mínar skráningar</h3><p>Viðburðir sem þú hefur skráð þig á birtast hér.</p></div>
+        <div class="form reveal" style="--d:.16s"><p class="label" style="margin:0">Stjórn</p><h3>Frá stjórninni</h3><p>Tilkynningar og fundargerðir.</p></div>
       </div>
     </div>
   </main>
