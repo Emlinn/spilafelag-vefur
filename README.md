@@ -28,7 +28,7 @@ light serif headlines opening on an italic word (Newsreader ≈ Lyon Display),
 Inter (≈ Suisse Intl), Roboto Mono uppercase for nav/buttons, frosted floating
 nav, full-bleed landscape dissolving into black, tall photo cards with glass
 panels. Photos go in `public/img/` (see `img/README.txt`); a drawn fjord stands in.
-they enter. Navigating between pages cross-fades via cross-document View
+Content fades up out of a blur as it scrolls in. Navigating between pages cross-fades via cross-document View
 Transitions (Chrome/Edge/Safari; Firefox just navigates normally). All motion
 turns off under `prefers-reduced-motion`.
 
