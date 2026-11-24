@@ -1,0 +1,26 @@
+{
+  "_lesmer": "Efni forsíðunnar. Breyttu þessari skrá og endurhlaðaðu síðuna — engin forritun. Myndir: settu skrána í public/img/... og skrifaðu slóðina, t.d. \"/img/stjorn/emil.jpg\". Tóm gildi (\"\") eru einfaldlega ekki sýnd.",
+
+  "stjorn": [
+    { "nafn": "Emil Ragnarsson", "hlutverk": "Stjórn", "mynd": "", "texti": "" },
+    { "nafn": "Nafn stjórnarmanns", "hlutverk": "Stjórn", "mynd": "", "texti": "" },
+    { "nafn": "Nafn stjórnarmanns", "hlutverk": "Stjórn", "mynd": "", "texti": "" }
+  ],
+
+  "styrkir": [
+    {
+      "heiti": "Uppbyggingarsjóður Vestfjarða",
+      "ar": "2027",
+      "texti": "Spilafélag Vestfjarða hlaut styrk úr Uppbyggingarsjóði Vestfjarða fyrir árið 2027. Við erum þakklát fyrir traustið og ætlum að nýta það vel til að byggja upp spilastarf á Vestfjörðum.",
+      "studningur": "Með stuðningi Sóknaráætlunar Vestfjarða",
+      "vefur": "https://www.vestfirdir.is/is/verkefni/soknaraaetlun/uppbyggingarsjodur",
+      "merki": ""
+    }
+  ],
+
+  "bakhjarlar": [
+    { "nafn": "", "framlag": "Ljósmyndir á forsíðu", "vefur": "", "merki": "", "ljosmyndari_forsidu": true }
+  ],
+
+  "styrkja_netfang": ""
+}

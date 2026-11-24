@@ -4,15 +4,13 @@
 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /* ── reveal on scroll ── */
-const reveals = document.querySelectorAll('.reveal');
-if (reduced || !('IntersectionObserver' in window)) {
-  reveals.forEach((el) => el.classList.add('in'));
-} else {
-  const io = new IntersectionObserver((entries) => {
-    for (const e of entries) if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
-  }, { rootMargin: '0px 0px -10% 0px', threshold: 0.1 });
-  reveals.forEach((el) => io.observe(el));
+const revealIO = (reduced || !('IntersectionObserver' in window)) ? null : new IntersectionObserver((entries) => {
+  for (const e of entries) if (e.isIntersecting) { e.target.classList.add('in'); revealIO.unobserve(e.target); }
+}, { rootMargin: '0px 0px -10% 0px', threshold: 0.1 });
+function watchReveals(root = document) {
+  root.querySelectorAll('.reveal:not(.in)').forEach((el) => revealIO ? revealIO.observe(el) : el.classList.add('in'));
 }
+watchReveals();
 
 /* ── header turns to frosted glass once you leave the top ── */
 const header = document.querySelector('.site-header');
@@ -160,4 +158,85 @@ if (memberName) {
     await post('/api/utskraning', {});
     location.href = '/';
   });
+}
+
+/* ── front-page content from efni.json (board, grant, sponsors) ── */
+const slots = document.querySelectorAll('[data-render]');
+if (slots.length) {
+  fetch('/efni.json', { cache: 'no-cache' }).then((r) => r.json()).then(renderContent).catch(() => {});
+}
+
+function el(tag, attrs = {}, ...kids) {
+  const n = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)) if (v != null && v !== false) n.setAttribute(k, v);
+  for (const k of kids) if (k != null && k !== '') n.append(k);
+  return n;
+}
+const safeUrl = (u) => { try { const x = new URL(u, location.origin); return /^https?:$/.test(x.protocol) ? x.href : null; } catch { return null; } };
+const localImg = (p) => (typeof p === 'string' && p.startsWith('/img/') ? p : null);
+const EXT = '<svg class="ext" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 11 11 5M6 5h5v5"/></svg>';
+const svg = (html) => { const t = document.createElement('template'); t.innerHTML = html; return t.content.firstChild; };
+const initials = (name) => name.split(/\s+/).filter(Boolean).map((w) => w[0]).slice(0, 2).join('');
+
+function renderContent(c) {
+  const slot = (k) => document.querySelector(`[data-render="${k}"]`);
+
+  const board = slot('stjorn');
+  if (board) {
+    (c.stjorn ?? []).filter((p) => p.nafn).forEach((p, i) => {
+      const img = localImg(p.mynd);
+      board.append(el('article', { class: 'person reveal', style: `--d:${i * 0.1}s` },
+        el('div', { class: 'portrait' }, img ? el('img', { src: img, alt: p.nafn, loading: 'lazy' }) : el('span', { class: 'monogram', 'aria-hidden': 'true' }, initials(p.nafn))),
+        el('div', { class: 'info' },
+          el('div', { class: 'role' }, p.hlutverk ?? ''),
+          el('h3', { class: 'name' }, p.nafn),
+          p.texti ? el('p', { class: 'text' }, p.texti) : null)));
+    });
+  }
+
+  const grants = slot('styrkir');
+  if (grants) {
+    for (const g of c.styrkir ?? []) {
+      if (!g.heiti) continue;
+      const url = safeUrl(g.vefur), logo = localImg(g.merki);
+      const [first, ...rest] = g.heiti.split(' ');
+      grants.append(el('article', { class: 'grant reveal' },
+        el('img', { class: 'bg', src: '/img/fjord.svg', alt: '', 'aria-hidden': 'true' }),
+        el('div', {},
+          el('p', { class: 'label' }, `Styrkþegi ${g.ar ?? ''}`.trim()),
+          el('h3', {}, el('em', {}, first), ' ' + rest.join(' ')),
+          g.texti ? el('p', {}, g.texti) : null,
+          g.studningur ? el('p', { class: 'support' }, g.studningur) : null,
+          url ? (() => { const a = el('a', { class: 'btn ghost small', href: url, target: '_blank', rel: 'noopener' }, 'Um sjóðinn'); a.append(svg('<svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 11 11 5M6 5h5v5"/></svg>')); return a; })() : null),
+        el('div', { class: 'mark' },
+          logo ? el('img', { src: logo, alt: g.heiti }) : el('div', {}, el('div', { class: 'year' }, g.ar ?? ''), el('div', { class: 'year-label' }, 'Styrkár')))));
+    }
+  }
+
+  const sponsors = slot('bakhjarlar');
+  if (sponsors) {
+    for (const b of c.bakhjarlar ?? []) {
+      if (!b.nafn) continue;
+      const url = safeUrl(b.vefur), logo = localImg(b.merki);
+      const card = el(url ? 'a' : 'div', { class: 'sponsor reveal', href: url, target: url && '_blank', rel: url && 'noopener sponsored' },
+        el('div', { class: 'logo' }, logo ? el('img', { src: logo, alt: b.nafn }) : el('span', { class: 'wordmark' }, b.nafn)),
+        el('div', { class: 'meta' }, el('span', { class: 'what' }, b.framlag ?? 'Bakhjarl'), url ? svg(EXT) : null));
+      sponsors.append(card);
+
+      if (b.ljosmyndari_forsidu) {
+        const credit = slot('credit');
+        if (credit) {
+          credit.append('Ljósmynd: ', url ? el('a', { href: url, target: '_blank', rel: 'noopener' }, b.nafn + ' ↗') : b.nafn);
+          credit.hidden = false;
+        }
+      }
+    }
+    const mail = (c.styrkja_netfang ?? '').trim();
+    sponsors.append(el(mail ? 'a' : 'div', { class: 'sponsor invite reveal', href: mail ? `mailto:${mail}?subject=${encodeURIComponent('Styrkur við Spilafélag Vestfjarða')}` : null },
+      el('div', {}, el('span', { class: 'wordmark' }, el('em', {}, 'Þitt'), ' fyrirtæki?'),
+        el('p', {}, 'Viltu styrkja spilastarf á Vestfjörðum? Við tökum vel á móti bakhjörlum, stórum sem smáum.')),
+      el('div', { class: 'meta' }, el('span', { class: 'what' }, mail ? 'Hafðu samband' : 'Bakhjarlar velkomnir'), mail ? svg(EXT) : null)));
+  }
+
+  watchReveals();
 }

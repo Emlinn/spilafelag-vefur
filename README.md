@@ -32,6 +32,21 @@ Content fades up out of a blur as it scrolls in. Navigating between pages cross-
 Transitions (Chrome/Edge/Safari; Firefox just navigates normally). All motion
 turns off under `prefers-reduced-motion`.
 
+## Editing the front page — `public/efni.json`
+
+Board, grant and sponsors are read from `public/efni.json`; edit it and reload,
+no code. Images go in `public/img/stjorn/` and `public/img/bakhjarlar/` and are
+referenced as `/img/...`. Empty values are not shown.
+
+- `stjorn` — name, role, photo, a line of text (no photo → italic initials).
+- `styrkir` — grants. Uppbyggingarsjóður Vestfjarða 2027 is in. Its 2027 rules
+  (§10) require crediting **Sóknaráætlun Vestfjarða** in publicity, hence the
+  `studningur` line on the card and in the footer. Put the official logo in
+  `img/bakhjarlar/` and set `merki`; until then the card shows the year.
+- `bakhjarlar` — sponsors, linked with `rel="sponsored"`. The one marked
+  `ljosmyndari_forsidu: true` also gets a photo credit in the hero corner.
+- `styrkja_netfang` — if set, the "Þitt fyrirtæki?" card becomes a mailto link.
+
 ## Membership flow
 
 1. Someone applies at `/ganga-i-felagid` and picks a password → `members.status = 'pending'`.
