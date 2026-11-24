@@ -184,13 +184,16 @@ function renderContent(c) {
   const board = slot('stjorn');
   if (board) {
     (c.stjorn ?? []).filter((p) => p.nafn).forEach((p, i) => {
-      const img = localImg(p.mynd);
-      board.append(el('article', { class: 'person reveal', style: `--d:${i * 0.1}s` },
-        el('div', { class: 'portrait' }, img ? el('img', { src: img, alt: p.nafn, loading: 'lazy' }) : el('span', { class: 'monogram', 'aria-hidden': 'true' }, initials(p.nafn))),
+      const hasBio = !!(p.um && p.um.trim());
+      const card = el(hasBio ? 'button' : 'article', { class: 'person reveal', style: `--d:${i * 0.1}s`, type: hasBio ? 'button' : null, 'aria-haspopup': hasBio ? 'dialog' : null },
+        portrait(p),
         el('div', { class: 'info' },
           el('div', { class: 'role' }, p.hlutverk ?? ''),
           el('h3', { class: 'name' }, p.nafn),
-          p.texti ? el('p', { class: 'text' }, p.texti) : null)));
+          p.texti ? el('p', { class: 'text' }, p.texti) : null,
+          hasBio ? (() => { const m = el('span', { class: 'more' }, 'Lesa meira'); m.append(svg('<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></svg>')); return m; })() : null));
+      if (hasBio) card.addEventListener('click', () => openBio(p));
+      board.append(card);
     });
   }
 
@@ -239,4 +242,33 @@ function renderContent(c) {
   }
 
   watchReveals();
+}
+
+function portrait(p) {
+  const img = localImg(p.mynd);
+  return el('div', { class: 'portrait' }, img ? el('img', { src: img, alt: p.nafn, loading: 'lazy' }) : el('span', { class: 'monogram', 'aria-hidden': 'true' }, initials(p.nafn)));
+}
+
+let bioDialog;
+function openBio(p) {
+  if (!bioDialog) {
+    bioDialog = el('dialog', { class: 'bio', 'aria-labelledby': 'bio-name' });
+    // click on the backdrop (outside the box) closes
+    bioDialog.addEventListener('click', (e) => { if (e.target === bioDialog) bioDialog.close(); });
+    document.body.append(bioDialog);
+  }
+  const close = el('button', { class: 'bio-close', type: 'button', 'aria-label': 'Loka' });
+  close.append(svg('<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg>'));
+  close.addEventListener('click', () => bioDialog.close());
+
+  const faves = (Array.isArray(p.uppahaldsspil) ? p.uppahaldsspil : []).filter(Boolean);
+  const body = el('div', { class: 'bio-body' },
+    el('div', { class: 'role' }, p.hlutverk ?? ''),
+    el('h2', { id: 'bio-name' }, p.nafn),
+    ...p.um.trim().split(/\n\s*\n/).map((para) => el('p', {}, para.trim())),
+    faves.length ? el('div', { class: 'faves' }, el('p', { class: 'label' }, 'Uppáhaldsspil'), el('ul', {}, ...faves.map((f) => el('li', {}, f)))) : null);
+
+  bioDialog.replaceChildren(close, el('div', { class: 'bio-grid' }, portrait(p), body));
+  bioDialog.showModal();
+  close.focus();
 }

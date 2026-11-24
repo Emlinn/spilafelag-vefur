@@ -1,12 +1,31 @@
 {
-  "_lesmer": "Efni forsíðunnar. Breyttu þessari skrá og endurhlaðaðu síðuna — engin forritun. Myndir: settu skrána í public/img/... og skrifaðu slóðina, t.d. \"/img/stjorn/emil.jpg\". Tóm gildi (\"\") eru einfaldlega ekki sýnd.",
-
+  "_lesmer": "Efni forsíðunnar. Breyttu þessari skrá og endurhlaðaðu síðuna — engin forritun. Myndir: settu skrána í public/img/... og skrifaðu slóðina, t.d. \"/img/stjorn/emil.jpg\". Tóm gildi (\"\") eru einfaldlega ekki sýnd. Stjórn: \"texti\" er stutt lína á spjaldinu; \"um\" er kynningin sem opnast þegar smellt er (auð lína = nýr kafli); \"uppahaldsspil\" er listi, t.d. [\"Catan\", \"Magic\"].",
   "stjorn": [
-    { "nafn": "Emil Ragnarsson", "hlutverk": "Stjórn", "mynd": "", "texti": "" },
-    { "nafn": "Nafn stjórnarmanns", "hlutverk": "Stjórn", "mynd": "", "texti": "" },
-    { "nafn": "Nafn stjórnarmanns", "hlutverk": "Stjórn", "mynd": "", "texti": "" }
+    {
+      "nafn": "Emil Ragnarsson",
+      "hlutverk": "Stjórn",
+      "mynd": "",
+      "texti": "",
+      "um": "Hér kemur stutt kynning: hvaðan þú ert, hvað þú spilar helst og hvað dró þig í félagið.\n\nÞetta má vera ein til þrjár stuttar málsgreinar.",
+      "uppahaldsspil": []
+    },
+    {
+      "nafn": "Nafn stjórnarmanns",
+      "hlutverk": "Stjórn",
+      "mynd": "",
+      "texti": "",
+      "um": "Hér kemur stutt kynning: hvaðan þú ert, hvað þú spilar helst og hvað dró þig í félagið.\n\nÞetta má vera ein til þrjár stuttar málsgreinar.",
+      "uppahaldsspil": []
+    },
+    {
+      "nafn": "Nafn stjórnarmanns",
+      "hlutverk": "Stjórn",
+      "mynd": "",
+      "texti": "",
+      "um": "Hér kemur stutt kynning: hvaðan þú ert, hvað þú spilar helst og hvað dró þig í félagið.\n\nÞetta má vera ein til þrjár stuttar málsgreinar.",
+      "uppahaldsspil": []
+    }
   ],
-
   "styrkir": [
     {
       "heiti": "Uppbyggingarsjóður Vestfjarða",
@@ -17,10 +36,14 @@
       "merki": ""
     }
   ],
-
   "bakhjarlar": [
-    { "nafn": "", "framlag": "Ljósmyndir á forsíðu", "vefur": "", "merki": "", "ljosmyndari_forsidu": true }
+    {
+      "nafn": "",
+      "framlag": "Ljósmyndir á forsíðu",
+      "vefur": "",
+      "merki": "",
+      "ljosmyndari_forsidu": true
+    }
   ],
-
   "styrkja_netfang": ""
 }

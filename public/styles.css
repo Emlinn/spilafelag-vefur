@@ -335,15 +335,15 @@ fieldset.field { border: 0; padding: 0; margin: 0; }
 
 .board { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; max-width: 1180px; margin: 0 auto; }
 .person { border-radius: 16px; overflow: hidden; background: var(--bg-2); border: 1px solid var(--line); }
-.person .portrait {
+.portrait {
   aspect-ratio: 4 / 5; position: relative; overflow: hidden;
   background: radial-gradient(120% 90% at 50% 0%, #34413f 0%, #1a2120 55%, #111415 100%);
   display: grid; place-items: center;
 }
-.person .portrait img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(0.25); transition: transform 1.4s var(--ease-out), filter 0.6s; }
+.portrait img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(0.25); transition: transform 1.4s var(--ease-out), filter 0.6s; }
 .person:hover .portrait img { transform: scale(1.04); filter: none; }
-.person .portrait::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 55%, rgba(19,20,21,0.9)); }
-.person .monogram { font: italic 300 clamp(5rem, 10vw, 8rem)/1 var(--serif); color: rgba(250,250,250,0.85); letter-spacing: -0.04em; }
+.portrait::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 55%, rgba(19,20,21,0.9)); }
+.monogram { font: italic 300 clamp(5rem, 10vw, 8rem)/1 var(--serif); color: rgba(250,250,250,0.85); letter-spacing: -0.04em; }
 .person .info { padding: 0 1.5rem 1.6rem; margin-top: -3.2rem; position: relative; z-index: 1; }
 .person .role { font: 500 12px/1.33 var(--mono); text-transform: uppercase; letter-spacing: 0.02em; color: var(--muted); }
 .person .name { font: 300 clamp(1.7rem, 2.4vw, 2.1rem)/1.05 var(--serif); letter-spacing: -0.015em; margin: 0.45rem 0 0; }
@@ -399,3 +399,55 @@ a.sponsor:hover .ext { transform: translate(2px, -2px); color: var(--fg); }
   .grant .mark { justify-self: start; text-align: left; }
   .grant .mark img { margin-left: 0; }
 }
+
+/* ── board bio dialog ─────────────────────────────────────────────── */
+
+button.person { display: block; width: 100%; padding: 0; margin: 0; font: inherit; color: inherit; text-align: left; cursor: pointer; -webkit-appearance: none; appearance: none; }
+button.person:hover { border-color: rgba(255,255,255,0.3); }
+button.person:focus-visible { outline: 2px solid var(--fg); outline-offset: 3px; }
+.person .more { display: inline-flex; align-items: center; gap: 6px; margin-top: 1rem; font: 500 12px/1 var(--mono); text-transform: uppercase; color: var(--muted); transition: color 0.3s; }
+.person .more svg { width: 12px; height: 12px; transition: transform 0.3s var(--ease); }
+button.person:hover .more { color: var(--fg); }
+button.person:hover .more svg { transform: translateX(3px); }
+
+dialog.bio {
+  width: min(880px, calc(100vw - 32px)); max-height: calc(100svh - 48px); padding: 0; border: 1px solid var(--glass-line); border-radius: 20px;
+  background: rgba(19, 20, 21, 0.86); color: var(--fg); overflow: auto;
+  -webkit-backdrop-filter: blur(24px); backdrop-filter: blur(24px);
+  box-shadow: 0 40px 120px -30px rgba(0,0,0,0.8);
+  opacity: 0; transform: translateY(18px) scale(0.98);
+  transition: opacity 0.4s var(--ease-out), transform 0.5s var(--ease-out), overlay 0.4s allow-discrete, display 0.4s allow-discrete;
+}
+dialog.bio[open] { opacity: 1; transform: none; }
+@starting-style { dialog.bio[open] { opacity: 0; transform: translateY(18px) scale(0.98); } }
+dialog.bio::backdrop { background: rgba(8, 9, 10, 0); -webkit-backdrop-filter: blur(0); backdrop-filter: blur(0); transition: all 0.4s var(--ease-out), overlay 0.4s allow-discrete, display 0.4s allow-discrete; }
+dialog.bio[open]::backdrop { background: rgba(8, 9, 10, 0.6); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+@starting-style { dialog.bio[open]::backdrop { background: rgba(8, 9, 10, 0); backdrop-filter: blur(0); } }
+body:has(dialog.bio[open]) { overflow: hidden; }
+
+.bio-grid { display: grid; grid-template-columns: 0.85fr 1.15fr; }
+.bio .portrait { aspect-ratio: auto; min-height: 100%; }
+.bio .portrait::after { background: linear-gradient(90deg, transparent 60%, rgba(19,20,21,0.6)); }
+.bio-body { padding: clamp(1.6rem, 4vw, 2.8rem); display: flex; flex-direction: column; }
+.bio-body .role { font: 500 12px/1.33 var(--mono); text-transform: uppercase; color: var(--muted); }
+.bio-body h2 { font-size: clamp(2.4rem, 5vw, 3.6rem); margin: 0.6rem 0 1.4rem; }
+.bio-body p { color: var(--fg-2); margin: 0 0 1rem; line-height: 1.6; }
+.bio-body .faves { margin-top: auto; padding-top: 1.4rem; border-top: 1px solid var(--line); }
+.bio-body .faves .label { margin-bottom: 0.7rem; }
+.bio-body .faves ul { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.bio-body .faves li { padding: 8px 12px; border-radius: 8px; background: rgba(255,255,255,0.07); font: 400 12px/1.3 var(--mono); text-transform: uppercase; }
+.bio-close {
+  position: absolute; top: 14px; right: 14px; z-index: 2; width: 40px; height: 40px; border-radius: 50%; border: 0; cursor: pointer;
+  display: grid; place-items: center; color: var(--fg); background: rgba(15,16,17,0.55);
+  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); transition: background-color 0.3s;
+}
+.bio-close:hover { background: rgba(255,255,255,0.18); }
+.bio-close svg { width: 16px; height: 16px; }
+
+@media (max-width: 760px) {
+  .bio-grid { grid-template-columns: 1fr; }
+  .bio .portrait { aspect-ratio: 16 / 10; min-height: 0; }
+  .bio .portrait::after { background: linear-gradient(180deg, transparent 50%, rgba(19,20,21,0.9)); }
+  .bio .monogram { font-size: 5rem; }
+}
+.bio-close:focus:not(:focus-visible) { outline: none; }

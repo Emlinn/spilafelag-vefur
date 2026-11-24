@@ -38,7 +38,9 @@ Board, grant and sponsors are read from `public/efni.json`; edit it and reload,
 no code. Images go in `public/img/stjorn/` and `public/img/bakhjarlar/` and are
 referenced as `/img/...`. Empty values are not shown.
 
-- `stjorn` — name, role, photo, a line of text (no photo → italic initials).
+- `stjorn` — name, role, photo, a short line for the card (`texti`), a bio (`um`,
+  blank line = new paragraph) and favourite games (`uppahaldsspil`, a list).
+  Cards with a bio open it in a dialog; no photo → italic initials.
 - `styrkir` — grants. Uppbyggingarsjóður Vestfjarða 2027 is in. Its 2027 rules
   (§10) require crediting **Sóknaráætlun Vestfjarða** in publicity, hence the
   `studningur` line on the card and in the footer. Put the official logo in
