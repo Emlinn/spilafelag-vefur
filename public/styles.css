@@ -365,7 +365,7 @@ fieldset.field { border: 0; padding: 0; margin: 0; }
 .grant .support { margin-top: 1.2rem; font: 500 12px/1.4 var(--mono); text-transform: uppercase; color: var(--muted); }
 .grant .btn { margin-top: 1.6rem; }
 .grant .mark { justify-self: end; text-align: right; }
-.grant .mark img { max-height: 120px; width: auto; margin-left: auto; padding: 18px 22px; border-radius: 12px; background: rgba(255,255,255,0.92); }
+.grant .mark img { max-height: 190px; width: auto; margin-left: auto; padding: 18px 22px; border-radius: 12px; background: rgba(255,255,255,0.92); }
 .grant .year { font: italic 300 clamp(5rem, 12vw, 10rem)/0.85 var(--serif); letter-spacing: -0.04em; }
 .grant .year-label { font: 500 12px/1 var(--mono); text-transform: uppercase; color: var(--muted); margin-top: 0.8rem; }
 
