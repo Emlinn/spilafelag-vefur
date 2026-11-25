@@ -238,7 +238,7 @@ function renderContent(c) {
       if (b.ljosmyndari_forsidu) {
         const credit = slot('credit');
         if (credit) {
-          credit.append('Ljósmynd: ', url ? el('a', { href: url, target: '_blank', rel: 'noopener' }, b.nafn + ' ↗') : b.nafn);
+          credit.append('Myndefni: ', url ? el('a', { href: url, target: '_blank', rel: 'noopener' }, b.nafn + ' ↗') : b.nafn);
           credit.hidden = false;
         }
       }
