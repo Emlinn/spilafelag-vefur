@@ -7,6 +7,19 @@
   <title>Spilafélag Vestfjarða · Games club in Ísafjörður</title>
   <meta name="description" content="Spilafélag Vestfjarða: Magic: The Gathering in Ísafjörður. Commander every other Thursday at Edinborgarhúsið, free entry and everyone welcome.">
   <link rel="alternate" hreflang="is" href="./">
+  <link rel="preload" as="image" href="img/hero.jpg" fetchpriority="high">
+  <!-- What Messenger, Facebook, Slack etc. show when the link is shared. Absolute URLs: scrapers ignore <base>. -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Spilafélag Vestfjarða">
+  <meta property="og:locale" content="en_GB">
+  <meta property="og:url" content="https://spilvest.is/en">
+  <meta property="og:title" content="Spilafélag Vestfjarða · Games club in Ísafjörður">
+  <meta property="og:description" content="Spilafélag Vestfjarða: Magic: The Gathering in Ísafjörður. Commander every other Thursday at Edinborgarhúsið, free entry and everyone welcome.">
+  <meta property="og:image" content="https://spilvest.is/img/deila.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Ísafjörður under snow, from above">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="styles.css">
   <script src="site.js" type="module"></script>
@@ -26,8 +39,7 @@
   <main>
     <section class="hero" style="padding:0">
       <div class="hero-media" aria-hidden="true">
-        <img src="img/fjord.svg" alt="">
-        <div class="photo hero-photo"></div>
+        <img class="hero-photo" src="img/hero.jpg" alt="" fetchpriority="high" decoding="async">
         <video class="hero-video" muted loop playsinline preload="none" poster="img/hero.jpg" data-src="img/hero.mp4"></video>
       </div>
       <div class="hero-content">
@@ -192,8 +204,7 @@
 
     <section class="cta">
       <div class="hero-media" aria-hidden="true" style="animation:none">
-        <img src="img/fjord.svg" alt="">
-        <div class="photo cta-photo"></div>
+        <img src="img/cta.jpg" alt="" loading="lazy" decoding="async">
       </div>
       <div class="wrap">
         <h2 class="reveal"><em>Join</em> us</h2>
