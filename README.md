@@ -50,6 +50,11 @@ referenced as `/img/...`. Empty values are not shown.
   A logo goes in `img/bakhjarlar/` via `merki` and replaces the name, unless
   `syna_nafn: true` (for logos that don't spell the name, e.g. Haukur Sig's Purple Hat).
 - `styrkja_netfang` — if set, the "Þitt fyrirtæki?" card becomes a mailto link.
+- `framtid` — the roadmap under "Næst á dagskrá". Each item: `heiti`, `stada`
+  (e.g. "Í gangi", "Næst", "Síðar" — anything containing "gangi" is lit up), `texti`.
+  Move an item to "Í gangi" when that game night starts.
+- `samband_netfang` — if set, "Hafðu samband" on the "Brennur þú fyrir ákveðnu
+  spili?" card becomes a mailto; otherwise it scrolls to the board.
 
 ## Membership flow
 

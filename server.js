@@ -92,7 +92,8 @@ function throttled(ip) {
 }
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const INTERESTS = new Set(['bordspil', 'safnkortaspil', 'hlutverkaspil', 'mot', 'annad']);
+// 'safnkortaspil' and 'mot' are kept so older applications still validate.
+const INTERESTS = new Set(['magic', 'pokemon', 'bordspil', 'hlutverkaspil', 'safnkortaspil', 'mot', 'annad']);
 const clean = (v, max) => String(v ?? '').trim().slice(0, max);
 
 /* ── API ───────────────────────────────────────────────────────────── */

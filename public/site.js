@@ -206,6 +206,23 @@ function renderContent(c) {
     });
   }
 
+  // roadmap: "Í gangi" is lit, everything else is an open ring
+  const road = slot('framtid');
+  if (road) {
+    (c.framtid ?? []).filter((r) => r.heiti).forEach((r, i) => {
+      const live = /gangi/i.test(r.stada ?? '');
+      road.append(el('li', { class: `reveal${live ? ' live' : ''}`, style: `--d:${i * 0.08}s` },
+        el('div', { class: 'when' }, el('span', { class: 'dot' }), r.stada ?? ''),
+        el('h3', {}, r.heiti),
+        r.texti ? el('p', {}, r.texti) : null));
+    });
+  }
+
+  // "Hafðu samband": mailto when an address is set, otherwise scroll to the board
+  const contact = slot('samband');
+  const mail = (c.samband_netfang ?? '').trim();
+  if (contact && mail) contact.href = `mailto:${mail}?subject=${encodeURIComponent('Ég vil halda utan um spilakvöld')}`;
+
   const grants = slot('styrkir');
   if (grants) {
     for (const g of c.styrkir ?? []) {
@@ -245,11 +262,11 @@ function renderContent(c) {
         }
       }
     }
-    const mail = (c.styrkja_netfang ?? '').trim();
-    sponsors.append(el(mail ? 'a' : 'div', { class: 'sponsor invite reveal', href: mail ? `mailto:${mail}?subject=${encodeURIComponent('Styrkur við Spilafélag Vestfjarða')}` : null },
+    const smail = (c.styrkja_netfang ?? '').trim();
+    sponsors.append(el(smail ? 'a' : 'div', { class: 'sponsor invite reveal', href: smail ? `mailto:${smail}?subject=${encodeURIComponent('Styrkur við Spilafélag Vestfjarða')}` : null },
       el('div', {}, el('span', { class: 'wordmark' }, el('em', {}, 'Þitt'), ' fyrirtæki?'),
         el('p', {}, 'Viltu styrkja spilastarf á Vestfjörðum? Við tökum vel á móti bakhjörlum, stórum sem smáum.')),
-      el('div', { class: 'meta' }, el('span', { class: 'what' }, mail ? 'Hafðu samband' : 'Bakhjarlar velkomnir'), mail ? svg(EXT) : null)));
+      el('div', { class: 'meta' }, el('span', { class: 'what' }, smail ? 'Hafðu samband' : 'Bakhjarlar velkomnir'), smail ? svg(EXT) : null)));
   }
 
   watchReveals();

@@ -26,6 +26,28 @@
       "uppahaldsspil": []
     }
   ],
+  "framtid": [
+    {
+      "heiti": "Magic: The Gathering",
+      "stada": "Í gangi",
+      "texti": "Commander-kvöld, draft og prerelease. Kjarninn í starfinu í dag."
+    },
+    {
+      "heiti": "Borðspilakvöld",
+      "stada": "Næst",
+      "texti": "Opin kvöld þar sem félagar koma með spil og kenna hvert öðru."
+    },
+    {
+      "heiti": "Pokémon",
+      "stada": "Næst",
+      "texti": "Pokémon TCG fyrir unga sem aldna — kennsla, skipti og mót."
+    },
+    {
+      "heiti": "Hlutverkaspil",
+      "stada": "Síðar",
+      "texti": "Dungeons & Dragons og fleiri. Hópar sem hittast reglulega."
+    }
+  ],
   "styrkir": [
     {
       "heiti": "Uppbyggingarsjóður Vestfjarða",
@@ -46,5 +68,6 @@
       "syna_nafn": true
     }
   ],
-  "styrkja_netfang": ""
+  "styrkja_netfang": "",
+  "samband_netfang": ""
 }
