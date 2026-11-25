@@ -125,6 +125,13 @@ h3 { font: 500 1.05rem/1.35 var(--sans); margin: 0; letter-spacing: -0.01em; }
     linear-gradient(180deg, rgba(15,16,17,0.35) 0%, rgba(15,16,17,0.15) 30%, rgba(15,16,17,0.55) 70%, var(--bg) 100%),
     radial-gradient(60% 45% at 50% 52%, rgba(15,16,17,0.35), transparent 70%);
 }
+/* The media drifts down on scroll (parallax), which would carry its own fade
+   out of frame and leave a hard edge. This fade belongs to the section, so it
+   stays put and the picture always melts into the page. */
+.hero::after {
+  content: ''; position: absolute; inset: auto 0 0; height: 45%; z-index: -1; pointer-events: none;
+  background: linear-gradient(180deg, transparent, rgba(15,16,17,0.6) 45%, var(--bg));
+}
 .fjord { transform-origin: 50% 100%; }
 .fjord .clouds { animation: clouds 80s linear infinite alternate; }
 @keyframes clouds { to { transform: translateX(-120px); } }
