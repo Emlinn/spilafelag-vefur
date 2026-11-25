@@ -37,6 +37,7 @@ Emil updates it from his machine with `deploy/deploy.sh`.
 | `/ganga-i-felagid` | `public/ganga-i-felagid.html` | membership application |
 | `/innskraning` | `public/innskraning.html` | member login |
 | `/felagar` | `public/felagar.html` | members area (server redirects to login if not signed in) |
+| `/personuvernd` | `public/personuvernd.html` | privacy statement (linked from the form and footer) |
 
 ## Design
 
@@ -58,26 +59,42 @@ referenced as `/img/...`. Empty values are not shown.
 - `stjorn` — name, role, photo, a short line for the card (`texti`), a bio (`um`,
   blank line = new paragraph) and favourite games (`uppahaldsspil`, a list).
   Cards with a bio open it in a dialog; no photo → italic initials.
-- `styrkir` — grants. Uppbyggingarsjóður Vestfjarða 2027 is in. Its 2027 rules
-  (§10) require crediting **Sóknaráætlun Vestfjarða** in publicity, hence the
-  `studningur` line on the card and in the footer. Put the official logo in
-  `img/bakhjarlar/` and set `merki`; until then the card shows the year.
+- `styrkir` — grants. A grant is only shown when `"veittur": true`. The
+  Uppbyggingarsjóður Vestfjarða 2027 result is announced 26 Nov 2026; if it
+  isn't awarded, set it to `false` before the site goes live. Its 2027 rules (§10) require
+  crediting **Sóknaráætlun Vestfjarða** in publicity, hence the `studningur`
+  line on the card and in the footer (the footer line also appears only once a
+  grant is `veittur`). Logo in `img/bakhjarlar/`, referenced by `merki`.
+- `felagsgjald` — the fee sentence shown on the front page and the join page.
+  Update it after each aðalfundur.
+- `facebook` — URL of the félag's Facebook page; the "Facebook-síðu félagsins"
+  link under Viðburðir uses it.
 - `bakhjarlar` — sponsors, linked with `rel="sponsored"`. The one marked
   `ljosmyndari_forsidu: true` also gets a photo credit in the hero corner.
   A logo goes in `img/bakhjarlar/` via `merki` and replaces the name, unless
   `syna_nafn: true` (for logos that don't spell the name, e.g. Haukur Sig's Purple Hat).
 - `styrkja_netfang` — if set, the "Þitt fyrirtæki?" card becomes a mailto link.
 - `framtid` — the roadmap under "Næst á dagskrá". Each item: `heiti`, `stada`
-  (e.g. "Í gangi", "Næst", "Síðar" — anything containing "gangi" is lit up), `texti`.
+  (e.g. "Í gangi", "Vantar umsjón" — anything containing "gangi" is lit up), `texti`.
   Move an item to "Í gangi" when that game night starts.
 - `samband_netfang` — if set, "Hafðu samband" on the "Brennur þú fyrir ákveðnu
   spili?" card becomes a mailto; otherwise it scrolls to the board.
 
 ## Membership flow
 
-1. Someone applies at `/ganga-i-felagid` and picks a password → `members.status = 'pending'`.
-2. The board approves: `npm run felagar -- samthykkja netfang@daemi.is`
-3. They log in with email + password. Pending/rejected accounts cannot log in.
+Under 4. gr. of the samþykktir, someone is a member once the félagsgjald is paid.
+
+1. Someone applies at `/ganga-i-felagid` with their kennitala and picks a password
+   → `members.status = 'pending'`. The kennitala is checksum-validated; under-18s
+   (worked out from it) must give a guardian and pay no fee.
+2. The board sends a krafa through Landsbankinn (name + kennitala from `listi`;
+   rows marked `undir18` get none).
+3. Once it's paid (or straight away for under-18s), the board activates:
+   `npm run felagar -- samthykkja netfang@daemi.is`
+4. They log in with email + password. Pending/rejected accounts cannot log in.
+
+Existing databases get the `kennitala`, `guardian_name` and `guardian_contact`
+columns added automatically on start.
 
 ```bash
 npm run felagar -- listi            # all applications (or: listi pending)
@@ -95,7 +112,7 @@ catches form bots; strict CSP (scripts from self only).
 
 ## Data
 
-`data/vefur.db` (gitignored) — real people's names and emails. Override with
+`data/vefur.db` (gitignored) — real people's names, emails and kennitölur. Override with
 `DB_PATH`. Back up with `VACUUM INTO`, not `cp` (WAL).
 
 ## Not done yet
@@ -103,4 +120,4 @@ catches form bots; strict CSP (scripts from self only).
 - Hosting / domain.
 - Email notifications (to the board on a new application, to the member on approval).
 - Members-area content (events, registrations) — could read from the board dashboard later.
-- Password reset.
+- Password reset (the login page points people to the félag email for now).

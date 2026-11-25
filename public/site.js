@@ -91,22 +91,53 @@ function showFieldErrors(form, errors = {}) {
   first?.querySelector('input,textarea')?.focus();
 }
 
+/* ── kennitala: checksum + birth date (same rules as the server) ── */
+function parseKennitala(raw) {
+  const kt = String(raw ?? '').replace(/[\s-]/g, '');
+  if (!/^\d{10}$/.test(kt)) return null;
+  const d = [...kt].map(Number);
+  const sum = [3, 2, 7, 6, 5, 4, 3, 2].reduce((s, w, i) => s + w * d[i], 0);
+  const check = (11 - (sum % 11)) % 11;
+  if (check === 10 || check !== d[8]) return null;
+  const century = { 9: 1900, 0: 2000 }[d[9]]; // 8 = 1800s: nobody alive
+  const day = Number(kt.slice(0, 2)), month = Number(kt.slice(2, 4));
+  if (century == null || day < 1 || day > 31 || month < 1 || month > 12) return null; // day > 31 = company
+  const year = century + Number(kt.slice(4, 6));
+  const born = new Date(Date.UTC(year, month - 1, day));
+  if (born.getUTCDate() !== day) return null;
+  const now = new Date();
+  let age = now.getUTCFullYear() - year;
+  if (now.getUTCMonth() + 1 < month || (now.getUTCMonth() + 1 === month && now.getUTCDate() < day)) age--;
+  if (age < 0) return null;
+  return { kt, age };
+}
+
 /* ── membership application ── */
 const signup = document.getElementById('umsokn');
 if (signup) {
   const alert = signup.querySelector('.alert');
+  const guardian = document.getElementById('forradamadur');
+  const ktInput = signup.elements.kennitala;
+  const isMinor = () => { const p = parseKennitala(ktInput.value); return !!p && p.age < 18; };
+  ktInput.addEventListener('input', () => { guardian.hidden = !isMinor(); });
   signup.addEventListener('submit', async (ev) => {
     ev.preventDefault();
     alert.hidden = true;
     const f = signup.elements;
     const body = {
-      name: f.name.value, email: f.email.value, phone: f.phone.value,
+      name: f.name.value, kennitala: f.kennitala.value, email: f.email.value, phone: f.phone.value,
+      guardian_name: isMinor() ? f.guardian_name.value : '', guardian_contact: isMinor() ? f.guardian_contact.value : '',
       message: f.message.value, password: f.password.value, consent: f.consent.checked,
       interests: [...signup.querySelectorAll('input[name="interests"]:checked')].map((i) => i.value),
       website: f.website.value,
     };
     const errors = {};
-    if (body.password !== f.password2.value) errors.password2 = 'Lykilorðin stemma ekki.';
+    if (!parseKennitala(body.kennitala)) errors.kennitala = 'Kennitalan er ekki gild.';
+    if (isMinor()) {
+      if (body.guardian_name.trim().length < 2) errors.guardian_name = 'Skráðu nafn forráðamanns.';
+      if (body.guardian_contact.trim().length < 5) errors.guardian_contact = 'Skráðu síma eða netfang forráðamanns.';
+    }
+    if (body.password !== f.password2.value) errors.password2 = 'Lykilorðin eru ekki eins.';
     if (Object.keys(errors).length) return showFieldErrors(signup, errors);
 
     const btn = signup.querySelector('button[type=submit]');
@@ -224,10 +255,21 @@ function renderContent(c) {
   const mail = (c.samband_netfang ?? '').trim();
   if (contact && mail) contact.href = `mailto:${mail}?subject=${encodeURIComponent('Ég vil halda utan um spilakvöld')}`;
 
+  // a grant shows only once it is actually awarded ("veittur": true), and so does the funder credit in the footer
+  const awarded = (c.styrkir ?? []).filter((g) => g.heiti && g.veittur === true);
+  const credit = slot('studningur');
+  const creditText = awarded.map((g) => g.studningur).find(Boolean);
+  if (credit && creditText) { credit.textContent = creditText; credit.hidden = false; }
+
+  const fee = (c.felagsgjald ?? '').trim();
+  document.querySelectorAll('[data-render="felagsgjald"]').forEach((n) => { if (fee) { n.textContent = fee; n.hidden = false; } });
+
+  const fb = (c.facebook ?? '').trim() ? safeUrl(c.facebook.trim()) : null;
+  document.querySelectorAll('[data-render="facebook"]').forEach((a) => { if (fb) { a.href = fb; a.target = '_blank'; a.rel = 'noopener'; } });
+
   const grants = slot('styrkir');
   if (grants) {
-    for (const g of c.styrkir ?? []) {
-      if (!g.heiti) continue;
+    for (const g of awarded) {
       const url = safeUrl(g.vefur), logo = localImg(g.merki);
       const [first, ...rest] = g.heiti.split(' ');
       grants.append(el('article', { class: 'grant reveal' },

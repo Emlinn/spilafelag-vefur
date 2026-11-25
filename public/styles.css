@@ -545,10 +545,23 @@ body:has(dialog.bio[open]) { overflow: hidden; }
 .schedule dd { margin: 0.3rem 0 0; font: 300 1.35rem/1.15 var(--serif); white-space: nowrap; }
 .schedule dd em { font-style: italic; }
 @media (max-width: 1000px) {
-  .schedule { grid-template-columns: 1fr 1fr; }
+  .schedule { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .schedule dd { white-space: normal; }
   .schedule div + div { border-left: 0; }
   .schedule div { border-bottom: 1px solid var(--line); }
   .schedule div:first-child { grid-column: 1 / -1; }
   .schedule div:nth-child(odd):not(:first-child) { border-left: 1px solid var(--line); }
   .schedule div:nth-last-child(-n+2) { border-bottom: 0; }
 }
+
+/* ── long text pages (persónuvernd) ───────────────────────────────── */
+
+.page.text .wrap { grid-template-columns: 1fr; max-width: 760px; gap: 2.5rem; }
+.prose h2 { font-size: clamp(1.7rem, 3vw, 2.3rem); margin: 2.4rem 0 0.8rem; }
+.prose h2:first-child { margin-top: 0; }
+.prose p, .prose ul { margin: 0 0 1rem; line-height: 1.6; color: var(--muted); }
+.prose ul { padding-left: 1.2rem; }
+.prose li + li { margin-top: 0.35rem; }
+.prose strong { color: var(--fg-2); font-weight: 500; }
+.prose a { text-underline-offset: 3px; }
+.prose .updated { font: 500 12px/1.4 var(--mono); text-transform: uppercase; color: var(--faint); margin-top: 2.4rem; }

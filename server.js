@@ -8,6 +8,7 @@ import {
   db, hashPassword, verifyPassword, burnTime,
   createSession, sessionMember, destroySession, pruneSessions, SESSION_DAYS,
 } from './db.js';
+import { parseKennitala } from './kennitala.js';
 
 const PORT = Number(process.env.PORT ?? 3200);
 const HOST = process.env.HOST ?? '0.0.0.0';
@@ -33,6 +34,7 @@ const PAGES = {
   '/ganga-i-felagid': 'ganga-i-felagid.html',
   '/innskraning': 'innskraning.html',
   '/felagar': 'felagar.html',
+  '/personuvernd': 'personuvernd.html',
 };
 
 const SECURITY_HEADERS = {
@@ -41,7 +43,7 @@ const SECURITY_HEADERS = {
   'X-Frame-Options': 'DENY',
   'Content-Security-Policy':
     "default-src 'self'; style-src 'self' https://fonts.googleapis.com; style-src-attr 'unsafe-inline'; font-src https://fonts.gstatic.com; " +
-    "img-src 'self' data:; script-src 'self'; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'",
+    "img-src 'self' data:; script-src 'self'; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'self'",
 };
 
 /* ── small helpers ─────────────────────────────────────────────────── */
@@ -111,6 +113,10 @@ async function api(req, res, path) {
     const b = await readJson(req);
     if (clean(b.website, 200)) return json(res, 200, { ok: true }); // honeypot: bots fill it, people don't see it
     const name = clean(b.name, 120);
+    const kt = parseKennitala(b.kennitala);
+    const minor = !!kt && kt.age < 18;
+    const guardianName = minor ? clean(b.guardian_name, 120) : '';
+    const guardianContact = minor ? clean(b.guardian_contact, 200) : '';
     const email = clean(b.email, 200).toLowerCase();
     const phone = clean(b.phone, 40) || null;
     const message = clean(b.message, 2000) || null;
@@ -119,15 +125,19 @@ async function api(req, res, path) {
 
     const errors = {};
     if (name.length < 2) errors.name = 'Skrifaðu fullt nafn.';
+    if (!kt) errors.kennitala = 'Kennitalan er ekki gild.';
+    if (minor && guardianName.length < 2) errors.guardian_name = 'Skráðu nafn forráðamanns.';
+    if (minor && guardianContact.length < 5) errors.guardian_contact = 'Skráðu síma eða netfang forráðamanns.';
     if (!EMAIL_RE.test(email)) errors.email = 'Netfangið lítur ekki rétt út.';
-    if (password.length < 10) errors.password = 'Lykilorð þarf að vera minnst 10 stafir.';
-    if (!b.consent) errors.consent = 'Þú þarft að samþykkja skilmálana.';
+    if (password.length < 10) errors.password = 'Lykilorðið þarf að vera minnst 10 stafir.';
+    if (!b.consent) errors.consent = 'Hakaðu hér til að staðfesta umsóknina.';
     if (Object.keys(errors).length) return json(res, 422, { errors });
 
     try {
-      db.prepare(`INSERT INTO members (name, email, phone, interests, message, password_hash) VALUES (?,?,?,?,?,?)`)
-        .run(name, email, phone, JSON.stringify(interests), message, hashPassword(password));
+      db.prepare(`INSERT INTO members (name, kennitala, email, phone, interests, message, guardian_name, guardian_contact, password_hash) VALUES (?,?,?,?,?,?,?,?,?)`)
+        .run(name, kt.kt, email, phone, JSON.stringify(interests), message, guardianName || null, guardianContact || null, hashPassword(password));
     } catch (e) {
+      if (String(e.message).includes('members.kennitala')) return json(res, 409, { errors: { kennitala: 'Umsókn með þessari kennitölu er þegar til.' } });
       if (String(e.message).includes('UNIQUE')) return json(res, 409, { errors: { email: 'Umsókn með þessu netfangi er þegar til.' } });
       throw e;
     }
@@ -143,7 +153,7 @@ async function api(req, res, path) {
     const m = db.prepare('SELECT id, password_hash, status FROM members WHERE email = ?').get(email);
     if (!m) { burnTime(password); return json(res, 401, { error: 'Rangt netfang eða lykilorð.' }); }
     if (!verifyPassword(password, m.password_hash)) return json(res, 401, { error: 'Rangt netfang eða lykilorð.' });
-    if (m.status === 'pending') return json(res, 403, { error: 'Umsóknin þín bíður samþykkis stjórnar. Við látum þig vita.' });
+    if (m.status === 'pending') return json(res, 403, { error: 'Aðgangurinn þinn hefur ekki verið virkjaður enn. Það gerist þegar félagsgjaldið hefur verið greitt.' });
     if (m.status !== 'approved') return json(res, 403, { error: 'Þessi aðgangur er ekki virkur.' });
     const token = createSession(m.id);
     return json(res, 200, { ok: true }, { 'Set-Cookie': sessionCookie(token, SESSION_DAYS * 86_400) });

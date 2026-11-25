@@ -16,10 +16,13 @@ db.exec(`
   CREATE TABLE IF NOT EXISTS members (
     id            INTEGER PRIMARY KEY,
     name          TEXT NOT NULL,
+    kennitala     TEXT,
     email         TEXT NOT NULL UNIQUE COLLATE NOCASE,
     phone         TEXT,
     interests     TEXT NOT NULL DEFAULT '[]',
     message       TEXT,
+    guardian_name    TEXT,   -- only for applicants under 18
+    guardian_contact TEXT,
     password_hash TEXT NOT NULL,
     status        TEXT NOT NULL DEFAULT 'pending' CHECK (status IN ('pending','approved','rejected')),
     is_admin      INTEGER NOT NULL DEFAULT 0,
@@ -34,6 +37,13 @@ db.exec(`
     expires_at TEXT NOT NULL
   );
 `);
+
+// Databases created before kennitala/guardian existed get the columns added in place.
+const cols = new Set(db.prepare('PRAGMA table_info(members)').all().map((c) => c.name));
+for (const col of ['kennitala', 'guardian_name', 'guardian_contact']) {
+  if (!cols.has(col)) db.exec(`ALTER TABLE members ADD COLUMN ${col} TEXT`);
+}
+db.exec('CREATE UNIQUE INDEX IF NOT EXISTS members_kennitala ON members (kennitala) WHERE kennitala IS NOT NULL');
 
 /* ── passwords ─────────────────────────────────────────────────────── */
 

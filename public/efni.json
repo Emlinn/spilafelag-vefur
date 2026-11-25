@@ -1,28 +1,28 @@
 {
-  "_lesmer": "Efni forsíðunnar. Breyttu þessari skrá og endurhlaðaðu síðuna — engin forritun. Myndir: settu skrána í public/img/... og skrifaðu slóðina, t.d. \"/img/stjorn/emil.jpg\". Tóm gildi (\"\") eru einfaldlega ekki sýnd. Stjórn: \"texti\" er stutt lína á spjaldinu; \"um\" er kynningin sem opnast þegar smellt er (auð lína = nýr kafli); \"uppahaldsspil\" er listi, t.d. [\"Catan\", \"Magic\"].",
+  "_lesmer": "Efni vefsins. Breyttu þessari skrá og endurhlaðaðu síðuna, engin forritun. Myndir: settu skrána í public/img/... og skrifaðu slóðina, t.d. \"/img/stjorn/emil.jpg\". Tóm gildi (\"\") eru ekki sýnd. Stjórn: \"texti\" er stutt lína á spjaldinu; \"um\" er kynning sem opnast þegar smellt er (auð lína = ný málsgrein); \"uppahaldsspil\" er listi, t.d. [\"Catan\", \"Magic\"]. Styrkir: styrkur birtist aðeins ef \"veittur\" er true, og þá líka línan um Sóknaráætlun í fætinum. \"felagsgjald\" birtist á forsíðu og umsóknarsíðu; uppfærðu eftir aðalfund. \"facebook\" er slóð á Facebook-síðu félagsins.",
   "stjorn": [
     {
+      "nafn": "Einar Ægir Hlynsson",
+      "hlutverk": "Formaður",
+      "mynd": "",
+      "texti": "Hefur spilað Magic síðan 2022 og kennir nýjum spilurum.",
+      "um": "",
+      "uppahaldsspil": []
+    },
+    {
+      "nafn": "Ármann Haraldsson",
+      "hlutverk": "Meðstjórnandi",
+      "mynd": "",
+      "texti": "Prókúruhafi félagsins.",
+      "um": "",
+      "uppahaldsspil": []
+    },
+    {
       "nafn": "Emil Ragnarsson",
-      "hlutverk": "Stjórn",
+      "hlutverk": "Meðstjórnandi",
       "mynd": "",
-      "texti": "",
-      "um": "Hér kemur stutt kynning: hvaðan þú ert, hvað þú spilar helst og hvað dró þig í félagið.\n\nÞetta má vera ein til þrjár stuttar málsgreinar.",
-      "uppahaldsspil": []
-    },
-    {
-      "nafn": "Nafn stjórnarmanns",
-      "hlutverk": "Stjórn",
-      "mynd": "",
-      "texti": "",
-      "um": "Hér kemur stutt kynning: hvaðan þú ert, hvað þú spilar helst og hvað dró þig í félagið.\n\nÞetta má vera ein til þrjár stuttar málsgreinar.",
-      "uppahaldsspil": []
-    },
-    {
-      "nafn": "Nafn stjórnarmanns",
-      "hlutverk": "Stjórn",
-      "mynd": "",
-      "texti": "",
-      "um": "Hér kemur stutt kynning: hvaðan þú ert, hvað þú spilar helst og hvað dró þig í félagið.\n\nÞetta má vera ein til þrjár stuttar málsgreinar.",
+      "texti": "Sér um heimasíðuna.",
+      "um": "",
       "uppahaldsspil": []
     }
   ],
@@ -30,29 +30,30 @@
     {
       "heiti": "Magic: The Gathering",
       "stada": "Í gangi",
-      "texti": "Commander-kvöld aðra hverja viku í Edinborg, og draft, sealed og prerelease af og til."
+      "texti": "Commander annan hvern fimmtudag í Edinborgarhúsinu, og sealed, draft og prerelease nokkrum sinnum á ári."
     },
     {
-      "heiti": "Borðspilakvöld",
-      "stada": "Næst",
-      "texti": "Opin kvöld þar sem félagar koma með spil og kenna hvert öðru."
+      "heiti": "Borðspil",
+      "stada": "Vantar umsjón",
+      "texti": "Opin borðspilakvöld þar sem fólk kemur með spil og kennir hvert öðru."
     },
     {
       "heiti": "Pokémon",
-      "stada": "Næst",
-      "texti": "Pokémon TCG fyrir unga sem aldna — kennsla, skipti og mót."
+      "stada": "Vantar umsjón",
+      "texti": "Pokémon TCG fyrir unga sem aldna: kennsla, skipti og mót."
     },
     {
       "heiti": "Hlutverkaspil",
-      "stada": "Síðar",
-      "texti": "Dungeons & Dragons og fleiri. Hópar sem hittast reglulega."
+      "stada": "Vantar umsjón",
+      "texti": "Dungeons & Dragons og önnur hlutverkaspil, í hópum sem hittast reglulega."
     }
   ],
   "styrkir": [
     {
       "heiti": "Uppbyggingarsjóður Vestfjarða",
       "ar": "2027",
-      "texti": "Spilafélag Vestfjarða hlaut styrk úr Uppbyggingarsjóði Vestfjarða fyrir árið 2027. Við erum þakklát fyrir traustið og ætlum að nýta það vel til að byggja upp spilastarf á Vestfjörðum.",
+      "veittur": true,
+      "texti": "Spilafélag Vestfjarða hlaut styrk úr Uppbyggingarsjóði Vestfjarða fyrir árið 2027 til nýliðastarfs og spilaviðburða á Vestfjörðum. Takk fyrir stuðninginn!",
       "studningur": "Með stuðningi Sóknaráætlunar Vestfjarða",
       "vefur": "https://www.vestfirdir.is/is/verkefni/soknaraaetlun/uppbyggingarsjodur",
       "merki": "/img/bakhjarlar/soknaraaetlun-vestfjarda.png"
@@ -68,6 +69,8 @@
       "syna_nafn": true
     }
   ],
-  "styrkja_netfang": "",
-  "samband_netfang": ""
+  "felagsgjald": "Félagsgjaldið fyrir 2026 er 3.000 kr. og frítt er fyrir yngri en 18 ára. Gjald fyrir 2027 verður ákveðið á aðalfundi.",
+  "facebook": "",
+  "styrkja_netfang": "spilafelagvestfjarda@gmail.com",
+  "samband_netfang": "spilafelagvestfjarda@gmail.com"
 }

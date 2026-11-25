@@ -4,6 +4,7 @@
 //   npm run felagar -- hafna <netfang>
 //   npm run felagar -- admin <netfang> "Fullt nafn"     (password read from stdin)
 import { db, hashPassword } from '../db.js';
+import { parseKennitala } from '../kennitala.js';
 import { createInterface } from 'node:readline/promises';
 
 const [cmd, arg, name] = process.argv.slice(2);
@@ -19,9 +20,15 @@ function setStatus(email, status) {
 switch (cmd) {
   case 'listi': {
     const rows = arg
-      ? db.prepare('SELECT id, name, email, phone, interests, status, created_at FROM members WHERE status = ? ORDER BY created_at').all(arg)
-      : db.prepare('SELECT id, name, email, phone, interests, status, created_at FROM members ORDER BY status, created_at').all();
-    console.table(rows.map((r) => ({ ...r, interests: JSON.parse(r.interests).join(', ') })));
+      ? db.prepare('SELECT id, name, kennitala, email, phone, guardian_name, guardian_contact, interests, status, created_at FROM members WHERE status = ? ORDER BY created_at').all(arg)
+      : db.prepare('SELECT id, name, kennitala, email, phone, guardian_name, guardian_contact, interests, status, created_at FROM members ORDER BY status, created_at').all();
+    // undir18: no félagsgjald, so no krafa to send
+    console.table(rows.map(({ guardian_name, guardian_contact, ...r }) => ({
+      ...r,
+      undir18: (parseKennitala(r.kennitala)?.age ?? 99) < 18 ? 'já' : '',
+      forradamadur: guardian_name ? `${guardian_name} (${guardian_contact})` : '',
+      interests: JSON.parse(r.interests).join(', '),
+    })));
     break;
   }
   case 'samthykkja': setStatus(arg, 'approved'); break;

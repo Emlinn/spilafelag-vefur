@@ -19,7 +19,7 @@
         <svg class="brand-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="6"/><circle cx="12" cy="12" r="2.2" fill="currentColor" stroke="none"/></svg>
         <span class="brand-name">Spilafélag Vestfjarða</span>
       </a>
-      <nav class="nav-center" aria-label="Aðalvalmynd"><a class="nav-link" href="./#um">Félagið</a><a class="nav-link" href="./#spilin">Spilin</a><a class="nav-link" href="./#adild">Aðild</a></nav>
+      <nav class="nav-center" aria-label="Aðalvalmynd"><a class="nav-link" href="./#um">Félagið</a><a class="nav-link" href="./#spilin">Viðburðir</a><a class="nav-link" href="./#adild">Aðild</a></nav>
       <div class="nav-right"><a class="nav-link plain" href="innskraning">Innskráning</a><a class="btn small" href="ganga-i-felagid">Ganga í félagið <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></svg></a></div>
     </div>
   </header>
@@ -30,11 +30,12 @@
       <div class="page-intro">
         <p class="label rise">Aðild</p>
         <h1 class="rise" style="--d:.08s"><em>Gakktu</em> í félagið</h1>
-        <p class="sub rise" style="--d:.16s">Fylltu út eyðublaðið og veldu þér lykilorð. Stjórnin fer yfir umsóknina og virkjar aðganginn þinn.</p>
+        <p class="sub rise" style="--d:.16s">Fylltu út eyðublaðið og veldu þér lykilorð. Þú telst félagi þegar félagsgjaldið hefur verið greitt.</p>
+        <p class="sub rise" style="--d:.2s" data-render="felagsgjald" hidden></p>
         <ul class="aside-list rise" style="--d:.24s">
-          <li><b>01</b>Þú sendir umsókn — tekur um mínútu.</li>
-          <li><b>02</b>Stjórnin samþykkir og lætur þig vita.</li>
-          <li><b>03</b>Þú skráir þig inn með netfanginu og lykilorðinu.</li>
+          <li><b>01</b>Þú sendir umsókn. Það tekur um mínútu.</li>
+          <li><b>02</b>Krafa fyrir félagsgjaldinu birtist í heimabankanum þínum.</li>
+          <li><b>03</b>Þegar hún er greidd virkjar stjórnin aðganginn og þú getur skráð þig inn.</li>
         </ul>
       </div>
 
@@ -43,6 +44,12 @@
           <div class="field">
             <label for="name">Fullt nafn</label>
             <input id="name" name="name" type="text" autocomplete="name" required maxlength="120">
+            <span class="err" aria-live="polite"></span>
+          </div>
+          <div class="field">
+            <label for="kennitala">Kennitala</label>
+            <input id="kennitala" name="kennitala" type="text" inputmode="numeric" autocomplete="off" required maxlength="11" placeholder="000000-0000">
+            <span class="hint">Notuð til að stofna kröfu fyrir félagsgjaldinu og staðfesta aldur.</span>
             <span class="err" aria-live="polite"></span>
           </div>
           <div class="row">
@@ -57,6 +64,22 @@
               <span class="err" aria-live="polite"></span>
             </div>
           </div>
+          <fieldset class="field" id="forradamadur" hidden>
+            <legend>Forráðamaður</legend>
+            <span class="hint">Þú ert yngri en 18 ára, svo aðildin er ókeypis. Skráðu forráðamann þinn hér.</span>
+            <div class="row">
+              <div class="field">
+                <label for="guardian_name">Nafn forráðamanns</label>
+                <input id="guardian_name" name="guardian_name" type="text" autocomplete="off" maxlength="120">
+                <span class="err" aria-live="polite"></span>
+              </div>
+              <div class="field">
+                <label for="guardian_contact">Sími eða netfang</label>
+                <input id="guardian_contact" name="guardian_contact" type="text" autocomplete="off" maxlength="200">
+                <span class="err" aria-live="polite"></span>
+              </div>
+            </div>
+          </fieldset>
           <fieldset class="field">
             <legend>Hvað viltu helst spila? <span class="opt">(veldu eins mörg og þú vilt)</span></legend>
             <div class="chips">
@@ -86,7 +109,8 @@
           </div>
           <div class="hp" aria-hidden="true"><label>Vefsíða <input name="website" type="text" tabindex="-1" autocomplete="off"></label></div>
           <div class="field">
-            <label class="check"><input type="checkbox" name="consent" required><span>Ég samþykki að Spilafélag Vestfjarða geymi þessar upplýsingar til að halda utan um félagaskrá. Þeim er ekki deilt með öðrum.</span></label>
+            <label class="check"><input type="checkbox" name="consent" required><span>Ég óska eftir aðild að Spilafélagi Vestfjarða.</span></label>
+            <span class="hint">Stjórnin notar upplýsingarnar til að halda félagatal og innheimta félagsgjöld. Nánar í <a class="link-quiet" href="personuvernd">persónuverndarstefnu félagsins</a>.</span>
             <span class="err" aria-live="polite"></span>
           </div>
           <div class="alert" role="alert" hidden></div>
@@ -99,7 +123,7 @@
         <div id="umsokn-takk" class="form done" hidden>
           <p class="label">Umsókn móttekin</p>
           <h2 class="display" tabindex="-1"><em>Takk</em> — við heyrumst</h2>
-          <p>Stjórnin fer yfir umsóknina og virkjar aðganginn þinn. Þá geturðu skráð þig inn með netfanginu og lykilorðinu sem þú valdir.</p>
+          <p>Ef þú ert 18 ára eða eldri birtist krafa í heimabankanum þínum á næstu dögum. Þegar hún hefur verið greidd virkjar stjórnin aðganginn og þú getur skráð þig inn með netfanginu og lykilorðinu sem þú valdir.</p>
           <div class="form-foot"><a class="btn ghost" href="./">Aftur á forsíðu</a></div>
         </div>
       </div>
@@ -109,12 +133,13 @@
   <footer class="site-footer">
     <div class="wrap">
       <span>© Spilafélag Vestfjarða · Ísafjörður</span>
-      <a class="support-line" href="./#studningur">Með stuðningi Sóknaráætlunar Vestfjarða</a>
+      <a class="support-line" href="./#studningur" data-render="studningur" hidden></a>
       <nav aria-label="Fótur">
         <a href="./#um">Félagið</a>
-        <a href="./#spilin">Spilin</a>
+        <a href="./#spilin">Viðburðir</a>
         <a href="ganga-i-felagid">Ganga í félagið</a>
         <a href="innskraning">Innskráning</a>
+        <a href="personuvernd">Persónuvernd</a>
       </nav>
     </div>
   </footer>
