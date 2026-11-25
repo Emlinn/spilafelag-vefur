@@ -1,5 +1,5 @@
 # /etc/systemd/system/spilafelag-vefur.service
-# Test copy of the public website, beside the dashboard on stjornbord.emlinn.is.
+# The public website (spilvest.is), beside the board dashboard on the same server.
 [Unit]
 Description=Spilafélag Vestfjarða — heimasíða (prófun)
 Documentation=file:///srv/spilafelag-vefur/deploy/README.md
@@ -11,7 +11,7 @@ Type=simple
 User=spilafelag-vefur
 Group=spilafelag-vefur
 WorkingDirectory=/srv/spilafelag-vefur
-# NODE_ENV, PORT, HOST=127.0.0.1, BASE_PATH=/heimasida, TRUST_PROXY=1, DB_PATH
+# NODE_ENV, PORT, HOST=127.0.0.1, TRUST_PROXY=1, DB_PATH
 EnvironmentFile=/etc/spilafelag-vefur/env
 ExecStart=/usr/bin/node server.js
 Restart=always

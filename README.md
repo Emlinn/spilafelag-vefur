@@ -24,9 +24,9 @@ committed. To log in locally, apply on the site, then approve yourself:
 Most text and people live in **`public/efni.json`** (board, roadmap, sponsors,
 grant) — no code needed. Page copy is in `public/*.html`, styles in
 `public/styles.css`. Keep URLs relative (`img/x.jpg`, `api/...`), never
-`/img/x.jpg`: the site also runs under `/heimasida/` (see `deploy/README.md`).
+`/img/x.jpg`: the site can also run under a sub-path (`BASE_PATH`), as it did during testing.
 
-**Test copy:** https://stjornbord.emlinn.is/heimasida/ (dashboard login).
+**Live:** https://spilvest.is (dashboard: https://stjorn.spilvest.is).
 Emil updates it from his machine with `deploy/deploy.sh`.
 
 ## Pages
