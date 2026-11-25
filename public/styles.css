@@ -167,7 +167,7 @@ section { position: relative; padding: clamp(5rem, 11vw, 9rem) 0; }
 .feature {
   position: relative; overflow: hidden; isolation: isolate;
   border-radius: 16px; min-height: 690px;
-  display: flex; flex-direction: column; justify-content: space-between;
+  display: flex; flex-direction: column; justify-content: space-between; gap: clamp(1.8rem, 3vw, 2.6rem);
   padding: clamp(1.2rem, 2.2vw, 1.6rem);
   background: var(--card-bg); background-size: cover; background-position: center;
 }
@@ -191,6 +191,7 @@ section { position: relative; padding: clamp(5rem, 11vw, 9rem) 0; }
 .f-commander { --card-bg: radial-gradient(120% 80% at 35% 15%, #3a3560 0%, #1d1a33 45%, #0c0b14 100%); --card-photo: url('img/commander.jpg'); }
 .cards.two { grid-template-columns: repeat(2, 1fr); max-width: 1180px; }
 .cards.two .feature { min-height: 620px; }
+.cards.two .feature .panel { margin-top: clamp(1.5rem, 5vw, 4rem); }
 .life { display: grid; grid-template-columns: 1fr 1fr; text-align: center; }
 .life div { padding: 14px 6px; }
 .life div:nth-child(odd) { border-right: 1px solid var(--line); }
