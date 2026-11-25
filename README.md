@@ -7,10 +7,27 @@ and a (so far empty) members area. Separate from the board dashboard in
 **No dependencies.** Node 24 (`node:http` + `node:sqlite`), plain HTML/CSS/JS.
 Nothing to `npm install`.
 
+## Getting started
+
+Install **Node 24** (https://nodejs.org — check with `node --version`), then:
+
 ```bash
-export PATH="$HOME/.local/node24/bin:$PATH"   # on the OV box; system Node is 18
-npm run dev                                   # → http://localhost:3200 (restarts on change)
+git clone git@github.com:Emlinn/spilafelag-vefur.git
+cd spilafelag-vefur
+npm run dev          # → http://localhost:3200, restarts when you save a file
 ```
+
+Your local database (`data/vefur.db`) is created on first run and never
+committed. To log in locally, apply on the site, then approve yourself:
+`npm run felagar -- samthykkja you@example.is`.
+
+Most text and people live in **`public/efni.json`** (board, roadmap, sponsors,
+grant) — no code needed. Page copy is in `public/*.html`, styles in
+`public/styles.css`. Keep URLs relative (`img/x.jpg`, `api/...`), never
+`/img/x.jpg`: the site also runs under `/heimasida/` (see `deploy/README.md`).
+
+**Test copy:** https://stjornbord.emlinn.is/heimasida/ (dashboard login).
+Emil updates it from his machine with `deploy/deploy.sh`.
 
 ## Pages
 
