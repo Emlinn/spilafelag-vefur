@@ -1,3 +1,7 @@
 data/
 node_modules/
 .env
+
+# raw video exports (compress to public/img/hero.mp4 instead)
+/public/*.mp4
+*.mov

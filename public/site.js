@@ -34,6 +34,15 @@ if (hero && !reduced) {
   addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
 }
 
+/* ── hero video: loaded only when motion is welcome and data isn't scarce.
+   Hidden until it actually plays, so a missing file leaves the photo/fjord. ── */
+const heroVideo = document.querySelector('video.hero-video[data-src]');
+if (heroVideo && !reduced && !navigator.connection?.saveData) {
+  heroVideo.addEventListener('playing', () => heroVideo.classList.add('on'), { once: true });
+  heroVideo.src = heroVideo.dataset.src;
+  heroVideo.play().catch(() => {});
+}
+
 /* ── typewriter in the glass pill ── */
 const typed = document.querySelector('.typed[data-words]');
 if (typed && !reduced) {
