@@ -20,7 +20,7 @@
         <svg class="brand-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="6"/><circle cx="12" cy="12" r="2.2" fill="currentColor" stroke="none"/></svg>
         <span class="brand-name">Spilafélag Vestfjarða</span>
       </a>
-      <nav class="nav-center" aria-label="Aðalvalmynd"><a class="nav-link" href="./#um">Félagið</a><a class="nav-link" href="./#spilin">Viðburðir</a><a class="nav-link" href="./#adild">Aðild</a></nav>
+      <nav class="nav-center" aria-label="Aðalvalmynd"><a class="nav-link" href="um-felagid">Félagið</a><a class="nav-link" href="./#spilin">Viðburðir</a><a class="nav-link" href="./#adild">Aðild</a></nav>
       <div class="nav-right"><a class="nav-link plain" href="innskraning">Innskráning</a><a class="btn small" href="ganga-i-felagid">Ganga í félagið <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></svg></a></div>
     </div>
   </header>
@@ -34,13 +34,13 @@
       </div>
       <div class="hero-content">
         <h1 class="rise" style="--d:.15s"><em>Spilum</em> saman</h1>
-        <p class="sub rise" style="--d:.3s">Magic: The Gathering á Ísafirði — og fleiri spilakvöld á leiðinni. Byrjendur jafnt sem reynsluboltar eru velkomnir við borðið.</p>
-        <a class="btn rise" style="--d:.42s" href="ganga-i-felagid">Ganga í félagið <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></svg></a>
-        <a class="pill rise" style="--d:.55s" href="ganga-i-felagid" aria-label="Ganga í félagið">
+        <p class="sub rise" style="--d:.3s">Magic: The Gathering á Ísafirði. Frítt inn, opið öllum og byrjendur jafnt sem reynsluboltar eru velkomnir við borðið.</p>
+        <a class="btn rise" style="--d:.42s" href="./#dagskra">Næstu spilakvöld <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></svg></a>
+        <a class="pill rise" style="--d:.55s" href="./#dagskra" aria-label="Sjá næstu spilakvöld">
           <span>Við spilum <span class="typed" data-words="Commander|Sealed|Draft|Prerelease">Commander</span></span>
           <span class="go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5"/></svg></span>
         </a>
-        <p class="caption rise" style="--d:.7s">Komdu og spilaðu. Lærðu eitthvað nýtt.</p>
+        <p class="caption rise" style="--d:.7s" data-render="naest">Komdu og spilaðu. Lærðu eitthvað nýtt.</p>
       </div>
       <p class="photo-credit" data-render="credit" hidden></p>
     </section>
@@ -63,16 +63,10 @@
               <div><dt>Stofnað</dt><dd>12. september 2026</dd></div>
               <div><dt>Aðild</dt><dd>Opin öllum</dd></div>
             </dl>
+            <p class="reveal" style="--d:.3s;margin-top:1.6rem"><a class="link-quiet" href="um-felagid">Stjórn, samþykktir og fleira um félagið →</a></p>
           </div>
         </div>
 
-        <div id="stjorn" class="board-block">
-          <div class="board-head">
-            <h3 class="reveal"><em>Stjórnin</em></h3>
-            <p class="reveal" style="--d:.08s">Þrjú sem halda utan um starfið. Náðu í okkur á <a href="mailto:spilafelagvestfjarda@gmail.com">spilafelagvestfjarda@gmail.com</a>.</p>
-          </div>
-          <div class="board compact" data-render="stjorn"></div>
-        </div>
       </div>
     </section>
 
@@ -82,7 +76,18 @@
       <div class="wrap">
         <div class="section-title">
           <h2 class="reveal"><em>Magic</em> fyrst</h2>
-          <p class="sub reveal" style="--d:.1s">Hvort sem þú átt hundrað stokka eða hefur aldrei spilað — við finnum þér sæti við borðið.</p>
+          <p class="sub reveal" style="--d:.1s">Hvort sem þú átt hundrað stokka eða hefur aldrei spilað, þá finnum við þér sæti við borðið.</p>
+        </div>
+        <div id="dagskra" class="dates-block reveal">
+          <div>
+            <p class="label">Næstu viðburðir</p>
+            <ol class="dates" data-render="vidburdir"></ol>
+            <p class="dates-empty" hidden>Næstu dagsetningar eru auglýstar á Facebook.</p>
+          </div>
+          <div>
+            <p class="label">Í fyrsta sinn?</p>
+            <dl class="faq" data-render="hagnyt"></dl>
+          </div>
         </div>
         <dl class="schedule reveal" style="--d:.15s" aria-label="Commander-kvöld">
           <div><dt>Hvað</dt><dd><em>Commander</em>-kvöld</dd></div>
@@ -123,23 +128,13 @@
           </article>
         </div>
         <p class="sub reveal" style="max-width:40rem">Öll spilakvöld og mót eru auglýst á <a data-render="facebook">Facebook-síðu félagsins</a> og í Facebook-hópnum MTG Vestfirðir. Breytingar, t.d. um jól og áramót, eru auglýstar þar.</p>
-      </div>
-    </section>
 
-    <section id="framtid" style="padding-top:0">
-      <div class="wrap">
-        <div class="section-title">
-          <h2 class="reveal"><em>Næst</em> á dagskrá</h2>
-          <p class="sub reveal" style="--d:.1s">Magic er byrjunin. Svona sjáum við félagið vaxa.</p>
-        </div>
-        <ol class="roadmap" data-render="framtid"></ol>
-
-        <div class="volunteer reveal">
+        <div class="volunteer reveal" style="margin-top:clamp(3rem,6vw,5rem)">
           <div>
             <h3><em>Brennur</em> þú fyrir ákveðnu spili?</h3>
             <p>Við leitum að fólki sem vill halda utan um starf í kringum sitt spil: skipuleggja kvöld, kenna nýjum og byggja upp hóp. Pokémon, borðspil, hlutverkaspil eða eitthvað allt annað. Hafðu samband og við hjálpum þér af stað.</p>
           </div>
-          <a class="btn" href="./#stjorn" data-render="samband">Hafðu samband <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></svg></a>
+          <a class="btn" href="um-felagid" data-render="samband">Hafðu samband <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></svg></a>
         </div>
       </div>
     </section>
@@ -172,6 +167,20 @@
       </div>
     </section>
 
+    <section id="english" lang="en" style="padding-top:0">
+      <div class="wrap">
+        <div class="english reveal">
+          <p class="label">In English</p>
+          <h2><em>Everyone</em> is welcome</h2>
+          <div>
+            <p>Spilafélag Vestfjarða is a volunteer-run games club in Ísafjörður. Right now we mostly play Magic: The Gathering: Commander every other Thursday, 19:00–22:00 at Edinborgarhúsið, plus sealed, draft and prereleases a few times a year.</p>
+            <p>Entry is free, you don't need to be a member, and beginners are welcome. Tell us it's your first time and someone will teach you. Events are posted on our Facebook page and in the MTG Vestfirðir group.</p>
+            <p>Membership is optional and supports the club. The sign-up form is in Icelandic, so email <a href="mailto:spilafelagvestfjarda@gmail.com">spilafelagvestfjarda@gmail.com</a> if you'd like a hand.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="cta">
       <div class="hero-media" aria-hidden="true" style="animation:none">
         <img src="img/fjord.svg" alt="">
@@ -193,11 +202,12 @@
       <span>© Spilafélag Vestfjarða · Ísafjörður</span>
       <a class="support-line" href="./#studningur" data-render="studningur" hidden></a>
       <nav aria-label="Fótur">
-        <a href="./#um">Félagið</a>
+        <a href="um-felagid">Félagið</a>
         <a href="./#spilin">Viðburðir</a>
         <a href="ganga-i-felagid">Ganga í félagið</a>
         <a href="innskraning">Innskráning</a>
         <a href="personuvernd">Persónuvernd</a>
+        <a href="./#english" lang="en">English</a>
       </nav>
     </div>
   </footer>

@@ -35,6 +35,7 @@ const PAGES = {
   '/innskraning': 'innskraning.html',
   '/felagar': 'felagar.html',
   '/personuvernd': 'personuvernd.html',
+  '/um-felagid': 'um-felagid.html',
 };
 
 const SECURITY_HEADERS = {

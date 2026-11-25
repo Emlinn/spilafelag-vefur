@@ -1,5 +1,37 @@
 {
-  "_lesmer": "Efni vefsins. Breyttu þessari skrá og endurhlaðaðu síðuna, engin forritun. Myndir: settu skrána í public/img/... og skrifaðu slóðina, t.d. \"/img/stjorn/emil.jpg\". Tóm gildi (\"\") eru ekki sýnd. Stjórn: \"texti\" er stutt lína á spjaldinu; \"um\" er kynning sem opnast þegar smellt er (auð lína = ný málsgrein); \"uppahaldsspil\" er listi, t.d. [\"Catan\", \"Magic\"]. Styrkir: styrkur birtist aðeins ef \"veittur\" er true, og þá líka línan um Sóknaráætlun í fætinum. \"felagsgjald\" birtist á forsíðu og umsóknarsíðu; uppfærðu eftir aðalfund. \"facebook\" er slóð á Facebook-síðu félagsins.",
+  "_lesmer": "Efni vefsins. Breyttu þessari skrá og endurhlaðaðu síðuna, engin forritun. Tóm gildi (\"\") eru ekki sýnd. Viðburðir: \"dags\" á forminu ÁÁÁÁ-MM-DD; liðnir viðburðir hverfa sjálfkrafa og sá næsti birtist líka efst á forsíðu. Hagnýtt: spurningar og svör fyrir þau sem mæta í fyrsta sinn. Myndir: settu skrána í public/img/... og skrifaðu slóðina, t.d. \"/img/stjorn/emil.jpg\". Stjórn: \"texti\" er stutt lína á spjaldinu; \"um\" er kynning sem opnast þegar smellt er (auð lína = ný málsgrein); \"uppahaldsspil\" er listi. Styrkir: styrkur birtist aðeins ef \"veittur\" er true, og þá líka línan um Sóknaráætlun í fætinum. \"felagsgjald\" birtist á forsíðu, umsóknarsíðu og Um félagið; uppfærðu eftir aðalfund. \"facebook\" er slóð á Facebook-síðu félagsins. \"kennitala\" og \"samthykktir\" (slóð á PDF) birtast á Um félagið ef þau eru fyllt út.",
+  "vidburdir": [
+    {
+      "dags": "2026-12-03",
+      "heiti": "Commander-kvöld",
+      "klukkan": "19:00–22:00",
+      "stadur": "Edinborgarhúsið",
+      "texti": "",
+      "tengill": ""
+    },
+    {
+      "dags": "2026-12-17",
+      "heiti": "Commander-kvöld",
+      "klukkan": "19:00–22:00",
+      "stadur": "Edinborgarhúsið",
+      "texti": "Síðasta kvöld ársins.",
+      "tengill": ""
+    }
+  ],
+  "hagnyt": [
+    {
+      "spurning": "Hvað kostar?",
+      "svar": "Ekkert. Það er frítt inn á spilakvöldin og þú þarft ekki að vera í félaginu."
+    },
+    {
+      "spurning": "Ég hef aldrei spilað",
+      "svar": "Komdu samt. Láttu vita þegar þú mætir og einhver kennir þér grunninn."
+    },
+    {
+      "spurning": "Hvað á ég að taka með?",
+      "svar": "Commander-stokkinn þinn, ef þú átt hann. Ef ekki, komdu samt."
+    }
+  ],
   "stjorn": [
     {
       "nafn": "Einar Ægir Hlynsson",
@@ -26,28 +58,6 @@
       "uppahaldsspil": []
     }
   ],
-  "framtid": [
-    {
-      "heiti": "Magic: The Gathering",
-      "stada": "Í gangi",
-      "texti": "Commander annan hvern fimmtudag í Edinborgarhúsinu, og sealed, draft og prerelease nokkrum sinnum á ári."
-    },
-    {
-      "heiti": "Borðspil",
-      "stada": "Vantar umsjón",
-      "texti": "Opin borðspilakvöld þar sem fólk kemur með spil og kennir hvert öðru."
-    },
-    {
-      "heiti": "Pokémon",
-      "stada": "Vantar umsjón",
-      "texti": "Pokémon TCG fyrir unga sem aldna: kennsla, skipti og mót."
-    },
-    {
-      "heiti": "Hlutverkaspil",
-      "stada": "Vantar umsjón",
-      "texti": "Dungeons & Dragons og önnur hlutverkaspil, í hópum sem hittast reglulega."
-    }
-  ],
   "styrkir": [
     {
       "heiti": "Uppbyggingarsjóður Vestfjarða",
@@ -72,5 +82,7 @@
   "felagsgjald": "Félagsgjaldið fyrir 2026 er 3.000 kr. og frítt er fyrir yngri en 18 ára. Gjald fyrir 2027 verður ákveðið á aðalfundi.",
   "facebook": "",
   "styrkja_netfang": "spilafelagvestfjarda@gmail.com",
-  "samband_netfang": "spilafelagvestfjarda@gmail.com"
+  "samband_netfang": "spilafelagvestfjarda@gmail.com",
+  "kennitala": "",
+  "samthykktir": ""
 }

@@ -501,18 +501,34 @@ body:has(dialog.bio[open]) { overflow: hidden; }
 .board.compact .text { grid-area: text; }
 .board.compact .more { grid-area: more; margin: 0; }
 
-/* ── roadmap ──────────────────────────────────────────────────────── */
+/* ── upcoming events + first-timer Q&A (above the schedule strip) ──── */
 
-.roadmap { list-style: none; margin: 0 auto; padding: 0; max-width: 1180px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; position: relative; }
-.roadmap li { position: relative; padding: 1.4rem 1.4rem 1.6rem; border-radius: 16px; border: 1px solid var(--line); background: var(--bg-2); }
-.roadmap li.live { border-color: rgba(159, 216, 240, 0.35); background: linear-gradient(180deg, rgba(159,216,240,0.08), var(--bg-2) 70%); }
-.roadmap .when { display: flex; align-items: center; gap: 8px; font: 500 11px/1 var(--mono); text-transform: uppercase; letter-spacing: 0.03em; color: var(--muted); }
-.roadmap .dot { width: 9px; height: 9px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.6); }
-.roadmap .live .when { color: var(--accent); }
-.roadmap .live .dot { background: var(--accent); border-color: var(--accent); box-shadow: 0 0 0 0 rgba(159,216,240,0.5); animation: pulse 2.4s infinite; }
+.dates-block { max-width: 1180px; margin: 0 auto clamp(2rem, 4vw, 3rem); display: grid; grid-template-columns: 1.25fr 1fr; gap: 16px; }
+.dates-block > div { padding: clamp(1.4rem, 3vw, 2rem); border-radius: 16px; border: 1px solid var(--line); background: var(--bg-2); }
+.dates { list-style: none; margin: 0; padding: 0; }
+.dates li { display: grid; grid-template-columns: 4.6rem 1fr; gap: 1rem; align-items: center; padding: 14px 0; border-top: 1px solid var(--line); }
+.dates li:first-child { border-top: 0; padding-top: 0; }
+.dates .day { font: 300 2.4rem/0.9 var(--serif); letter-spacing: -0.02em; }
+.dates .day small { display: block; margin-top: 0.35rem; font: 500 11px/1.2 var(--mono); text-transform: uppercase; letter-spacing: 0.03em; color: var(--muted); }
+.dates h3 { font: 400 1.05rem/1.3 var(--sans); display: flex; align-items: center; gap: 8px; }
+.dates .meta { color: var(--muted); font-size: 0.92rem; margin: 0.15rem 0 0; }
+.dates .note { color: var(--faint); font-size: 0.88rem; margin: 0.2rem 0 0; }
+.dates .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 0 rgba(159,216,240,0.5); animation: pulse 2.4s infinite; flex: none; }
 @keyframes pulse { 70% { box-shadow: 0 0 0 8px rgba(159,216,240,0); } 100% { box-shadow: 0 0 0 0 rgba(159,216,240,0); } }
-.roadmap h3 { font: 300 1.7rem/1.05 var(--serif); letter-spacing: -0.015em; margin: 2.4rem 0 0.6rem; }
-.roadmap p { margin: 0; color: var(--muted); font-size: 0.95rem; }
+.dates-empty { color: var(--muted); margin: 0; }
+.faq { margin: 0; }
+.faq div + div { margin-top: 1.1rem; }
+.faq dt { font: 400 1.05rem/1.3 var(--sans); }
+.faq dd { margin: 0.25rem 0 0; color: var(--muted); font-size: 0.95rem; }
+
+/* ── in English ──────────────────────────────────────────────────────── */
+
+.english { max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: 0.8fr 1.2fr; column-gap: clamp(2rem, 6vw, 5rem); align-items: start;
+  padding: clamp(1.6rem, 3.5vw, 2.6rem); border-radius: 16px; border: 1px solid var(--line); background: var(--bg-2); }
+.english .label { grid-column: 1 / -1; }
+.english h2 { font-size: clamp(2.2rem, 4.4vw, 3.6rem); }
+.english p { color: var(--muted); margin: 0 0 1rem; }
+.english p:last-child { margin-bottom: 0; }
 
 .volunteer { max-width: 1180px; margin: 16px auto 0; display: flex; align-items: center; justify-content: space-between; gap: 2rem;
   padding: clamp(1.6rem, 3vw, 2.4rem); border-radius: 16px; border: 1px dashed rgba(255,255,255,0.22); }
@@ -523,17 +539,16 @@ body:has(dialog.bio[open]) { overflow: hidden; }
 
 @media (max-width: 1000px) {
   .about, .board-block { grid-template-columns: 1fr; }
-  .roadmap { grid-template-columns: repeat(2, 1fr); }
+  .dates-block, .english { grid-template-columns: 1fr; }
+  .english h2 { margin-bottom: 1.2rem; }
   .cards.two { grid-template-columns: 1fr; }
 }
 @media (max-width: 760px) {
-  .roadmap { grid-template-columns: 1fr; }
-  .roadmap h3 { margin-top: 1.4rem; }
   .volunteer { flex-direction: column; align-items: flex-start; }
   .board.compact .info { grid-template-areas: "name" "role" "more" "text"; grid-template-columns: 1fr; }
   .board.compact .more { margin-top: 0.5rem; }
 }
-@media (prefers-reduced-motion: reduce) { .roadmap .live .dot { animation: none; } }
+@media (prefers-reduced-motion: reduce) { .dates .dot { animation: none; } }
 @media (max-width: 1000px) { .about-head { position: static; } }
 
 /* when & where — a glass strip under "Magic fyrst" */

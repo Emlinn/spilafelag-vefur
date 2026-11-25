@@ -212,7 +212,7 @@ function el(tag, attrs = {}, ...kids) {
   for (const k of kids) if (k != null && k !== '') n.append(k);
   return n;
 }
-const safeUrl = (u) => { try { const x = new URL(u, location.origin); return /^https?:$/.test(x.protocol) ? x.href : null; } catch { return null; } };
+const safeUrl = (u) => { if (typeof u !== 'string' || !u.trim()) return null; try { const x = new URL(u, location.origin); return /^https?:$/.test(x.protocol) ? x.href : null; } catch { return null; } };
 // efni.json may say /img/x or img/x; either way it becomes img/x, relative to <base>
 const localImg = (p) => (typeof p === 'string' && /^\/?img\/[\w./-]+$/.test(p) && !p.includes('..') ? p.replace(/^\//, '') : null);
 const EXT = '<svg class="ext" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 11 11 5M6 5h5v5"/></svg>';
@@ -238,19 +238,46 @@ function renderContent(c) {
     });
   }
 
-  // roadmap: "Í gangi" is lit, everything else is an open ring
-  const road = slot('framtid');
-  if (road) {
-    (c.framtid ?? []).filter((r) => r.heiti).forEach((r, i) => {
-      const live = /gangi/i.test(r.stada ?? '');
-      road.append(el('li', { class: `reveal${live ? ' live' : ''}`, style: `--d:${i * 0.08}s` },
-        el('div', { class: 'when' }, el('span', { class: 'dot' }), r.stada ?? ''),
-        el('h3', {}, r.heiti),
-        r.texti ? el('p', {}, r.texti) : null));
+  // upcoming events: past dates drop off by themselves; the next one also goes in the hero
+  const MONTHS = ['janúar', 'febrúar', 'mars', 'apríl', 'maí', 'júní', 'júlí', 'ágúst', 'september', 'október', 'nóvember', 'desember'];
+  const DAYS = ['sunnudagur', 'mánudagur', 'þriðjudagur', 'miðvikudagur', 'fimmtudagur', 'föstudagur', 'laugardagur'];
+  const DAYS_ACC = ['sunnudaginn', 'mánudaginn', 'þriðjudaginn', 'miðvikudaginn', 'fimmtudaginn', 'föstudaginn', 'laugardaginn']; // "Næst: … fimmtudaginn 3. desember"
+  const today = new Date().toLocaleDateString('sv-SE', { timeZone: 'Atlantic/Reykjavik' }); // YYYY-MM-DD
+  const upcoming = (c.vidburdir ?? [])
+    .filter((v) => v.heiti && /^\d{4}-\d{2}-\d{2}$/.test(v.dags ?? '') && v.dags >= today)
+    .sort((x, y) => x.dags.localeCompare(y.dags))
+    .slice(0, 6);
+  const parts = (iso) => { const d = new Date(iso + 'T12:00:00Z'); return { day: d.getUTCDate(), month: MONTHS[d.getUTCMonth()], weekday: DAYS[d.getUTCDay()], weekdayAcc: DAYS_ACC[d.getUTCDay()] }; };
+
+  const dates = slot('vidburdir');
+  if (dates) {
+    upcoming.forEach((v, i) => {
+      const p = parts(v.dags), url = (v.tengill ?? '').trim() ? safeUrl(v.tengill.trim()) : null;
+      const title = el('h3', {}, i === 0 ? el('span', { class: 'dot', 'aria-hidden': 'true' }) : null, url ? el('a', { href: url, target: '_blank', rel: 'noopener' }, v.heiti) : v.heiti);
+      dates.append(el('li', {},
+        el('div', { class: 'day' }, `${p.day}.`, el('small', {}, p.month.slice(0, 3))),
+        el('div', {}, title,
+          el('p', { class: 'meta' }, [p.weekday, v.klukkan, v.stadur].filter(Boolean).join(' · ')),
+          v.texti ? el('p', { class: 'note' }, v.texti) : null)));
     });
+    if (!upcoming.length) document.querySelector('.dates-empty')?.removeAttribute('hidden');
+  }
+  const next = slot('naest');
+  if (next && upcoming[0]) {
+    const v = upcoming[0], p = parts(v.dags), time = (v.klukkan ?? '').split(/[–-]/)[0].trim();
+    next.textContent = `Næst: ${v.heiti} ${p.weekdayAcc} ${p.day}. ${p.month}${time ? ` kl. ${time}` : ''}`;
   }
 
-  // "Hafðu samband": mailto when an address is set, otherwise scroll to the board
+  const faq = slot('hagnyt');
+  if (faq) for (const q of c.hagnyt ?? []) if (q.spurning) faq.append(el('div', {}, el('dt', {}, q.spurning), el('dd', {}, q.svar ?? '')));
+
+  // Um félagið: kennitala and the samþykktir link appear once they're filled in
+  const kt = (c.kennitala ?? '').trim();
+  document.querySelectorAll('[data-render="kennitala"]').forEach((n) => { if (kt) { n.textContent = kt; n.closest('[data-hide-empty]')?.removeAttribute('hidden'); } });
+  const bylaws = (c.samthykktir ?? '').trim() ? safeUrl(c.samthykktir.trim()) : null;
+  document.querySelectorAll('[data-render="samthykktir"]').forEach((a) => { if (bylaws) { a.href = bylaws; a.closest('[data-hide-empty]')?.removeAttribute('hidden'); } });
+
+  // "Hafðu samband": mailto when an address is set, otherwise links to Um félagið
   const contact = slot('samband');
   const mail = (c.samband_netfang ?? '').trim();
   if (contact && mail) contact.href = `mailto:${mail}?subject=${encodeURIComponent('Ég vil halda utan um spilakvöld')}`;

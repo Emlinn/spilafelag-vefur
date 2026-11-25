@@ -37,6 +37,7 @@ Emil updates it from his machine with `deploy/deploy.sh`.
 | `/ganga-i-felagid` | `public/ganga-i-felagid.html` | membership application |
 | `/innskraning` | `public/innskraning.html` | member login |
 | `/felagar` | `public/felagar.html` | members area (server redirects to login if not signed in) |
+| `/um-felagid` | `public/um-felagid.html` | about: purpose, board, membership, aðalfundur, details |
 | `/personuvernd` | `public/personuvernd.html` | privacy statement (linked from the form and footer) |
 
 ## Design
@@ -50,13 +51,18 @@ Content fades up out of a blur as it scrolls in. Navigating between pages cross-
 Transitions (Chrome/Edge/Safari; Firefox just navigates normally). All motion
 turns off under `prefers-reduced-motion`.
 
-## Editing the front page — `public/efni.json`
+## Editing content — `public/efni.json`
 
-Board, grant and sponsors are read from `public/efni.json`; edit it and reload,
+Events, board, grant, sponsors and félag details are read from `public/efni.json`; edit it and reload,
 no code. Images go in `public/img/stjorn/` and `public/img/bakhjarlar/` and are
 referenced as `/img/...`. Empty values are not shown.
 
-- `stjorn` — name, role, photo, a short line for the card (`texti`), a bio (`um`,
+- `vidburdir` — upcoming events under "Næstu viðburðir": `dags` (YYYY-MM-DD),
+  `heiti`, `klukkan`, `stadur`, optional `texti` and `tengill` (e.g. a Facebook
+  event). Past dates drop off by themselves; the next one also appears in the hero.
+  Add the next few dates whenever they're booked.
+- `hagnyt` — "Í fyrsta sinn?" questions and answers (`spurning`, `svar`).
+- `stjorn` — shown on `/um-felagid`. Name, role, photo, a short line for the card (`texti`), a bio (`um`,
   blank line = new paragraph) and favourite games (`uppahaldsspil`, a list).
   Cards with a bio open it in a dialog; no photo → italic initials.
 - `styrkir` — grants. A grant is only shown when `"veittur": true`. The
@@ -65,7 +71,7 @@ referenced as `/img/...`. Empty values are not shown.
   crediting **Sóknaráætlun Vestfjarða** in publicity, hence the `studningur`
   line on the card and in the footer (the footer line also appears only once a
   grant is `veittur`). Logo in `img/bakhjarlar/`, referenced by `merki`.
-- `felagsgjald` — the fee sentence shown on the front page and the join page.
+- `felagsgjald` — the fee sentence shown on the front page, join page and Um félagið.
   Update it after each aðalfundur.
 - `facebook` — URL of the félag's Facebook page; the "Facebook-síðu félagsins"
   link under Viðburðir uses it.
@@ -74,11 +80,10 @@ referenced as `/img/...`. Empty values are not shown.
   A logo goes in `img/bakhjarlar/` via `merki` and replaces the name, unless
   `syna_nafn: true` (for logos that don't spell the name, e.g. Haukur Sig's Purple Hat).
 - `styrkja_netfang` — if set, the "Þitt fyrirtæki?" card becomes a mailto link.
-- `framtid` — the roadmap under "Næst á dagskrá". Each item: `heiti`, `stada`
-  (e.g. "Í gangi", "Vantar umsjón" — anything containing "gangi" is lit up), `texti`.
-  Move an item to "Í gangi" when that game night starts.
+- `kennitala`, `samthykktir` — shown on `/um-felagid` once filled in
+  (`samthykktir` is a URL to a PDF; redact the signatures' kennitölur first).
 - `samband_netfang` — if set, "Hafðu samband" on the "Brennur þú fyrir ákveðnu
-  spili?" card becomes a mailto; otherwise it scrolls to the board.
+  spili?" card becomes a mailto; otherwise it links to Um félagið.
 
 ## Membership flow
 
