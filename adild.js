@@ -75,6 +75,11 @@ export async function leave(email) {
 const SAMPLE = {
   status: 'member',
   sample: true,
+  sets: [
+    { name: 'Nauctis: The Sunken Realm', code: '', release_date: '2027-02-05' },
+    { name: 'Kamigawa: Titanbreach', code: '', release_date: '2027-06-04' },
+    { name: 'Zhalfir', code: '', release_date: '2027-10-01' },
+  ],
   since: '2026-09-04',
   attendance: {
     total: 14,

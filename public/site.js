@@ -228,6 +228,22 @@ if (memberName) {
     $('tournament_wins').textContent = t.tournament_wins ?? 0;
     $('tournaments').textContent = t.tournaments ? L(`af ${t.tournaments} mótum`, `of ${t.tournaments} tournaments`) : '';
 
+    // Upcoming sets from the board's Útgáfur list, with a countdown.
+    const today0 = Date.parse(new Date().toLocaleDateString('sv-SE', { timeZone: 'Atlantic/Reykjavik' }) + 'T00:00:00Z');
+    const daysTo = (iso) => Math.round((Date.parse(iso.slice(0, 10) + 'T00:00:00Z') - today0) / 86_400_000);
+    // Icelandic: 1, 21, 31… dagur; everything else dagar (11 is dagar).
+    const dagar = (n) => L(n % 10 === 1 && n % 100 !== 11 ? 'dagur' : 'dagar', n === 1 ? 'day' : 'days');
+    const sets = d.sets ?? [];
+    $('sets-empty').hidden = sets.length > 0;
+    $('sets').hidden = sets.length === 0;
+    $('sets').replaceChildren(...sets.map((x, i) => {
+      const n = daysTo(x.release_date);
+      return el('li', { class: i === 0 ? 'next' : null },
+        el('span', { class: 'count' }, n <= 0 ? L('Í dag', 'Today') : String(n), n > 0 ? el('small', {}, dagar(n)) : null),
+        el('span', { class: 'name' }, x.name),
+        el('span', { class: 'date' }, fmt(x.release_date)));
+    }));
+
     const mot = d.tournaments ?? [];
     $('mot-empty').hidden = mot.length > 0;
     $('mot').hidden = mot.length === 0;
