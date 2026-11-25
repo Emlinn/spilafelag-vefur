@@ -3,6 +3,12 @@
 
 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+// Pages under /en/ have <html lang="en">. L() picks the string for the page's language;
+// tx() reads an efni.json field, preferring its "_en" twin on English pages.
+const EN = document.documentElement.lang === 'en';
+const L = (is, en) => (EN ? en : is);
+const tx = (o, k) => (EN && o?.[`${k}_en`]) || o?.[k];
+
 /* ── reveal on scroll ── */
 const revealIO = (reduced || !('IntersectionObserver' in window)) ? null : new IntersectionObserver((entries) => {
   for (const e of entries) if (e.isIntersecting) { e.target.classList.add('in'); revealIO.unobserve(e.target); }
@@ -66,7 +72,7 @@ if (typed && !reduced) {
 /* ── helpers ── */
 async function post(url, body) {
   const res = await fetch(url, {
-    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Lang': EN ? 'en' : 'is' },
     body: JSON.stringify(body), credentials: 'same-origin',
   });
   let data = {};
@@ -128,16 +134,15 @@ if (signup) {
       name: f.name.value, kennitala: f.kennitala.value, email: f.email.value, phone: f.phone.value,
       guardian_name: isMinor() ? f.guardian_name.value : '', guardian_contact: isMinor() ? f.guardian_contact.value : '',
       message: f.message.value, password: f.password.value, consent: f.consent.checked,
-      interests: [...signup.querySelectorAll('input[name="interests"]:checked')].map((i) => i.value),
       website: f.website.value,
     };
     const errors = {};
-    if (!parseKennitala(body.kennitala)) errors.kennitala = 'Kennitalan er ekki gild.';
+    if (!parseKennitala(body.kennitala)) errors.kennitala = L('Kennitalan er ekki gild.', 'That kennitala is not valid.');
     if (isMinor()) {
-      if (body.guardian_name.trim().length < 2) errors.guardian_name = 'Skráðu nafn forráðamanns.';
-      if (body.guardian_contact.trim().length < 5) errors.guardian_contact = 'Skráðu síma eða netfang forráðamanns.';
+      if (body.guardian_name.trim().length < 2) errors.guardian_name = L('Skráðu nafn forráðamanns.', "Please enter a parent or guardian's name.");
+      if (body.guardian_contact.trim().length < 5) errors.guardian_contact = L('Skráðu síma eða netfang forráðamanns.', "Please enter a parent or guardian's phone or email.");
     }
-    if (body.password !== f.password2.value) errors.password2 = 'Lykilorðin eru ekki eins.';
+    if (body.password !== f.password2.value) errors.password2 = L('Lykilorðin eru ekki eins.', "The passwords don't match.");
     if (Object.keys(errors).length) return showFieldErrors(signup, errors);
 
     const btn = signup.querySelector('button[type=submit]');
@@ -151,9 +156,9 @@ if (signup) {
         return;
       }
       if (r.data.errors) showFieldErrors(signup, r.data.errors);
-      else { alert.textContent = r.data.error ?? 'Eitthvað fór úrskeiðis. Reyndu aftur.'; alert.hidden = false; }
+      else { alert.textContent = r.data.error ?? L('Eitthvað fór úrskeiðis. Reyndu aftur.', 'Something went wrong. Please try again.'); alert.hidden = false; }
     } catch {
-      alert.textContent = 'Náði ekki sambandi. Athugaðu nettenginguna.'; alert.hidden = false;
+      alert.textContent = L('Náði ekki sambandi. Athugaðu nettenginguna.', "Couldn't connect. Check your internet connection."); alert.hidden = false;
     } finally { btn.disabled = false; }
   });
 }
@@ -171,12 +176,12 @@ if (login) {
       const r = await post('api/innskraning', { email: login.elements.email.value, password: login.elements.password.value });
       if (r.ok) {
         const back = new URLSearchParams(location.search).get('aftur');
-        location.href = /^[a-z-]+$/.test(back ?? '') ? back : 'felagar'; // a bare page name only — never an outside URL
+        location.href = /^(en\/)?[a-z-]+$/.test(back ?? '') ? back : L('felagar', 'en/members'); // a bare page name only — never an outside URL
         return;
       }
-      alert.textContent = r.data.error ?? 'Innskráning tókst ekki.'; alert.hidden = false;
+      alert.textContent = r.data.error ?? L('Innskráning tókst ekki.', 'Sign-in failed.'); alert.hidden = false;
     } catch {
-      alert.textContent = 'Náði ekki sambandi. Athugaðu nettenginguna.'; alert.hidden = false;
+      alert.textContent = L('Náði ekki sambandi. Athugaðu nettenginguna.', "Couldn't connect. Check your internet connection."); alert.hidden = false;
     } finally { btn.disabled = false; }
   });
 }
@@ -185,12 +190,14 @@ if (login) {
 const memberName = document.getElementById('member-name');
 if (memberName) {
   const $ = (k) => document.querySelector(`[data-m="${k}"]`);
-  const toLogin = () => { location.href = 'innskraning?aftur=felagar'; };
+  const toLogin = () => { location.href = L('innskraning?aftur=felagar', 'en/login?aftur=en/members'); };
   // Month names spelled out: not every browser ships Icelandic date formats.
-  const MON = ['janúar', 'febrúar', 'mars', 'apríl', 'maí', 'júní', 'júlí', 'ágúst', 'september', 'október', 'nóvember', 'desember'];
+  const MON = EN
+    ? ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+    : ['janúar', 'febrúar', 'mars', 'apríl', 'maí', 'júní', 'júlí', 'ágúst', 'september', 'október', 'nóvember', 'desember'];
   const ymd = (iso) => iso.slice(0, 10).split('-').map(Number);
-  const fmt = (iso) => { const [y, m, d] = ymd(iso); return `${d}. ${MON[m - 1]} ${y}`; };
-  const short = (iso) => { const [, m, d] = ymd(iso); return `${d}. ${MON[m - 1].slice(0, 3)}`; };
+  const fmt = (iso) => { const [y, m, d] = ymd(iso); return EN ? `${d} ${MON[m - 1]} ${y}` : `${d}. ${MON[m - 1]} ${y}`; };
+  const short = (iso) => { const [, m, d] = ymd(iso); return EN ? `${d} ${MON[m - 1].slice(0, 3)}` : `${d}. ${MON[m - 1].slice(0, 3)}`; };
   const showError = (msg) => { const e = document.getElementById('m-error'); e.textContent = msg; e.hidden = false; };
 
   fetch('api/eg', { credentials: 'same-origin' }).then(async (res) => {
@@ -200,14 +207,14 @@ if (memberName) {
   });
 
   Promise.all([
-    fetch('api/yfirlit', { credentials: 'same-origin' }),
+    fetch('api/yfirlit', { credentials: 'same-origin', headers: { 'X-Lang': EN ? 'en' : 'is' } }),
     fetch('efni.json', { cache: 'no-cache' }).then((r) => r.json()).catch(() => ({})),
   ]).then(async ([res, efni]) => {
     if (res.status === 401) return toLogin(); // not logged in, or no longer a member
     const d = await res.json().catch(() => ({}));
-    if (!res.ok) return showError(d.error ?? 'Náði ekki í upplýsingarnar núna.');
+    if (!res.ok) return showError(d.error ?? L('Náði ekki í upplýsingarnar núna.', "Couldn't load your information right now."));
     renderMember(d, efni);
-  }).catch(() => showError('Náði ekki í upplýsingarnar núna.'));
+  }).catch(() => showError(L('Náði ekki í upplýsingarnar núna.', "Couldn't load your information right now.")));
 
   function renderMember(d, efni) {
     if (d.sample) document.getElementById('m-sample').hidden = false;
@@ -219,7 +226,7 @@ if (memberName) {
     $('total').textContent = d.attendance?.total ?? 0;
     $('record').textContent = `${t.wins ?? 0}–${t.losses ?? 0}–${t.draws ?? 0}`;
     $('tournament_wins').textContent = t.tournament_wins ?? 0;
-    $('tournaments').textContent = t.tournaments ? `af ${t.tournaments} mótum` : '';
+    $('tournaments').textContent = t.tournaments ? L(`af ${t.tournaments} mótum`, `of ${t.tournaments} tournaments`) : '';
 
     const mot = d.tournaments ?? [];
     $('mot-empty').hidden = mot.length > 0;
@@ -227,21 +234,21 @@ if (memberName) {
     $('mot').tBodies[0].replaceChildren(...mot.map((m) => el('tr', { class: m.place === 1 && m.finished ? 'first' : null },
       el('td', {}, short(m.date)),
       el('td', {}, m.name, m.format ? el('small', {}, m.format) : null),
-      el('td', {}, m.finished ? `${m.place}. af ${m.players}` : 'Í gangi'),
+      el('td', {}, m.finished ? L(`${m.place}. af ${m.players}`, `${m.place} of ${m.players}`) : L('Í gangi', 'In progress')),
       el('td', { class: 'num' }, `${m.wins}–${m.losses}–${m.draws}`))));
 
     const recent = d.attendance?.recent ?? [];
     $('maeting-empty').hidden = recent.length > 0;
     $('maeting').replaceChildren(...recent.map((e) => el('li', {},
       el('span', { class: 'when' }, short(e.event_date)),
-      el('span', {}, e.name, e.won ? el('b', { class: 'won' }, 'Sigur') : null))));
+      el('span', {}, e.name, e.won ? el('b', { class: 'won' }, L('Sigur', 'Won')) : null))));
 
     // The club's own schedule (efni.json) plus events the board has opened for sign-up.
     const today = new Date().toLocaleDateString('sv-SE', { timeZone: 'Atlantic/Reykjavik' });
     const seen = new Set();
     const next = [
       ...(efni.vidburdir ?? []).filter((v) => v.heiti && /^\d{4}-\d{2}-\d{2}$/.test(v.dags ?? ''))
-        .map((v) => ({ date: v.dags, name: v.heiti, meta: [v.klukkan, v.stadur].filter(Boolean).join(' · ') })),
+        .map((v) => ({ date: v.dags, name: tx(v, 'heiti'), meta: [v.klukkan, tx(v, 'stadur')].filter(Boolean).join(' · ') })),
       ...(d.upcoming ?? []).map((u) => ({ date: u.event_date, name: u.name, meta: u.format })),
     ].filter((v) => v.date >= today && !seen.has(v.date + v.name) && seen.add(v.date + v.name))
       .sort((a, b) => a.date.localeCompare(b.date)).slice(0, 5);
@@ -253,7 +260,7 @@ if (memberName) {
 
   document.getElementById('utskraning')?.addEventListener('click', async () => {
     await post('api/utskraning', {});
-    location.href = './';
+    location.href = L('./', 'en');
   });
 
   // Leaving: a dialog that asks for the password before anything happens.
@@ -270,14 +277,14 @@ if (memberName) {
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       alertBox.hidden = true;
-      if (!form.elements.password.value) return showFieldErrors(form, { password: 'Sláðu inn lykilorðið.' });
+      if (!form.elements.password.value) return showFieldErrors(form, { password: L('Sláðu inn lykilorðið.', 'Enter your password.') });
       const btn = form.querySelector('[type=submit]');
       btn.disabled = true;
       try {
         const { ok, data } = await post('api/ursogn', { password: form.elements.password.value });
-        if (ok) { location.href = './'; return; }
+        if (ok) { location.href = L('./', 'en'); return; }
         if (data.errors) showFieldErrors(form, data.errors);
-        else { alertBox.textContent = data.error ?? 'Eitthvað fór úrskeiðis.'; alertBox.hidden = false; }
+        else { alertBox.textContent = data.error ?? L('Eitthvað fór úrskeiðis.', 'Something went wrong.'); alertBox.hidden = false; }
       } finally { btn.disabled = false; }
     });
   }
@@ -308,14 +315,14 @@ function renderContent(c) {
   const board = slot('stjorn');
   if (board) {
     (c.stjorn ?? []).filter((p) => p.nafn).forEach((p, i) => {
-      const hasBio = !!(p.um && p.um.trim());
+      const hasBio = !!(tx(p, 'um') ?? '').trim();
       const card = el(hasBio ? 'button' : 'article', { class: 'person reveal', style: `--d:${i * 0.1}s`, type: hasBio ? 'button' : null, 'aria-haspopup': hasBio ? 'dialog' : null },
         portrait(p),
         el('div', { class: 'info' },
-          el('div', { class: 'role' }, p.hlutverk ?? ''),
+          el('div', { class: 'role' }, tx(p, 'hlutverk') ?? ''),
           el('h3', { class: 'name' }, p.nafn),
-          p.texti ? el('p', { class: 'text' }, p.texti) : null,
-          hasBio ? (() => { const m = el('span', { class: 'more' }, 'Lesa meira'); m.append(svg('<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></svg>')); return m; })() : null));
+          tx(p, 'texti') ? el('p', { class: 'text' }, tx(p, 'texti')) : null,
+          hasBio ? (() => { const m = el('span', { class: 'more' }, L('Lesa meira', 'Read more')); m.append(svg('<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></svg>')); return m; })() : null));
       if (hasBio) card.addEventListener('click', () => openBio(p));
       board.append(card);
     });
@@ -325,57 +332,74 @@ function renderContent(c) {
   const MONTHS = ['janúar', 'febrúar', 'mars', 'apríl', 'maí', 'júní', 'júlí', 'ágúst', 'september', 'október', 'nóvember', 'desember'];
   const DAYS = ['sunnudagur', 'mánudagur', 'þriðjudagur', 'miðvikudagur', 'fimmtudagur', 'föstudagur', 'laugardagur'];
   const DAYS_ACC = ['sunnudaginn', 'mánudaginn', 'þriðjudaginn', 'miðvikudaginn', 'fimmtudaginn', 'föstudaginn', 'laugardaginn']; // "Næst: … fimmtudaginn 3. desember"
+  const MONTHS_EN = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  const DAYS_EN = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   const today = new Date().toLocaleDateString('sv-SE', { timeZone: 'Atlantic/Reykjavik' }); // YYYY-MM-DD
   const upcoming = (c.vidburdir ?? [])
     .filter((v) => v.heiti && /^\d{4}-\d{2}-\d{2}$/.test(v.dags ?? '') && v.dags >= today)
     .sort((x, y) => x.dags.localeCompare(y.dags))
     .slice(0, 6);
-  const parts = (iso) => { const d = new Date(iso + 'T12:00:00Z'); return { day: d.getUTCDate(), month: MONTHS[d.getUTCMonth()], weekday: DAYS[d.getUTCDay()], weekdayAcc: DAYS_ACC[d.getUTCDay()] }; };
+  const parts = (iso) => { const d = new Date(iso + 'T12:00:00Z'); return EN
+    ? { day: d.getUTCDate(), month: MONTHS_EN[d.getUTCMonth()], weekday: DAYS_EN[d.getUTCDay()], weekdayAcc: DAYS_EN[d.getUTCDay()] }
+    : { day: d.getUTCDate(), month: MONTHS[d.getUTCMonth()], weekday: DAYS[d.getUTCDay()], weekdayAcc: DAYS_ACC[d.getUTCDay()] }; };
+  const dayNum = (p) => (EN ? `${p.day}` : `${p.day}.`); // "3" in English, "3." in Icelandic
 
   const dates = slot('vidburdir');
   if (dates) {
     upcoming.forEach((v, i) => {
       const p = parts(v.dags), url = (v.tengill ?? '').trim() ? safeUrl(v.tengill.trim()) : null;
-      const title = el('h3', {}, i === 0 ? el('span', { class: 'dot', 'aria-hidden': 'true' }) : null, url ? el('a', { href: url, target: '_blank', rel: 'noopener' }, v.heiti) : v.heiti);
+      const title = el('h3', {}, i === 0 ? el('span', { class: 'dot', 'aria-hidden': 'true' }) : null, url ? el('a', { href: url, target: '_blank', rel: 'noopener' }, tx(v, 'heiti')) : tx(v, 'heiti'));
       dates.append(el('li', {},
-        el('div', { class: 'day' }, `${p.day}.`, el('small', {}, p.month.slice(0, 3))),
+        el('div', { class: 'day' }, dayNum(p), el('small', {}, p.month.slice(0, 3))),
         el('div', {}, title,
-          el('p', { class: 'meta' }, [p.weekday, v.klukkan, v.stadur].filter(Boolean).join(' · ')),
-          v.texti ? el('p', { class: 'note' }, v.texti) : null)));
+          el('p', { class: 'meta' }, [p.weekday, v.klukkan, tx(v, 'stadur')].filter(Boolean).join(' · ')),
+          tx(v, 'texti') ? el('p', { class: 'note' }, tx(v, 'texti')) : null)));
     });
     if (!upcoming.length) document.querySelector('.dates-empty')?.removeAttribute('hidden');
   }
   const next = slot('naest');
   if (next && upcoming[0]) {
     const v = upcoming[0], p = parts(v.dags), time = (v.klukkan ?? '').split(/[–-]/)[0].trim();
-    next.textContent = `Næst: ${v.heiti} ${p.weekdayAcc} ${p.day}. ${p.month}${time ? ` kl. ${time}` : ''}`;
+    next.textContent = EN
+      ? `Next: ${tx(v, 'heiti')}, ${p.weekday} ${p.day} ${p.month}${time ? ` at ${time}` : ''}`
+      : `Næst: ${v.heiti} ${p.weekdayAcc} ${p.day}. ${p.month}${time ? ` kl. ${time}` : ''}`;
+  }
+
+  // "Næst" in the Commander strip: the next two Commander dates, e.g. "3. og 17. des."
+  const nextCmd = slot('naest-commander');
+  const cmd = upcoming.filter((v) => (v.tegund ?? '') === 'commander').slice(0, 2).map((v) => parts(v.dags));
+  if (nextCmd && cmd.length) {
+    const short = (p) => (EN ? p.month.slice(0, 3) : `${p.month.slice(0, 3)}.`), and = L('og', '&');
+    nextCmd.textContent = cmd.length === 1 ? `${dayNum(cmd[0])} ${short(cmd[0])}`
+      : cmd[0].month === cmd[1].month ? `${dayNum(cmd[0])} ${and} ${dayNum(cmd[1])} ${short(cmd[1])}`
+      : `${dayNum(cmd[0])} ${short(cmd[0])} ${and} ${dayNum(cmd[1])} ${short(cmd[1])}`;
   }
 
   const faq = slot('hagnyt');
-  if (faq) for (const q of c.hagnyt ?? []) if (q.spurning) faq.append(el('div', {}, el('dt', {}, q.spurning), el('dd', {}, q.svar ?? '')));
+  if (faq) for (const q of c.hagnyt ?? []) if (q.spurning) faq.append(el('div', {}, el('dt', {}, tx(q, 'spurning')), el('dd', {}, tx(q, 'svar') ?? '')));
 
-  // Um félagið: kennitala and the samþykktir link appear once they're filled in
+  // kennitala appears under Um félagið once it's filled in
   const kt = (c.kennitala ?? '').trim();
   document.querySelectorAll('[data-render="kennitala"]').forEach((n) => { if (kt) { n.textContent = kt; n.closest('[data-hide-empty]')?.removeAttribute('hidden'); } });
-  const bylaws = (c.samthykktir ?? '').trim() ? safeUrl(c.samthykktir.trim()) : null;
-  document.querySelectorAll('[data-render="samthykktir"]').forEach((a) => { if (bylaws) { a.href = bylaws; a.closest('[data-hide-empty]')?.removeAttribute('hidden'); } });
 
-  // "Hafðu samband": mailto when an address is set, otherwise links to Um félagið
+  // "Hafðu samband": mailto with a subject when an address is set
   const contact = slot('samband');
   const mail = (c.samband_netfang ?? '').trim();
-  if (contact && mail) contact.href = `mailto:${mail}?subject=${encodeURIComponent('Ég vil halda utan um spilakvöld')}`;
+  if (contact && mail) contact.href = `mailto:${mail}?subject=${encodeURIComponent(L('Ég vil halda utan um spil hjá félaginu', "I'd like to run a game for the club"))}`;
 
   // a grant shows only once it is actually awarded ("veittur": true), and so does the funder credit in the footer
   const awarded = (c.styrkir ?? []).filter((g) => g.heiti && g.veittur === true);
   const credit = slot('studningur');
-  const creditText = awarded.map((g) => g.studningur).find(Boolean);
+  const creditText = awarded.map((g) => tx(g, 'studningur')).find(Boolean);
   if (credit && creditText) { credit.textContent = creditText; credit.hidden = false; }
 
-  const fee = (c.felagsgjald ?? '').trim();
+  const fee = (tx(c, 'felagsgjald') ?? '').trim();
   document.querySelectorAll('[data-render="felagsgjald"]').forEach((n) => { if (fee) { n.textContent = fee; n.hidden = false; } });
 
-  const fb = (c.facebook ?? '').trim() ? safeUrl(c.facebook.trim()) : null;
-  document.querySelectorAll('[data-render="facebook"]').forEach((a) => { if (fb) { a.href = fb; a.target = '_blank'; a.rel = 'noopener'; } });
+  for (const key of ['facebook', 'facebook_hopur']) {
+    const url = safeUrl(c[key]);
+    document.querySelectorAll(`[data-render="${key}"]`).forEach((a) => { if (url) { a.href = url; a.target = '_blank'; a.rel = 'noopener'; } });
+  }
 
   const grants = slot('styrkir');
   if (grants) {
@@ -385,13 +409,13 @@ function renderContent(c) {
       grants.append(el('article', { class: 'grant reveal' },
         el('img', { class: 'bg', src: 'img/fjord.svg', alt: '', 'aria-hidden': 'true' }),
         el('div', {},
-          el('p', { class: 'label' }, `Styrkþegi ${g.ar ?? ''}`.trim()),
+          el('p', { class: 'label' }, `${L('Styrkþegi', 'Grant recipient')} ${g.ar ?? ''}`.trim()),
           el('h3', {}, el('em', {}, first), ' ' + rest.join(' ')),
-          g.texti ? el('p', {}, g.texti) : null,
-          g.studningur ? el('p', { class: 'support' }, g.studningur) : null,
-          url ? (() => { const a = el('a', { class: 'btn ghost small', href: url, target: '_blank', rel: 'noopener' }, 'Um sjóðinn'); a.append(svg('<svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 11 11 5M6 5h5v5"/></svg>')); return a; })() : null),
+          tx(g, 'texti') ? el('p', {}, tx(g, 'texti')) : null,
+          tx(g, 'studningur') ? el('p', { class: 'support' }, tx(g, 'studningur')) : null,
+          url ? (() => { const a = el('a', { class: 'btn ghost small', href: url, target: '_blank', rel: 'noopener' }, L('Um sjóðinn', 'About the fund')); a.append(svg('<svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 11 11 5M6 5h5v5"/></svg>')); return a; })() : null),
         el('div', { class: 'mark' },
-          logo ? el('img', { src: logo, alt: g.heiti }) : el('div', {}, el('div', { class: 'year' }, g.ar ?? ''), el('div', { class: 'year-label' }, 'Styrkár')))));
+          logo ? el('img', { src: logo, alt: g.heiti }) : el('div', {}, el('div', { class: 'year' }, g.ar ?? ''), el('div', { class: 'year-label' }, L('Styrkár', 'Grant year'))))));
     }
   }
 
@@ -404,22 +428,22 @@ function renderContent(c) {
         el('div', { class: 'logo' },
           logo ? el('img', { src: logo, alt: b.syna_nafn ? '' : b.nafn }) : null,
           !logo || b.syna_nafn ? el('span', { class: 'wordmark' }, b.nafn) : null),
-        el('div', { class: 'meta' }, el('span', { class: 'what' }, b.framlag ?? 'Bakhjarl'), url ? svg(EXT) : null));
+        el('div', { class: 'meta' }, el('span', { class: 'what' }, tx(b, 'framlag') ?? L('Bakhjarl', 'Sponsor')), url ? svg(EXT) : null));
       sponsors.append(card);
 
       if (b.ljosmyndari_forsidu) {
         const credit = slot('credit');
         if (credit) {
-          credit.append('Myndefni: ', url ? el('a', { href: url, target: '_blank', rel: 'noopener' }, b.nafn + ' ↗') : b.nafn);
+          credit.append(L('Myndefni: ', 'Footage: '), url ? el('a', { href: url, target: '_blank', rel: 'noopener' }, b.nafn + ' ↗') : b.nafn);
           credit.hidden = false;
         }
       }
     }
     const smail = (c.styrkja_netfang ?? '').trim();
-    sponsors.append(el(smail ? 'a' : 'div', { class: 'sponsor invite reveal', href: smail ? `mailto:${smail}?subject=${encodeURIComponent('Styrkur við Spilafélag Vestfjarða')}` : null },
-      el('div', {}, el('span', { class: 'wordmark' }, el('em', {}, 'Þitt'), ' fyrirtæki?'),
-        el('p', {}, 'Viltu styrkja spilastarf á Vestfjörðum? Við tökum vel á móti bakhjörlum, stórum sem smáum.')),
-      el('div', { class: 'meta' }, el('span', { class: 'what' }, smail ? 'Hafðu samband' : 'Bakhjarlar velkomnir'), smail ? svg(EXT) : null)));
+    sponsors.append(el(smail ? 'a' : 'div', { class: 'sponsor invite reveal', href: smail ? `mailto:${smail}?subject=${encodeURIComponent(L('Styrkur við Spilafélag Vestfjarða', 'Sponsoring Spilafélag Vestfjarða'))}` : null },
+      el('div', {}, el('span', { class: 'wordmark' }, el('em', {}, L('Þitt', 'Your')), L(' fyrirtæki?', ' company?')),
+        el('p', {}, L('Viltu styrkja spilastarf á Vestfjörðum? Við tökum vel á móti bakhjörlum, stórum sem smáum.', 'Want to support games in the Westfjords? Sponsors of every size are welcome.'))),
+      el('div', { class: 'meta' }, el('span', { class: 'what' }, smail ? L('Hafðu samband', 'Get in touch') : L('Bakhjarlar velkomnir', 'Sponsors welcome')), smail ? svg(EXT) : null)));
   }
 
   watchReveals();
@@ -438,16 +462,16 @@ function openBio(p) {
     bioDialog.addEventListener('click', (e) => { if (e.target === bioDialog) bioDialog.close(); });
     document.body.append(bioDialog);
   }
-  const close = el('button', { class: 'bio-close', type: 'button', 'aria-label': 'Loka' });
+  const close = el('button', { class: 'bio-close', type: 'button', 'aria-label': L('Loka', 'Close') });
   close.append(svg('<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg>'));
   close.addEventListener('click', () => bioDialog.close());
 
   const faves = (Array.isArray(p.uppahaldsspil) ? p.uppahaldsspil : []).filter(Boolean);
   const body = el('div', { class: 'bio-body' },
-    el('div', { class: 'role' }, p.hlutverk ?? ''),
+    el('div', { class: 'role' }, tx(p, 'hlutverk') ?? ''),
     el('h2', { id: 'bio-name' }, p.nafn),
-    ...p.um.trim().split(/\n\s*\n/).map((para) => el('p', {}, para.trim())),
-    faves.length ? el('div', { class: 'faves' }, el('p', { class: 'label' }, 'Uppáhaldsspil'), el('ul', {}, ...faves.map((f) => el('li', {}, f)))) : null);
+    ...tx(p, 'um').trim().split(/\n\s*\n/).map((para) => el('p', {}, para.trim())),
+    faves.length ? el('div', { class: 'faves' }, el('p', { class: 'label' }, L('Uppáhaldsspil', 'Favourite games')), el('ul', {}, ...faves.map((f) => el('li', {}, f)))) : null);
 
   bioDialog.replaceChildren(close, el('div', { class: 'bio-grid' }, portrait(p), body));
   bioDialog.showModal();

@@ -2,7 +2,7 @@
 // Zero dependencies: node:http + node:sqlite (Node 24).
 import { createServer } from 'node:http';
 import { readFile, stat } from 'node:fs/promises';
-import { createReadStream } from 'node:fs';
+import { createReadStream, statSync } from 'node:fs';
 import { extname, join, normalize, resolve } from 'node:path';
 import {
   db, hashPassword, verifyPassword, burnTime,
@@ -21,12 +21,16 @@ const BASE = (process.env.BASE_PATH ?? '').replace(/\/+$/, '');
 const TRUST_PROXY = process.env.TRUST_PROXY === '1';
 const PUBLIC = resolve('public');
 const COOKIE = 'spv_session';
+// CSS/JS are cached for an hour in production. Pages ask for styles.css?v=… and site.js?v=…
+// with a version taken from the files at startup, so every deploy (which restarts us) busts the cache.
+const ASSET_VERSION = ['styles.css', 'site.js']
+  .map((f) => Math.floor(statSync(join(PUBLIC, f)).mtimeMs).toString(36)).join('');
 
 const TYPES = {
   '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8',
   '.js': 'text/javascript; charset=utf-8', '.svg': 'image/svg+xml',
   '.png': 'image/png', '.jpg': 'image/jpeg', '.webp': 'image/webp', '.ico': 'image/x-icon',
-  '.woff2': 'font/woff2', '.mp4': 'video/mp4', '.webm': 'video/webm', '.json': 'application/json; charset=utf-8',
+  '.woff2': 'font/woff2', '.mp4': 'video/mp4', '.webm': 'video/webm', '.json': 'application/json; charset=utf-8', '.pdf': 'application/pdf',
 };
 
 // Pretty URLs → files. /felagar is gated server-side.
@@ -36,7 +40,12 @@ const PAGES = {
   '/innskraning': 'innskraning.html',
   '/felagar': 'felagar.html',
   '/personuvernd': 'personuvernd.html',
-  '/um-felagid': 'um-felagid.html',
+  // English
+  '/en': 'en/index.html',
+  '/en/join': 'en/join.html',
+  '/en/login': 'en/login.html',
+  '/en/members': 'en/members.html',
+  '/en/privacy': 'en/privacy.html',
 };
 
 const SECURITY_HEADERS = {
@@ -44,7 +53,7 @@ const SECURITY_HEADERS = {
   'Referrer-Policy': 'same-origin',
   'X-Frame-Options': 'DENY',
   'Content-Security-Policy':
-    "default-src 'self'; style-src 'self' https://fonts.googleapis.com; style-src-attr 'unsafe-inline'; font-src https://fonts.gstatic.com; " +
+    "default-src 'self'; style-src 'self'; style-src-attr 'unsafe-inline'; font-src 'self'; " +
     "img-src 'self' data:; script-src 'self'; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'self'",
 };
 
@@ -109,7 +118,9 @@ const clean = (v, max) => String(v ?? '').trim().slice(0, max);
 
 async function api(req, res, path) {
   const method = req.method;
-  if (method !== 'GET' && !sameOrigin(req)) return json(res, 403, { error: 'Óheimill uppruni.' });
+  // The English pages send X-Lang: en so their error messages come back in English.
+  const t = (is, en) => (req.headers['x-lang'] === 'en' ? en : is);
+  if (method !== 'GET' && !sameOrigin(req)) return json(res, 403, { error: t('Óheimill uppruni.', 'Forbidden origin.') });
 
   if (path === '/api/umsokn' && method === 'POST') {
     const b = await readJson(req);
@@ -126,18 +137,18 @@ async function api(req, res, path) {
     const password = String(b.password ?? '');
 
     const errors = {};
-    if (name.length < 2) errors.name = 'Skrifaðu fullt nafn.';
-    if (!kt) errors.kennitala = 'Kennitalan er ekki gild.';
-    if (minor && guardianName.length < 2) errors.guardian_name = 'Skráðu nafn forráðamanns.';
-    if (minor && guardianContact.length < 5) errors.guardian_contact = 'Skráðu síma eða netfang forráðamanns.';
-    if (!EMAIL_RE.test(email)) errors.email = 'Netfangið lítur ekki rétt út.';
-    if (password.length < 10) errors.password = 'Lykilorðið þarf að vera minnst 10 stafir.';
-    if (!b.consent) errors.consent = 'Hakaðu hér til að staðfesta umsóknina.';
+    if (name.length < 2) errors.name = t('Skrifaðu fullt nafn.', 'Please enter your full name.');
+    if (!kt) errors.kennitala = t('Kennitalan er ekki gild.', 'That kennitala is not valid.');
+    if (minor && guardianName.length < 2) errors.guardian_name = t('Skráðu nafn forráðamanns.', "Please enter a parent or guardian's name.");
+    if (minor && guardianContact.length < 5) errors.guardian_contact = t('Skráðu síma eða netfang forráðamanns.', "Please enter a parent or guardian's phone or email.");
+    if (!EMAIL_RE.test(email)) errors.email = t('Netfangið lítur ekki rétt út.', "That email address doesn't look right.");
+    if (password.length < 10) errors.password = t('Lykilorðið þarf að vera minnst 10 stafir.', 'The password must be at least 10 characters.');
+    if (!b.consent) errors.consent = t('Hakaðu hér til að staðfesta umsóknina.', 'Tick this box to confirm your application.');
     if (Object.keys(errors).length) return json(res, 422, { errors });
 
     const DUP = {
-      kennitala: 'Umsókn með þessari kennitölu er þegar til.',
-      email: 'Umsókn með þessu netfangi er þegar til.',
+      kennitala: t('Umsókn með þessari kennitölu er þegar til.', 'An application with this kennitala already exists.'),
+      email: t('Umsókn með þessu netfangi er þegar til.', 'An application with this email already exists.'),
     };
     // With the board dashboard connected, the application itself (kennitala,
     // phone, guardian…) goes there and this site keeps only the login.
@@ -161,7 +172,7 @@ async function api(req, res, path) {
         });
       } catch (e) {
         db.prepare('DELETE FROM members WHERE id = ?').run(id);
-        if (e instanceof Unavailable) return json(res, 503, { error: 'Ekki tókst að senda umsóknina núna. Reyndu aftur eftir smá stund.' });
+        if (e instanceof Unavailable) return json(res, 503, { error: t('Ekki tókst að senda umsóknina núna. Reyndu aftur eftir smá stund.', "Couldn't send the application right now. Please try again shortly.") });
         throw e;
       }
       if (dup) {
@@ -174,25 +185,25 @@ async function api(req, res, path) {
 
   if (path === '/api/innskraning' && method === 'POST') {
     const ip = (TRUST_PROXY && req.headers['x-real-ip']) || req.socket.remoteAddress || '?';
-    if (throttled(ip)) return json(res, 429, { error: 'Of margar tilraunir. Reyndu aftur eftir smá stund.' });
+    if (throttled(ip)) return json(res, 429, { error: t('Of margar tilraunir. Reyndu aftur eftir smá stund.', 'Too many attempts. Please try again shortly.') });
     const b = await readJson(req);
     const email = clean(b.email, 200).toLowerCase();
     const password = String(b.password ?? '');
     const m = db.prepare('SELECT id, password_hash, status FROM members WHERE email = ?').get(email);
-    if (!m) { burnTime(password); return json(res, 401, { error: 'Rangt netfang eða lykilorð.' }); }
-    if (!verifyPassword(password, m.password_hash)) return json(res, 401, { error: 'Rangt netfang eða lykilorð.' });
+    if (!m) { burnTime(password); return json(res, 401, { error: t('Rangt netfang eða lykilorð.', 'Wrong email or password.') }); }
+    if (!verifyPassword(password, m.password_hash)) return json(res, 401, { error: t('Rangt netfang eða lykilorð.', 'Wrong email or password.') });
     // Only members get in. With the dashboard connected it is asked every
     // time, and the answer is mirrored into members.status for the session.
     let st;
     try { st = await membership(email, m.status); }
-    catch (e) { if (e instanceof Unavailable) return json(res, 503, { error: 'Innskráning liggur niðri í augnablikinu. Reyndu aftur eftir smá stund.' }); throw e; }
+    catch (e) { if (e instanceof Unavailable) return json(res, 503, { error: t('Innskráning liggur niðri í augnablikinu. Reyndu aftur eftir smá stund.', 'Sign-in is unavailable right now. Please try again shortly.') }); throw e; }
     if (REMOTE) {
       db.prepare(`UPDATE members SET status = ?, approved_at = CASE WHEN ? = 'approved' THEN COALESCE(approved_at, ?) ELSE approved_at END WHERE id = ?`)
         .run(st.status === 'member' ? 'approved' : st.status === 'pending' ? 'pending' : 'rejected',
           st.status === 'member' ? 'approved' : '', `${st.since ?? new Date().toISOString().slice(0, 10)} 00:00:00`, m.id);
     }
-    if (st.status === 'pending') return json(res, 403, { error: 'Aðgangurinn þinn hefur ekki verið virkjaður enn. Það gerist þegar félagsgjaldið hefur verið greitt.' });
-    if (st.status !== 'member') return json(res, 403, { error: 'Þessi aðgangur er ekki virkur. Hafðu samband við stjórnina ef þú telur það rangt.' });
+    if (st.status === 'pending') return json(res, 403, { error: t('Aðgangurinn þinn hefur ekki verið virkjaður enn. Það gerist þegar félagsgjaldið hefur verið greitt.', "Your account hasn't been activated yet. That happens once the membership fee has been paid.") });
+    if (st.status !== 'member') return json(res, 403, { error: t('Þessi aðgangur er ekki virkur. Hafðu samband við stjórnina ef þú telur það rangt.', 'This account is not active. Contact the board if you think that is wrong.') });
     const token = createSession(m.id);
     return json(res, 200, { ok: true }, { 'Set-Cookie': sessionCookie(token, SESSION_DAYS * 86_400) });
   }
@@ -208,15 +219,15 @@ async function api(req, res, path) {
   if (path === '/api/yfirlit' && method === 'GET') {
     const token = cookies(req)[COOKIE];
     const me = sessionMember(token);
-    if (!me) return json(res, 401, { error: 'Ekki innskráð(ur).' });
+    if (!me) return json(res, 401, { error: t('Ekki innskráð(ur).', 'Not signed in.') });
     const local = db.prepare('SELECT status FROM members WHERE id = ?').get(me.id)?.status;
     let data;
     try { data = await overview(me.email, local); }
-    catch (e) { if (e instanceof Unavailable) return json(res, 503, { error: 'Náði ekki í upplýsingarnar núna.' }); throw e; }
+    catch (e) { if (e instanceof Unavailable) return json(res, 503, { error: t('Náði ekki í upplýsingarnar núna.', "Couldn't load your information right now.") }); throw e; }
     if (data.status !== 'member') {
       db.prepare("UPDATE members SET status = 'rejected' WHERE id = ? AND ? <> 'pending'").run(me.id, data.status);
       destroySession(token);
-      return json(res, 401, { error: 'Aðildin er ekki lengur virk.' }, { 'Set-Cookie': sessionCookie('', 0) });
+      return json(res, 401, { error: t('Aðildin er ekki lengur virk.', 'Your membership is no longer active.') }, { 'Set-Cookie': sessionCookie('', 0) });
     }
     return json(res, 200, data);
   }
@@ -226,24 +237,24 @@ async function api(req, res, path) {
   // board is told. Attendance and results stay with the dashboard's player.
   if (path === '/api/ursogn' && method === 'POST') {
     const ip = (TRUST_PROXY && req.headers['x-real-ip']) || req.socket.remoteAddress || '?';
-    if (throttled(ip)) return json(res, 429, { error: 'Of margar tilraunir. Reyndu aftur eftir smá stund.' });
+    if (throttled(ip)) return json(res, 429, { error: t('Of margar tilraunir. Reyndu aftur eftir smá stund.', 'Too many attempts. Please try again shortly.') });
     const me = sessionMember(cookies(req)[COOKIE]);
-    if (!me) return json(res, 401, { error: 'Ekki innskráð(ur).' });
+    if (!me) return json(res, 401, { error: t('Ekki innskráð(ur).', 'Not signed in.') });
     const b = await readJson(req);
     const m = db.prepare('SELECT id, password_hash FROM members WHERE id = ?').get(me.id);
-    if (!verifyPassword(String(b.password ?? ''), m.password_hash)) return json(res, 401, { errors: { password: 'Rangt lykilorð.' } });
+    if (!verifyPassword(String(b.password ?? ''), m.password_hash)) return json(res, 401, { errors: { password: t('Rangt lykilorð.', 'Wrong password.') } });
     try { await leave(me.email); }
-    catch (e) { if (e instanceof Unavailable) return json(res, 503, { error: 'Ekki tókst að ganga frá úrsögninni núna. Reyndu aftur eftir smá stund.' }); throw e; }
+    catch (e) { if (e instanceof Unavailable) return json(res, 503, { error: t('Ekki tókst að ganga frá úrsögninni núna. Reyndu aftur eftir smá stund.', "Couldn't complete leaving the club right now. Please try again shortly.") }); throw e; }
     db.prepare('DELETE FROM members WHERE id = ?').run(me.id); // sessions go with it (ON DELETE CASCADE)
     return json(res, 200, { ok: true }, { 'Set-Cookie': sessionCookie('', 0) });
   }
 
   if (path === '/api/eg' && method === 'GET') {
     const me = sessionMember(cookies(req)[COOKIE]);
-    return me ? json(res, 200, { member: { ...me, is_admin: !!me.is_admin } }) : json(res, 401, { error: 'Ekki innskráð(ur).' });
+    return me ? json(res, 200, { member: { ...me, is_admin: !!me.is_admin } }) : json(res, 401, { error: t('Ekki innskráð(ur).', 'Not signed in.') });
   }
 
-  return json(res, 404, { error: 'Fannst ekki.' });
+  return json(res, 404, { error: t('Fannst ekki.', 'Not found.') });
 }
 
 /* ── static files ──────────────────────────────────────────────────── */
@@ -257,7 +268,10 @@ async function serveFile(req, res, file, status = 200) {
     const ext = extname(full);
     if (ext === '.mp4' || ext === '.webm') return streamMedia(req, res, full, s.size, ext);
     let body = await readFile(full);
-    if (ext === '.html') body = body.toString('utf8').replace('<base href="/">', `<base href="${BASE}/">`);
+    if (ext === '.html') body = body.toString('utf8')
+      .replace('<base href="/">', `<base href="${BASE}/">`)
+      .replace('href="styles.css"', `href="styles.css?v=${ASSET_VERSION}"`)
+      .replace('src="site.js"', `src="site.js?v=${ASSET_VERSION}"`);
     send(res, status, body, {
       'Content-Type': TYPES[ext] ?? 'application/octet-stream',
       'Cache-Control': ext === '.html' ? 'no-cache' : PROD ? 'public, max-age=3600' : 'no-cache',
@@ -307,8 +321,14 @@ const server = createServer(async (req, res) => {
     if (path === '/felagar' && !sessionMember(cookies(req)[COOKIE])) {
       return send(res, 302, '', { Location: `${BASE}/innskraning?aftur=felagar` });
     }
+    if (path === '/en/members' && !sessionMember(cookies(req)[COOKIE])) {
+      return send(res, 302, '', { Location: `${BASE}/en/login?aftur=en/members` });
+    }
     if (path === '/innskraning' && sessionMember(cookies(req)[COOKIE])) {
       return send(res, 302, '', { Location: `${BASE}/felagar` });
+    }
+    if (path === '/en/login' && sessionMember(cookies(req)[COOKIE])) {
+      return send(res, 302, '', { Location: `${BASE}/en/members` });
     }
     if (PAGES[path]) return await serveFile(req, res, PAGES[path]);
     if (path.endsWith('.html')) return await serveFile(req, res, '404.html', 404); // only pretty URLs
@@ -316,7 +336,8 @@ const server = createServer(async (req, res) => {
   } catch (e) {
     const status = e.status ?? 500;
     if (status === 500) console.error(e);
-    if (!res.headersSent) json(res, status, { error: status === 500 ? 'Villa kom upp.' : e.message });
+    const generic = req.headers['x-lang'] === 'en' ? 'Something went wrong.' : 'Villa kom upp.';
+    if (!res.headersSent) json(res, status, { error: status === 500 ? generic : e.message });
   }
 });
 

@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Members · Spilafélag Vestfjarða</title>
+  <meta name="robots" content="noindex">
+  <link rel="alternate" hreflang="is" href="felagar">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script src="site.js" type="module"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="bar">
+      <a class="brand" href="en" aria-label="Spilafélag Vestfjarða, home">
+        <svg class="brand-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="6"/><circle cx="12" cy="12" r="2.2" fill="currentColor" stroke="none"/></svg>
+        <span class="brand-name">Spilafélag Vestfjarða</span>
+      </a>
+      <nav class="nav-center" aria-label="Main menu"><a class="nav-link" href="en/members" aria-current="page">Members</a></nav>
+      <div class="nav-right"><a class="nav-link plain lang-switch" href="felagar" hreflang="is" lang="is" aria-label="Íslenska">IS</a><button id="utskraning" class="btn small ghost" type="button">Sign out</button></div>
+    </div>
+  </header>
+
+  <main class="page">
+    <div class="glow" aria-hidden="true"><img src="img/fjord.svg" alt=""></div>
+    <div class="wrap" style="display:block">
+      <p class="label rise">Members</p>
+      <h1 class="rise" style="--d:.08s"><em>Hi</em>, <span id="member-name">member</span></h1>
+      <p class="sub rise" style="--d:.16s;margin-left:0" id="member-sub">Member since <span id="member-since">—</span>.</p>
+      <p class="sample-note" id="m-sample" hidden>Sample: the site isn't connected to the board dashboard, so these numbers are made up.</p>
+      <p class="alert" id="m-error" hidden></p>
+
+      <dl class="m-stats reveal" aria-label="Your stats">
+        <div><dt>Nights this year</dt><dd data-m="this_year">—</dd></div>
+        <div><dt>Nights in total</dt><dd data-m="total">—</dd></div>
+        <div><dt>Tournament games</dt><dd data-m="record">—</dd><small>wins – losses – draws</small></div>
+        <div><dt>Tournament wins</dt><dd data-m="tournament_wins">—</dd><small data-m="tournaments"></small></div>
+      </dl>
+
+      <div class="m-grid">
+        <section class="form m-card m-wide reveal">
+          <p class="label">Tournaments</p>
+          <h3>Sealed, draft and prerelease</h3>
+          <table class="m-table" data-m="mot">
+            <thead><tr><th scope="col">Date</th><th scope="col">Tournament</th><th scope="col">Place</th><th scope="col">Games</th></tr></thead>
+            <tbody></tbody>
+          </table>
+          <p class="m-empty" data-m="mot-empty" hidden>No tournaments recorded for you yet. See you at the next draft!</p>
+        </section>
+
+        <section class="form m-card reveal" style="--d:.08s">
+          <p class="label">Attendance</p>
+          <h3>Recent nights</h3>
+          <ul class="m-list" data-m="maeting"></ul>
+          <p class="m-empty" data-m="maeting-empty" hidden>No attendance recorded yet.</p>
+        </section>
+
+        <section class="form m-card reveal" style="--d:.12s">
+          <p class="label">Calendar</p>
+          <h3>Coming up</h3>
+          <ul class="m-list" data-m="framundan"></ul>
+          <p class="m-empty" data-m="framundan-empty" hidden>Nothing announced right now. Keep an eye on Facebook.</p>
+        </section>
+
+        <section class="form m-card m-adild reveal" style="--d:.16s">
+          <p class="label">Membership</p>
+          <h3>Your membership</h3>
+          <p>You can leave the club at any time. Your account and application are deleted straight away and the board is told. Attendance and results stay, because they're part of other players' standings.</p>
+          <div><button class="btn small ghost" type="button" id="ursogn-opna">Leave the club</button></div>
+        </section>
+      </div>
+    </div>
+
+    <dialog class="m-dialog" id="ursogn" aria-labelledby="ursogn-titill">
+      <form class="form" id="ursogn-form" novalidate>
+        <h2 id="ursogn-titill">Leave the club?</h2>
+        <p>You stop being a member straight away and can't sign in again unless you apply again. Enter your password to confirm.</p>
+        <div class="field">
+          <label for="ursogn-pw">Password</label>
+          <input id="ursogn-pw" name="password" type="password" autocomplete="current-password" required>
+          <span class="err" aria-live="polite"></span>
+        </div>
+        <p class="alert" id="ursogn-error" hidden></p>
+        <div class="form-foot">
+          <button class="btn small ghost" type="button" id="ursogn-haetta">Cancel</button>
+          <button class="btn small danger" type="submit">Leave the club</button>
+        </div>
+      </form>
+    </dialog>
+  </main>
+</body>
+</html>

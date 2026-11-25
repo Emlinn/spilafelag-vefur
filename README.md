@@ -37,8 +37,31 @@ Emil updates it from his machine with `deploy/deploy.sh`.
 | `/ganga-i-felagid` | `public/ganga-i-felagid.html` | membership application |
 | `/innskraning` | `public/innskraning.html` | member login |
 | `/felagar` | `public/felagar.html` | members area (server redirects to login if not signed in) |
-| `/um-felagid` | `public/um-felagid.html` | about: purpose, board, membership, aðalfundur, details |
 | `/personuvernd` | `public/personuvernd.html` | privacy statement (linked from the form and footer) |
+| `/en`, `/en/join`, `/en/login`, `/en/members`, `/en/privacy` | `public/en/*.html` | English versions of the above |
+
+## Samþykktir (bylaws)
+
+The bylaws are written out on the front page (`#samthykktir`, one `<details>` per
+article) in `public/index.html`, with an unofficial English translation in
+`public/en/index.html`. The signed copy (kennitölur removed) is
+`public/skjol/samthykktir-spilafelag-vestfjarda.pdf`. After any lagabreyting at an
+aðalfundur, update all three.
+
+## English
+
+Every page has an English twin under `public/en/`; the header's IS/EN link switches
+between them. `site.js` reads `<html lang>`: on English pages it uses English UI
+strings and, for any `efni.json` field, its `_en` twin (`heiti_en`, `svar_en`, …)
+when there is one. The client sends `X-Lang: en`, so API errors come back in English.
+When you change Icelandic copy, change the English page too.
+
+## Fonts and caching
+
+Fonts are self-hosted in `public/fonts/` (latin subset, which covers Icelandic; OFL
+licences alongside), so no visitor data goes to Google. Pages request
+`styles.css?v=…` and `site.js?v=…`; the version comes from the files' mtimes at
+startup, so each deploy busts the one-hour browser cache.
 
 ## Design
 
@@ -58,11 +81,11 @@ no code. Images go in `public/img/stjorn/` and `public/img/bakhjarlar/` and are
 referenced as `/img/...`. Empty values are not shown.
 
 - `vidburdir` — upcoming events under "Næstu viðburðir": `dags` (YYYY-MM-DD),
-  `heiti`, `klukkan`, `stadur`, optional `texti` and `tengill` (e.g. a Facebook
-  event). Past dates drop off by themselves; the next one also appears in the hero.
+  `tegund` (`commander` also puts the date in the Commander strip), `heiti`,
+  `klukkan`, `stadur`, optional `texti` and `tengill` (e.g. a Facebook event). Past dates drop off by themselves; the next one also appears in the hero.
   Add the next few dates whenever they're booked.
 - `hagnyt` — "Í fyrsta sinn?" questions and answers (`spurning`, `svar`).
-- `stjorn` — shown on `/um-felagid`. Name, role, photo, a short line for the card (`texti`), a bio (`um`,
+- `stjorn` — the board under Um félagið. Name, role, photo, a short line for the card (`texti`), a bio (`um`,
   blank line = new paragraph) and favourite games (`uppahaldsspil`, a list).
   Cards with a bio open it in a dialog; no photo → italic initials.
 - `styrkir` — grants. A grant is only shown when `"veittur": true`. The
@@ -71,19 +94,18 @@ referenced as `/img/...`. Empty values are not shown.
   crediting **Sóknaráætlun Vestfjarða** in publicity, hence the `studningur`
   line on the card and in the footer (the footer line also appears only once a
   grant is `veittur`). Logo in `img/bakhjarlar/`, referenced by `merki`.
-- `felagsgjald` — the fee sentence shown on the front page, join page and Um félagið.
+- `felagsgjald` — the fee sentence shown on the front page and the join page.
   Update it after each aðalfundur.
-- `facebook` — URL of the félag's Facebook page; the "Facebook-síðu félagsins"
-  link under Viðburðir uses it.
+- `facebook`, `facebook_hopur` — URLs of the félag's Facebook page and the MTG
+  Vestfirðir group, linked under the events.
 - `bakhjarlar` — sponsors, linked with `rel="sponsored"`. The one marked
   `ljosmyndari_forsidu: true` also gets a photo credit in the hero corner.
   A logo goes in `img/bakhjarlar/` via `merki` and replaces the name, unless
   `syna_nafn: true` (for logos that don't spell the name, e.g. Haukur Sig's Purple Hat).
 - `styrkja_netfang` — if set, the "Þitt fyrirtæki?" card becomes a mailto link.
-- `kennitala`, `samthykktir` — shown on `/um-felagid` once filled in
-  (`samthykktir` is a URL to a PDF; redact the signatures' kennitölur first).
+- `kennitala` — shown under Um félagið once filled in.
 - `samband_netfang` — if set, "Hafðu samband" on the "Brennur þú fyrir ákveðnu
-  spili?" card becomes a mailto; otherwise it links to Um félagið.
+  spili?" card gets a mailto subject.
 
 ## Membership flow
 

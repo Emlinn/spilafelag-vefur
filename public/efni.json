@@ -1,59 +1,74 @@
 {
-  "_lesmer": "Efni vefsins. Breyttu þessari skrá og endurhlaðaðu síðuna, engin forritun. Tóm gildi (\"\") eru ekki sýnd. Viðburðir: \"dags\" á forminu ÁÁÁÁ-MM-DD; liðnir viðburðir hverfa sjálfkrafa og sá næsti birtist líka efst á forsíðu. Hagnýtt: spurningar og svör fyrir þau sem mæta í fyrsta sinn. Myndir: settu skrána í public/img/... og skrifaðu slóðina, t.d. \"/img/stjorn/emil.jpg\". Stjórn: \"texti\" er stutt lína á spjaldinu; \"um\" er kynning sem opnast þegar smellt er (auð lína = ný málsgrein); \"uppahaldsspil\" er listi. Styrkir: styrkur birtist aðeins ef \"veittur\" er true, og þá líka línan um Sóknaráætlun í fætinum. \"felagsgjald\" birtist á forsíðu, umsóknarsíðu og Um félagið; uppfærðu eftir aðalfund. \"facebook\" er slóð á Facebook-síðu félagsins. \"kennitala\" og \"samthykktir\" (slóð á PDF) birtast á Um félagið ef þau eru fyllt út.",
+  "_lesmer": "Efni vefsins. Breyttu þessari skrá og endurhlaðaðu síðuna, engin forritun. Tóm gildi (\"\") eru ekki sýnd. Viðburðir: \"dags\" á forminu ÁÁÁÁ-MM-DD; \"tegund\": \"commander\" setur dagsetninguna líka í Commander-röndina; liðnir viðburðir hverfa sjálfkrafa og sá næsti birtist líka efst á forsíðu. Hagnýtt: spurningar og svör fyrir þau sem mæta í fyrsta sinn. Myndir: settu skrána í public/img/... og skrifaðu slóðina, t.d. \"/img/stjorn/emil.jpg\". Stjórn: \"texti\" er stutt lína á spjaldinu; \"um\" er kynning sem opnast þegar smellt er (auð lína = ný málsgrein); \"uppahaldsspil\" er listi. Styrkir: styrkur birtist aðeins ef \"veittur\" er true, og þá líka línan um Sóknaráætlun í fætinum. \"felagsgjald\" birtist á forsíðu og umsóknarsíðu; uppfærðu eftir aðalfund. \"facebook\" er slóð á Facebook-síðu félagsins og \"facebook_hopur\" á hópinn MTG Vestfirðir. \"kennitala\" birtist undir Um félagið ef hún er fyllt út. Enska: hvert textasvið getur átt enskan tvíbura með \"_en\" aftan við (t.d. \"heiti_en\"), sem birtist á /en; vanti hann birtist íslenski textinn.",
   "vidburdir": [
     {
       "dags": "2026-12-03",
+      "tegund": "commander",
       "heiti": "Commander-kvöld",
+      "heiti_en": "Commander night",
       "klukkan": "19:00–22:00",
       "stadur": "Edinborgarhúsið",
       "texti": "",
+      "texti_en": "",
       "tengill": ""
     },
     {
       "dags": "2026-12-17",
+      "tegund": "commander",
       "heiti": "Commander-kvöld",
+      "heiti_en": "Commander night",
       "klukkan": "19:00–22:00",
       "stadur": "Edinborgarhúsið",
       "texti": "Síðasta kvöld ársins.",
+      "texti_en": "Last night of the year.",
       "tengill": ""
     }
   ],
   "hagnyt": [
     {
       "spurning": "Hvað kostar?",
-      "svar": "Ekkert. Það er frítt inn á spilakvöldin og þú þarft ekki að vera í félaginu."
+      "spurning_en": "What does it cost?",
+      "svar": "Ekkert. Það er frítt inn á spilakvöldin og þú þarft ekki að vera í félaginu.",
+      "svar_en": "Nothing. Entry to game nights is free and you don't need to be a member."
     },
     {
       "spurning": "Ég hef aldrei spilað",
-      "svar": "Komdu samt. Láttu vita þegar þú mætir og einhver kennir þér grunninn."
+      "spurning_en": "I've never played",
+      "svar": "Komdu samt. Láttu vita þegar þú mætir og einhver kennir þér grunninn.",
+      "svar_en": "Come anyway. Tell us it's your first time and someone will teach you the basics."
     },
     {
       "spurning": "Hvað á ég að taka með?",
-      "svar": "Commander-stokkinn þinn, ef þú átt hann. Ef ekki, komdu samt."
+      "spurning_en": "What should I bring?",
+      "svar": "Commander-stokkinn þinn, ef þú átt hann. Áttu engan stokk? Þú getur fengið lánaðan.",
+      "svar_en": "Your Commander deck, if you have one. Don't have a deck? You can borrow one."
     }
   ],
   "stjorn": [
     {
       "nafn": "Einar Ægir Hlynsson",
       "hlutverk": "Formaður",
+      "hlutverk_en": "Chair",
       "mynd": "",
-      "texti": "Hefur spilað Magic síðan 2022 og kennir nýjum spilurum.",
+      "texti": "",
       "um": "",
       "uppahaldsspil": []
     },
     {
       "nafn": "Ármann Haraldsson",
       "hlutverk": "Meðstjórnandi",
+      "hlutverk_en": "Board member",
       "mynd": "",
-      "texti": "Prókúruhafi félagsins.",
+      "texti": "",
       "um": "",
       "uppahaldsspil": []
     },
     {
       "nafn": "Emil Ragnarsson",
       "hlutverk": "Meðstjórnandi",
+      "hlutverk_en": "Board member",
       "mynd": "",
-      "texti": "Sér um heimasíðuna.",
+      "texti": "",
       "um": "",
       "uppahaldsspil": []
     }
@@ -64,7 +79,9 @@
       "ar": "2027",
       "veittur": true,
       "texti": "Spilafélag Vestfjarða hlaut styrk úr Uppbyggingarsjóði Vestfjarða fyrir árið 2027 til nýliðastarfs og spilaviðburða á Vestfjörðum. Takk fyrir stuðninginn!",
+      "texti_en": "Spilafélag Vestfjarða received a grant from Uppbyggingarsjóður Vestfjarða for 2027 for beginner nights and game events in the Westfjords. Thank you for the support!",
       "studningur": "Með stuðningi Sóknaráætlunar Vestfjarða",
+      "studningur_en": "Supported by Sóknaráætlun Vestfjarða",
       "vefur": "https://www.vestfirdir.is/is/verkefni/soknaraaetlun/uppbyggingarsjodur",
       "merki": "/img/bakhjarlar/soknaraaetlun-vestfjarda.png"
     }
@@ -73,6 +90,7 @@
     {
       "nafn": "Haukur Sig",
       "framlag": "Myndband og myndir á forsíðu",
+      "framlag_en": "Video and photos on the front page",
       "vefur": "https://haukursig.is/",
       "merki": "/img/bakhjarlar/haukursig.webp",
       "ljosmyndari_forsidu": true,
@@ -80,9 +98,10 @@
     }
   ],
   "felagsgjald": "Félagsgjaldið fyrir 2026 er 3.000 kr. og frítt er fyrir yngri en 18 ára. Gjald fyrir 2027 verður ákveðið á aðalfundi.",
-  "facebook": "",
+  "felagsgjald_en": "The membership fee for 2026 is 3,000 kr, and free for under-18s. The 2027 fee will be set at the annual general meeting.",
+  "facebook": "https://www.facebook.com/profile.php?id=61594705529073",
+  "facebook_hopur": "https://www.facebook.com/groups/2612492249215869",
   "styrkja_netfang": "spilafelagvestfjarda@gmail.com",
   "samband_netfang": "spilafelagvestfjarda@gmail.com",
-  "kennitala": "",
-  "samthykktir": ""
+  "kennitala": ""
 }

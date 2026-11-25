@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Join the club · Spilafélag Vestfjarða</title>
+  <link rel="alternate" hreflang="is" href="ganga-i-felagid">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script src="site.js" type="module"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="bar">
+      <a class="brand" href="en" aria-label="Spilafélag Vestfjarða, home">
+        <svg class="brand-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="6"/><circle cx="12" cy="12" r="2.2" fill="currentColor" stroke="none"/></svg>
+        <span class="brand-name">Spilafélag Vestfjarða</span>
+      </a>
+      <nav class="nav-center" aria-label="Main menu"><a class="nav-link" href="en#um">About</a><a class="nav-link" href="en#vidburdir">Events</a><a class="nav-link" href="en#adild">Membership</a></nav>
+      <div class="nav-right"><a class="nav-link plain lang-switch" href="ganga-i-felagid" hreflang="is" lang="is" aria-label="Íslenska">IS</a><a class="nav-link plain" href="en/login">Sign in</a><a class="btn small" href="en/join">Join the club <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></svg></a></div>
+    </div>
+  </header>
+
+  <main class="page">
+    <div class="glow" aria-hidden="true"><img src="img/fjord.svg" alt=""></div>
+    <div class="wrap">
+      <div class="page-intro">
+        <p class="label rise">Membership</p>
+        <h1 class="rise" style="--d:.08s"><em>Join</em> the club</h1>
+        <p class="sub rise" style="--d:.16s">Fill in the form and choose a password. You become a member once the membership fee has been paid.</p>
+        <p class="sub rise" style="--d:.2s" data-render="felagsgjald" hidden></p>
+        <ul class="aside-list rise" style="--d:.24s">
+          <li><b>01</b>You send an application. It takes about a minute.</li>
+          <li><b>02</b>A payment request for the fee appears in your online bank.</li>
+          <li><b>03</b>Once it's paid, the board activates your account and you can sign in.</li>
+        </ul>
+      </div>
+
+      <div class="rise" style="--d:.2s">
+        <form id="umsokn" class="form" novalidate>
+          <div class="field">
+            <label for="name">Full name</label>
+            <input id="name" name="name" type="text" autocomplete="name" required maxlength="120">
+            <span class="err" aria-live="polite"></span>
+          </div>
+          <div class="field">
+            <label for="kennitala">Kennitala</label>
+            <input id="kennitala" name="kennitala" type="text" inputmode="numeric" autocomplete="off" required maxlength="11" placeholder="000000-0000">
+            <span class="hint">Your Icelandic ID number. Used to send the fee to your online bank and to confirm your age.</span>
+            <span class="err" aria-live="polite"></span>
+          </div>
+          <div class="row">
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" autocomplete="email" required maxlength="200">
+              <span class="err" aria-live="polite"></span>
+            </div>
+            <div class="field">
+              <label for="phone">Phone <span class="opt">(optional)</span></label>
+              <input id="phone" name="phone" type="tel" autocomplete="tel" maxlength="40">
+              <span class="err" aria-live="polite"></span>
+            </div>
+          </div>
+          <fieldset class="field" id="forradamadur" hidden>
+            <legend>Parent or guardian</legend>
+            <span class="hint">You're under 18, so membership is free. Please add a parent or guardian.</span>
+            <div class="row">
+              <div class="field">
+                <label for="guardian_name">Their name</label>
+                <input id="guardian_name" name="guardian_name" type="text" autocomplete="off" maxlength="120">
+                <span class="err" aria-live="polite"></span>
+              </div>
+              <div class="field">
+                <label for="guardian_contact">Phone or email</label>
+                <input id="guardian_contact" name="guardian_contact" type="text" autocomplete="off" maxlength="200">
+                <span class="err" aria-live="polite"></span>
+              </div>
+            </div>
+          </fieldset>
+          <div class="field">
+            <label for="message">Comments <span class="opt">(optional)</span></label>
+            <textarea id="message" name="message" maxlength="2000"></textarea>
+          </div>
+          <div class="row">
+            <div class="field">
+              <label for="password">Password</label>
+              <input id="password" name="password" type="password" autocomplete="new-password" required minlength="10">
+              <span class="hint">At least 10 characters.</span>
+              <span class="err" aria-live="polite"></span>
+            </div>
+            <div class="field">
+              <label for="password2">Password again</label>
+              <input id="password2" name="password2" type="password" autocomplete="new-password" required>
+              <span class="err" aria-live="polite"></span>
+            </div>
+          </div>
+          <div class="hp" aria-hidden="true"><label>Website <input name="website" type="text" tabindex="-1" autocomplete="off"></label></div>
+          <div class="field">
+            <label class="check"><input type="checkbox" name="consent" required><span>I'd like to become a member of Spilafélag Vestfjarða.</span></label>
+            <span class="hint">The board uses this information to keep the member register and collect fees. See the club's <a class="link-quiet" href="en/privacy">privacy notice</a>.</span>
+            <span class="err" aria-live="polite"></span>
+          </div>
+          <div class="alert" role="alert" hidden></div>
+          <div class="form-foot">
+            <button class="btn" type="submit">Send application <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></svg></button>
+            <a class="link-quiet" href="en/login">Already a member? Sign in</a>
+          </div>
+        </form>
+
+        <div id="umsokn-takk" class="form done" hidden>
+          <p class="label">Application received</p>
+          <h2 class="display" tabindex="-1"><em>Thanks</em>, talk soon</h2>
+          <p>If you're 18 or over, a payment request will appear in your online bank in the next few days. Once it's paid, the board activates your account and you can sign in with the email and password you chose.</p>
+          <div class="form-foot"><a class="btn ghost" href="en">Back to the front page</a></div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>© Spilafélag Vestfjarða · Ísafjörður</span>
+      <a class="support-line" href="en#studningur" data-render="studningur" hidden></a>
+      <nav aria-label="Footer">
+        <a href="en#um">About</a>
+        <a href="en#vidburdir">Events</a>
+        <a href="en/join">Join the club</a>
+        <a href="en/login">Sign in</a>
+        <a href="en#samthykktir">Bylaws</a>
+        <a href="en/privacy">Privacy</a>
+        <a href="ganga-i-felagid" hreflang="is" lang="is">Íslenska</a>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>

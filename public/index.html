@@ -5,11 +5,9 @@
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Spilafélag Vestfjarða</title>
-  <meta name="description" content="Spilafélag Vestfjarða — Magic: The Gathering á Ísafirði, og fleiri spilakvöld á leiðinni. Allir velkomnir við borðið.">
+  <meta name="description" content="Spilafélag Vestfjarða: Magic: The Gathering á Ísafirði. Commander annan hvern fimmtudag í Edinborgarhúsinu, frítt inn og allir velkomnir.">
+  <link rel="alternate" hreflang="en" href="en">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,300;1,6..72,300&family=Roboto+Mono:wght@400;500&display=swap">
   <link rel="stylesheet" href="styles.css">
   <script src="site.js" type="module"></script>
 </head>
@@ -20,8 +18,8 @@
         <svg class="brand-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="6"/><circle cx="12" cy="12" r="2.2" fill="currentColor" stroke="none"/></svg>
         <span class="brand-name">Spilafélag Vestfjarða</span>
       </a>
-      <nav class="nav-center" aria-label="Aðalvalmynd"><a class="nav-link" href="um-felagid">Félagið</a><a class="nav-link" href="./#spilin">Viðburðir</a><a class="nav-link" href="./#adild">Aðild</a></nav>
-      <div class="nav-right"><a class="nav-link plain" href="innskraning">Innskráning</a><a class="btn small" href="ganga-i-felagid">Ganga í félagið <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></svg></a></div>
+      <nav class="nav-center" aria-label="Aðalvalmynd"><a class="nav-link" href="./#um">Félagið</a><a class="nav-link" href="./#vidburdir">Viðburðir</a><a class="nav-link" href="./#adild">Aðild</a></nav>
+      <div class="nav-right"><a class="nav-link plain lang-switch" href="en" hreflang="en" lang="en" aria-label="English">EN</a><a class="nav-link plain" href="innskraning">Innskráning</a><a class="btn small" href="ganga-i-felagid">Ganga í félagið <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></svg></a></div>
     </div>
   </header>
 
@@ -35,8 +33,8 @@
       <div class="hero-content">
         <h1 class="rise" style="--d:.15s"><em>Spilum</em> saman</h1>
         <p class="sub rise" style="--d:.3s">Magic: The Gathering á Ísafirði. Frítt inn, opið öllum og byrjendur jafnt sem reynsluboltar eru velkomnir við borðið.</p>
-        <a class="btn rise" style="--d:.42s" href="./#dagskra">Næstu spilakvöld <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></svg></a>
-        <a class="pill rise" style="--d:.55s" href="./#dagskra" aria-label="Sjá næstu spilakvöld">
+        <a class="btn rise" style="--d:.42s" href="./#vidburdir">Næstu spilakvöld <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></svg></a>
+        <a class="pill rise" style="--d:.55s" href="./#vidburdir" aria-label="Sjá næstu spilakvöld">
           <span>Við spilum <span class="typed" data-words="Commander|Sealed|Draft|Prerelease">Commander</span></span>
           <span class="go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5"/></svg></span>
         </a>
@@ -54,28 +52,34 @@
           </div>
           <div class="about-body">
             <p class="lead reveal">Spilafélag Vestfjarða er félag fyrir fólk á Vestfjörðum sem hefur gaman af spilum. Markmiðið er einfalt: að skapa stað þar sem fólk hittist, kynnist og spilar saman.</p>
-            <p class="reveal" style="--d:.04s">Félagið var stofnað 12. september 2026 í kringum Magic-kvöldin sem höfðu þá verið haldin í Edinborgarhúsinu á Ísafirði um nokkurt skeið.</p>
-            <p class="reveal" style="--d:.08s">Í dag snýst starfið að mestu um Magic: The Gathering. Þar byrjuðum við og þar er kjarninn í hópnum. En félagið á að geta orðið heimili fyrir alls konar spil, hvort sem það eru borðspil, Pokémon, hlutverkaspil eða annað sem félagarnir vilja spila.</p>
-            <p class="reveal" style="--d:.16s">Félagið er rekið í sjálfboðavinnu og verður það sem félagarnir gera úr því.</p>
-            <dl class="facts reveal" style="--d:.24s">
+            <p class="reveal" style="--d:.04s">Félagið var stofnað 12. september 2026 í kringum Commander-kvöldin í Edinborgarhúsinu á Ísafirði. Í dag snýst starfið að mestu um Magic: The Gathering, en félagið er opið fyrir alls konar spilum, hvort sem það eru borðspil, Pokémon, hlutverkaspil eða annað sem félagarnir vilja spila.</p>
+            <p class="reveal" style="--d:.08s">Félagið er rekið í sjálfboðavinnu og ekki í hagnaðarskyni.</p>
+            <dl class="facts reveal" style="--d:.16s">
               <div><dt>Heimili</dt><dd>Ísafjörður</dd></div>
               <div><dt>Núna</dt><dd>Magic: The Gathering</dd></div>
               <div><dt>Stofnað</dt><dd>12. september 2026</dd></div>
               <div><dt>Aðild</dt><dd>Opin öllum</dd></div>
+              <div data-hide-empty hidden><dt>Kennitala</dt><dd data-render="kennitala"></dd></div>
             </dl>
-            <p class="reveal" style="--d:.3s;margin-top:1.6rem"><a class="link-quiet" href="um-felagid">Stjórn, samþykktir og fleira um félagið →</a></p>
           </div>
         </div>
 
+        <div id="stjorn" class="board-block">
+          <div class="board-head">
+            <h3 class="reveal"><em>Stjórnin</em></h3>
+            <p class="reveal" style="--d:.08s">Kosin á stofnfundi. Náðu í okkur á <a href="mailto:spilafelagvestfjarda@gmail.com">spilafelagvestfjarda@gmail.com</a>.</p>
+          </div>
+          <div class="board compact" data-render="stjorn"></div>
+        </div>
       </div>
     </section>
 
     <hr class="divider">
 
-    <section id="spilin">
+    <section id="vidburdir">
       <div class="wrap">
         <div class="section-title">
-          <h2 class="reveal"><em>Magic</em> fyrst</h2>
+          <h2 class="reveal"><em>Spilakvöld</em> og mót</h2>
           <p class="sub reveal" style="--d:.1s">Hvort sem þú átt hundrað stokka eða hefur aldrei spilað, þá finnum við þér sæti við borðið.</p>
         </div>
         <div id="dagskra" class="dates-block reveal">
@@ -85,56 +89,41 @@
             <p class="dates-empty" hidden>Næstu dagsetningar eru auglýstar á Facebook.</p>
           </div>
           <div>
-            <p class="label">Í fyrsta sinn?</p>
+            <p class="label">Ertu að mæta í fyrsta sinn?</p>
             <dl class="faq" data-render="hagnyt"></dl>
           </div>
         </div>
         <dl class="schedule reveal" style="--d:.15s" aria-label="Commander-kvöld">
           <div><dt>Hvað</dt><dd><em>Commander</em>-kvöld</dd></div>
           <div><dt>Hvenær</dt><dd>Annan hvern fimmtudag</dd></div>
+          <div><dt>Næst</dt><dd data-render="naest-commander">Sjá Facebook</dd></div>
           <div><dt>Klukkan</dt><dd>19:00–22:00</dd></div>
           <div><dt>Hvar</dt><dd>Edinborgarhúsið</dd></div>
-          <div><dt>Hverjir</dt><dd>Allir velkomnir</dd></div>
         </dl>
         <div class="cards two">
           <article class="feature f-commander reveal">
-            <div class="panel" aria-hidden="true">
-              <div class="life">
-                <div><span>Sæti 1</span><b>40</b></div><div><span>Sæti 2</span><b>31</b></div>
-                <div><span>Sæti 3</span><b>22</b></div><div class="out"><span>Sæti 4</span><b>0</b></div>
-              </div>
-              <div class="foot"><span>Hvar<b>Edinborg</b></span><span style="text-align:right">Klukkan<b>19:00–22:00</b></span></div>
-            </div>
             <div class="copy">
               <h3>Commander</h3>
-              <p>Annan hvern fimmtudag í Edinborgarhúsinu kl. 19:00–22:00. Frítt inn og opið öllum, félögum sem öðrum. Komdu með stokkinn þinn, eða komdu bara og lærðu: við kennum byrjendum. Afslappað og góð leið til að kynnast.</p>
+              <p>Hver spilari kemur með sinn eigin stokk og þrír til fjórir spila saman við borð. Afslappað og félagslegt, og besta leiðin til að kynnast hópnum.</p>
+              <ul class="tags"><li>Annan hvern fimmtudag</li><li>Eigin stokkur</li><li>Frítt inn</li></ul>
             </div>
           </article>
           <article class="feature f-safnkort reveal" style="--d:.1s">
-            <div class="panel" aria-hidden="true">
-              <div class="rounds">
-                <div class="r"><span>Pakki</span><span>Draft · 3 pakkar á mann</span><span class="dot on"></span></div>
-                <div class="r"><span>Umf. 1</span><span>Svissneskt kerfi</span><span class="dot on"></span></div>
-                <div class="r"><span>Umf. 2</span><span>Best af þremur</span><span class="dot on"></span></div>
-                <div class="r"><span>Umf. 3</span><span>Best af þremur</span><span class="dot"></span></div>
-                <div class="r"><span>Verðlaun</span><span>Pakkar eftir árangri</span><span class="dot"></span></div>
-              </div>
-              <div class="foot"><span>Snið<b>Draft · Sealed</b></span><span style="text-align:right">Hvenær<b>Af og til</b></span></div>
-            </div>
             <div class="copy">
-              <h3>Draft, sealed og prerelease</h3>
-              <p>Nokkrum sinnum á ári: sealed og draft, og prerelease þegar ný sett koma út. 16 mættu á fyrsta mótið okkar og 18 á Star Trek prerelease. Prerelease-pakkann kaupirðu fyrir fram á nexus.is.</p>
+              <h3>Sealed, draft og prerelease</h3>
+              <p>Allir fá nýja, óopnaða pakka og byggja stokk úr þeim, svo enginn þarf að eiga safn fyrir fram. Prerelease er haldið þegar nýtt sett kemur út.</p>
+              <ul class="tags"><li>Nokkrum sinnum á ári</li><li>Nýir pakkar</li><li>Auglýst sérstaklega</li></ul>
             </div>
           </article>
         </div>
-        <p class="sub reveal" style="max-width:40rem">Öll spilakvöld og mót eru auglýst á <a data-render="facebook">Facebook-síðu félagsins</a> og í Facebook-hópnum MTG Vestfirðir. Breytingar, t.d. um jól og áramót, eru auglýstar þar.</p>
+        <p class="sub reveal fb-line">Öll spilakvöld og mót eru auglýst á <a data-render="facebook">Facebook-síðu félagsins</a> og í Facebook-hópnum <a data-render="facebook_hopur">MTG Vestfirðir</a>.</p>
 
-        <div class="volunteer reveal" style="margin-top:clamp(3rem,6vw,5rem)">
+        <div class="volunteer reveal">
           <div>
             <h3><em>Brennur</em> þú fyrir ákveðnu spili?</h3>
-            <p>Við leitum að fólki sem vill halda utan um starf í kringum sitt spil: skipuleggja kvöld, kenna nýjum og byggja upp hóp. Pokémon, borðspil, hlutverkaspil eða eitthvað allt annað. Hafðu samband og við hjálpum þér af stað.</p>
+            <p>Við leitum að fólki sem vill taka að sér önnur spil en Magic: skipuleggja kvöldin, kenna nýjum og byggja upp hóp, hvort sem það eru borðspil, Pokémon, D&amp;D eða eitthvað allt annað. Félagið hjálpar þér af stað, til dæmis með að finna stað og auglýsa.</p>
           </div>
-          <a class="btn" href="um-felagid" data-render="samband">Hafðu samband <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></svg></a>
+          <a class="btn" href="mailto:spilafelagvestfjarda@gmail.com" data-render="samband">Hafðu samband <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></svg></a>
         </div>
       </div>
     </section>
@@ -145,14 +134,48 @@
       <div class="wrap">
         <div class="section-title">
           <h2 class="reveal"><em>Þrjú</em> skref að borðinu</h2>
-          <p class="sub reveal" style="--d:.1s">Viðburðirnir eru öllum opnir, hvort sem þú ert félagi eða ekki. Með aðild styður þú starfið, færð atkvæðisrétt á aðalfundi og hefur áhrif á það sem félagið tekur sér fyrir hendur.</p>
+          <p class="sub reveal" style="--d:.1s">Viðburðirnir eru öllum opnir, hvort sem þú ert félagi eða ekki. Með aðild styður þú starfið og færð atkvæðisrétt á aðalfundi.</p>
           <p class="sub reveal" style="--d:.15s" data-render="felagsgjald" hidden></p>
         </div>
         <ol class="steps">
-          <li class="reveal"><span class="n">01</span><h3><em>Sæktu</em> um</h3><p>Fylltu út stutt eyðublað og veldu þér lykilorð. Það tekur um eina mínútu.</p></li>
+          <li class="reveal"><span class="n">01</span><h3><em>Sæktu</em> um</h3><p>Fylltu út stutt eyðublað. Það tekur um eina mínútu.</p></li>
           <li class="reveal" style="--d:.1s"><span class="n">02</span><h3><em>Greiddu</em> félagsgjaldið</h3><p>Krafa birtist í heimabankanum þínum. Þú telst félagi þegar hún hefur verið greidd.</p></li>
           <li class="reveal" style="--d:.2s"><span class="n">03</span><h3><em>Mættu</em> og spilaðu</h3><p>Finndu næsta spilakvöld og taktu vin með.</p></li>
         </ol>
+        <div class="governance reveal">
+          <div>
+            <h3>Aðalfundur</h3>
+            <p>Haldinn eigi síðar en 30. apríl ár hvert og boðaður með minnst tveggja vikna fyrirvara, með tölvupósti til félaga og á vef eða samfélagsmiðlum félagsins. Þar er kosið í stjórn og félagsgjald ákveðið. Nánar í <a href="./#samthykktir">samþykktum félagsins</a>.</p>
+          </div>
+          <div>
+            <h3>Úrsögn</h3>
+            <p>Þú getur sagt þig úr félaginu hvenær sem er með pósti á <a href="mailto:spilafelagvestfjarda@gmail.com">spilafelagvestfjarda@gmail.com</a>.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="samthykktir" style="padding-top:0">
+      <div class="wrap">
+        <div class="section-title">
+          <h2 class="reveal"><em>Samþykktir</em> félagsins</h2>
+          <p class="sub reveal" style="--d:.1s">Samþykktar á stofnfundi 12. september 2026. Smelltu á grein til að lesa hana.</p>
+        </div>
+        <div class="bylaws reveal">
+          <details><summary>1. gr. — Heiti og heimili</summary><div><p>Félagið heitir Spilafélag Vestfjarða. Heimili þess og varnarþing er í Ísafjarðarbæ.</p></div></details>
+          <details><summary>2. gr. — Tilgangur</summary><div><p>Tilgangur félagsins er að efla áhuga á borðspilum, safnspilum og skyldum spilum meðal íbúa á Vestfjörðum, á öllum aldri, og að skapa reglulegan og opinn vettvang fyrir spilamennsku, félagsstarf og samveru í fjórðungnum.</p><p>Félagið er almenn félagasamtök sem starfa að ófjárhagslegum tilgangi. Félagið stundar ekki atvinnurekstur.</p></div></details>
+          <details><summary>3. gr. — Leiðir að tilgangi</summary><div><p>Tilgangi sínum hyggst félagið ná með því að:</p><ol type="a"><li>halda regluleg opin spilakvöld sem öllum eru heimil,</li><li>standa fyrir mótum og viðburðum í ýmsum spilaformum, m.a. við útgáfu nýrra spilasetta,</li><li>kenna nýliðum og halda byrjendakvöld þar sem félagið leggur til kennslustokka og búnað,</li><li>halda sérstaka viðburði fyrir börn og ungmenni,</li><li>eiga og viðhalda spilum, spilabúnaði og öðrum búnaði sem nýttur er á viðburðum félagsins,</li><li>eiga samstarf við sveitarfélög, skóla, bókasöfn, félagsmiðstöðvar og önnur félög á Vestfjörðum,</li><li>sækja um styrki til að standa straum af starfsemi félagsins.</li></ol></div></details>
+          <details><summary>4. gr. — Félagsaðild</summary><div><p>Öllum er heimilt að ganga í félagið sem vilja leggja tilgangi þess lið, án tillits til búsetu, aldurs eða reynslu. Aðild að félaginu er frjáls og engum er skylt að vera félagsmaður til að sækja viðburði félagsins, sem eru öllum opnir.</p><p>Umsókn um aðild er beint til stjórnar og telst félagsmaður skráður þegar félagsgjald hefur verið greitt. Stjórn heldur félagatal.</p><p>Félagsmaður getur sagt sig úr félaginu hvenær sem er með tilkynningu til stjórnar. Gangi félagsmaður úr félaginu á hann ekki tilkall til eigna þess.</p></div></details>
+          <details><summary>5. gr. — Starfstímabil</summary><div><p>Starfstímabil og reikningsár félagsins er almanaksárið. Á aðalfundi skal stjórn gera upp árangur liðins árs. Aðeins félagsmenn mega vera þátttakendur í aðalfundi.</p></div></details>
+          <details><summary>6. gr. — Aðalfundur</summary><div><p>Aðalfund skal halda eigi síðar en 30. apríl ár hvert og skal boða til hans með minnst tveggja vikna fyrirvara með sannanlegum hætti, með tölvupósti til skráðra félagsmanna og auglýsingu á vef eða samfélagsmiðlum félagsins. Aðalfundur er löglegur, sé rétt til hans boðað. Einfaldur meirihluti mættra félagsmanna ræður úrslitum mála.</p><p>Dagskrá aðalfundar skal vera sem hér segir:</p><ol><li>Kosning fundarstjóra og fundarritara</li><li>Skýrsla stjórnar lögð fram</li><li>Reikningar lagðir fram til samþykktar</li><li>Lagabreytingar</li><li>Ákvörðun félagsgjalds</li><li>Kosning stjórnar</li><li>Kosning tveggja skoðunarmanna reikninga</li><li>Önnur mál</li></ol></div></details>
+          <details><summary>7. gr. — Stjórn</summary><div><p>Stjórn félagsins skal skipuð að minnsta kosti þremur félagsmönnum, formanni og meðstjórnendum, kjörnum á aðalfundi til eins árs í senn. Heimilt er að kjósa allt að tvo varamenn. Stjórnin skiptir með sér verkum og skal meðal annars velja gjaldkera og ritara úr sínum röðum.</p><p>Stjórn félagsins fer með málefni félagsins milli aðalfunda. Formaður boðar til stjórnarfunda og skal halda fundargerð um þá. Stjórnarfundur er ályktunarhæfur þegar meirihluti stjórnar situr fund.</p><p>Firmaritun er í höndum meirihluta stjórnar. Stjórn er heimilt að veita einum stjórnarmanni prókúru fyrir félagið.</p></div></details>
+          <details><summary>8. gr. — Félagsgjöld og fjármögnun</summary><div><p>Ákvörðun um félagsgjald skal tekin á aðalfundi. Félagsgjöld skulu innheimt tvisvar á ári. Stjórn er heimilt að ákveða lægra eða ekkert félagsgjald fyrir félagsmenn yngri en 18 ára.</p><p>Auk félagsgjalda er félaginu heimilt að fjármagna starfsemi sína með styrkjum, frjálsum framlögum og þátttökugjöldum vegna einstakra viðburða.</p></div></details>
+          <details><summary>9. gr. — Ráðstöfun rekstrarafgangs</summary><div><p>Rekstrarafgangi af starfsemi félagsins skal eingöngu varið í samræmi við tilgang félagsins skv. 2. gr. Félagsmenn njóta ekki fjárhagslegs ávinnings af starfsemi félagsins og óheimilt er að greiða þeim arð eða annað fé úr sjóðum félagsins.</p></div></details>
+          <details><summary>10. gr. — Slit félagsins</summary><div><p>Ákvörðun um slit félagsins skal taka á aðalfundi með einföldum meirihluta atkvæða. Renna eignir félagsins þá til félagasamtaka eða góðgerðarmála með sambærilegan tilgang, sem ákveðin verða á slitafundi. Eignum félagsins skal aldrei ráðstafað til félagsmanna.</p></div></details>
+          <details><summary>11. gr. — Lagabreytingar</summary><div><p>Samþykktum þessum verður aðeins breytt á aðalfundi eða löglega boðuðum félagsfundi, enda hafi tillögu að breytingum verið getið í fundarboði. Til samþykkis breytinga þarf 2/3 hluta greiddra atkvæða.</p></div></details>
+          <details><summary>12. gr. — Félagsfundir</summary><div><p>Stjórn boðar til félagsfundar þegar hún telur ástæðu til, og er henni skylt að gera það krefjist minnst fimmtungur félagsmanna þess skriflega og tilgreini fundarefni. Boða skal til félagsfundar með minnst viku fyrirvara.</p></div></details>
+          <p class="bylaws-foot"><a href="skjol/samthykktir-spilafelag-vestfjarda.pdf" target="_blank" rel="noopener">Undirritað eintak (PDF) →</a></p>
+        </div>
       </div>
     </section>
 
@@ -167,20 +190,6 @@
       </div>
     </section>
 
-    <section id="english" lang="en" style="padding-top:0">
-      <div class="wrap">
-        <div class="english reveal">
-          <p class="label">In English</p>
-          <h2><em>Everyone</em> is welcome</h2>
-          <div>
-            <p>Spilafélag Vestfjarða is a volunteer-run games club in Ísafjörður. Right now we mostly play Magic: The Gathering: Commander every other Thursday, 19:00–22:00 at Edinborgarhúsið, plus sealed, draft and prereleases a few times a year.</p>
-            <p>Entry is free, you don't need to be a member, and beginners are welcome. Tell us it's your first time and someone will teach you. Events are posted on our Facebook page and in the MTG Vestfirðir group.</p>
-            <p>Membership is optional and supports the club. The sign-up form is in Icelandic, so email <a href="mailto:spilafelagvestfjarda@gmail.com">spilafelagvestfjarda@gmail.com</a> if you'd like a hand.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <section class="cta">
       <div class="hero-media" aria-hidden="true" style="animation:none">
         <img src="img/fjord.svg" alt="">
@@ -191,7 +200,7 @@
         <p class="sub reveal" style="--d:.1s">Félagið er rétt að byrja og verður það sem félagarnir gera úr því.</p>
         <div class="actions reveal" style="--d:.2s">
           <a class="btn" href="ganga-i-felagid">Ganga í félagið <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></svg></a>
-          <a class="btn ghost" href="innskraning">Innskráning</a>
+          <a class="btn ghost" href="./#vidburdir">Næstu spilakvöld</a>
         </div>
       </div>
     </section>
@@ -202,12 +211,13 @@
       <span>© Spilafélag Vestfjarða · Ísafjörður</span>
       <a class="support-line" href="./#studningur" data-render="studningur" hidden></a>
       <nav aria-label="Fótur">
-        <a href="um-felagid">Félagið</a>
-        <a href="./#spilin">Viðburðir</a>
+        <a href="./#um">Félagið</a>
+        <a href="./#vidburdir">Viðburðir</a>
         <a href="ganga-i-felagid">Ganga í félagið</a>
         <a href="innskraning">Innskráning</a>
+        <a href="./#samthykktir">Samþykktir</a>
         <a href="personuvernd">Persónuvernd</a>
-        <a href="./#english" lang="en">English</a>
+        <a href="en" hreflang="en" lang="en">English</a>
       </nav>
     </div>
   </footer>
