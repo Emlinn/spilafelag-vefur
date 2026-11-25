@@ -184,20 +184,103 @@ if (login) {
 /* ── member area ── */
 const memberName = document.getElementById('member-name');
 if (memberName) {
+  const $ = (k) => document.querySelector(`[data-m="${k}"]`);
+  const toLogin = () => { location.href = 'innskraning?aftur=felagar'; };
+  // Month names spelled out: not every browser ships Icelandic date formats.
+  const MON = ['janúar', 'febrúar', 'mars', 'apríl', 'maí', 'júní', 'júlí', 'ágúst', 'september', 'október', 'nóvember', 'desember'];
+  const ymd = (iso) => iso.slice(0, 10).split('-').map(Number);
+  const fmt = (iso) => { const [y, m, d] = ymd(iso); return `${d}. ${MON[m - 1]} ${y}`; };
+  const short = (iso) => { const [, m, d] = ymd(iso); return `${d}. ${MON[m - 1].slice(0, 3)}`; };
+  const showError = (msg) => { const e = document.getElementById('m-error'); e.textContent = msg; e.hidden = false; };
+
   fetch('api/eg', { credentials: 'same-origin' }).then(async (res) => {
-    if (!res.ok) { location.href = 'innskraning?aftur=felagar'; return; }
+    if (!res.ok) return toLogin();
     const { member } = await res.json();
     memberName.textContent = member.name.split(' ')[0];
-    const since = document.getElementById('member-since');
-    if (since && member.approved_at) {
-      since.textContent = new Date(member.approved_at.replace(' ', 'T') + 'Z')
-        .toLocaleDateString('is-IS', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Atlantic/Reykjavik' });
-    }
   });
+
+  Promise.all([
+    fetch('api/yfirlit', { credentials: 'same-origin' }),
+    fetch('efni.json', { cache: 'no-cache' }).then((r) => r.json()).catch(() => ({})),
+  ]).then(async ([res, efni]) => {
+    if (res.status === 401) return toLogin(); // not logged in, or no longer a member
+    const d = await res.json().catch(() => ({}));
+    if (!res.ok) return showError(d.error ?? 'Náði ekki í upplýsingarnar núna.');
+    renderMember(d, efni);
+  }).catch(() => showError('Náði ekki í upplýsingarnar núna.'));
+
+  function renderMember(d, efni) {
+    if (d.sample) document.getElementById('m-sample').hidden = false;
+    if (d.since) document.getElementById('member-since').textContent = fmt(d.since);
+    else document.getElementById('member-sub').hidden = true;
+
+    const t = d.totals ?? {};
+    $('this_year').textContent = d.attendance?.this_year ?? 0;
+    $('total').textContent = d.attendance?.total ?? 0;
+    $('record').textContent = `${t.wins ?? 0}–${t.losses ?? 0}–${t.draws ?? 0}`;
+    $('tournament_wins').textContent = t.tournament_wins ?? 0;
+    $('tournaments').textContent = t.tournaments ? `af ${t.tournaments} mótum` : '';
+
+    const mot = d.tournaments ?? [];
+    $('mot-empty').hidden = mot.length > 0;
+    $('mot').hidden = mot.length === 0;
+    $('mot').tBodies[0].replaceChildren(...mot.map((m) => el('tr', { class: m.place === 1 && m.finished ? 'first' : null },
+      el('td', {}, short(m.date)),
+      el('td', {}, m.name, m.format ? el('small', {}, m.format) : null),
+      el('td', {}, m.finished ? `${m.place}. af ${m.players}` : 'Í gangi'),
+      el('td', { class: 'num' }, `${m.wins}–${m.losses}–${m.draws}`))));
+
+    const recent = d.attendance?.recent ?? [];
+    $('maeting-empty').hidden = recent.length > 0;
+    $('maeting').replaceChildren(...recent.map((e) => el('li', {},
+      el('span', { class: 'when' }, short(e.event_date)),
+      el('span', {}, e.name, e.won ? el('b', { class: 'won' }, 'Sigur') : null))));
+
+    // The club's own schedule (efni.json) plus events the board has opened for sign-up.
+    const today = new Date().toLocaleDateString('sv-SE', { timeZone: 'Atlantic/Reykjavik' });
+    const seen = new Set();
+    const next = [
+      ...(efni.vidburdir ?? []).filter((v) => v.heiti && /^\d{4}-\d{2}-\d{2}$/.test(v.dags ?? ''))
+        .map((v) => ({ date: v.dags, name: v.heiti, meta: [v.klukkan, v.stadur].filter(Boolean).join(' · ') })),
+      ...(d.upcoming ?? []).map((u) => ({ date: u.event_date, name: u.name, meta: u.format })),
+    ].filter((v) => v.date >= today && !seen.has(v.date + v.name) && seen.add(v.date + v.name))
+      .sort((a, b) => a.date.localeCompare(b.date)).slice(0, 5);
+    $('framundan-empty').hidden = next.length > 0;
+    $('framundan').replaceChildren(...next.map((v) => el('li', {},
+      el('span', { class: 'when' }, short(v.date)),
+      el('span', {}, v.name, v.meta ? el('small', {}, v.meta) : null))));
+  }
+
   document.getElementById('utskraning')?.addEventListener('click', async () => {
     await post('api/utskraning', {});
     location.href = './';
   });
+
+  // Leaving: a dialog that asks for the password before anything happens.
+  const dlg = document.getElementById('ursogn');
+  const form = document.getElementById('ursogn-form');
+  if (dlg && form) {
+    const alertBox = document.getElementById('ursogn-error');
+    document.getElementById('ursogn-opna').addEventListener('click', () => {
+      form.reset(); showFieldErrors(form); alertBox.hidden = true;
+      dlg.showModal(); form.elements.password.focus();
+    });
+    document.getElementById('ursogn-haetta').addEventListener('click', () => dlg.close());
+    dlg.addEventListener('click', (e) => { if (e.target === dlg) dlg.close(); });
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      alertBox.hidden = true;
+      if (!form.elements.password.value) return showFieldErrors(form, { password: 'Sláðu inn lykilorðið.' });
+      const btn = form.querySelector('[type=submit]');
+      btn.disabled = true;
+      try {
+        const { ok, data } = await post('api/ursogn', { password: form.elements.password.value });
+        if (ok) { location.href = './'; return; }
+        if (data.errors) showFieldErrors(form, data.errors);
+        else { alertBox.textContent = data.error ?? 'Eitthvað fór úrskeiðis.'; alertBox.hidden = false; }
+      } finally { btn.disabled = false; }
+    });
+  }
 }
 
 /* ── front-page content from efni.json (board, grant, sponsors) ── */

@@ -30,14 +30,67 @@
     <div class="wrap" style="display:block">
       <p class="label rise">Félagssvæði</p>
       <h1 class="rise" style="--d:.08s"><em>Hæ</em>, <span id="member-name">félagi</span></h1>
-      <p class="sub rise" style="--d:.16s;margin-left:0">Hér verður efni fyrir félaga: viðburðir, skráningar og fréttir frá stjórninni. Félagi síðan <span id="member-since">—</span>.</p>
+      <p class="sub rise" style="--d:.16s;margin-left:0" id="member-sub">Félagi síðan <span id="member-since">—</span>.</p>
+      <p class="sample-note" id="m-sample" hidden>Sýnishorn: vefurinn er ekki tengdur stjórnborðinu, svo tölurnar hér eru tilbúnar.</p>
+      <p class="alert" id="m-error" hidden></p>
 
-      <div class="member-grid">
-        <div class="form reveal"><p class="label" style="margin:0">Dagatal</p><h3>Næstu viðburðir</h3><p>Viðburðadagatalið kemur hingað.</p></div>
-        <div class="form reveal" style="--d:.08s"><p class="label" style="margin:0">Þú</p><h3>Mínar skráningar</h3><p>Viðburðir sem þú hefur skráð þig á birtast hér.</p></div>
-        <div class="form reveal" style="--d:.16s"><p class="label" style="margin:0">Stjórn</p><h3>Frá stjórninni</h3><p>Tilkynningar og fundargerðir.</p></div>
+      <dl class="m-stats reveal" aria-label="Þín tölfræði">
+        <div><dt>Mætingar í ár</dt><dd data-m="this_year">—</dd></div>
+        <div><dt>Mætingar alls</dt><dd data-m="total">—</dd></div>
+        <div><dt>Leikir á mótum</dt><dd data-m="record">—</dd><small>sigrar – töp – jafntefli</small></div>
+        <div><dt>Mótasigrar</dt><dd data-m="tournament_wins">—</dd><small data-m="tournaments"></small></div>
+      </dl>
+
+      <div class="m-grid">
+        <section class="form m-card m-wide reveal">
+          <p class="label">Mót</p>
+          <h3>Sealed, draft og prerelease</h3>
+          <table class="m-table" data-m="mot">
+            <thead><tr><th scope="col">Dags.</th><th scope="col">Mót</th><th scope="col">Sæti</th><th scope="col">Leikir</th></tr></thead>
+            <tbody></tbody>
+          </table>
+          <p class="m-empty" data-m="mot-empty" hidden>Engin mót skráð á þig enn. Sjáumst á næsta draft!</p>
+        </section>
+
+        <section class="form m-card reveal" style="--d:.08s">
+          <p class="label">Mætingar</p>
+          <h3>Síðustu kvöld</h3>
+          <ul class="m-list" data-m="maeting"></ul>
+          <p class="m-empty" data-m="maeting-empty" hidden>Engar mætingar skráðar enn.</p>
+        </section>
+
+        <section class="form m-card reveal" style="--d:.12s">
+          <p class="label">Dagatal</p>
+          <h3>Framundan</h3>
+          <ul class="m-list" data-m="framundan"></ul>
+          <p class="m-empty" data-m="framundan-empty" hidden>Ekkert auglýst í augnablikinu. Fylgstu með á Facebook.</p>
+        </section>
+
+        <section class="form m-card m-adild reveal" style="--d:.16s">
+          <p class="label">Aðild</p>
+          <h3>Þín aðild</h3>
+          <p>Þú getur sagt þig úr félaginu hvenær sem er. Aðgangurinn þinn og umsóknin eyðast strax og stjórnin fær að vita af því. Mætingar og úrslit standa áfram, því þau eru hluti af stöðu annarra spilara.</p>
+          <div><button class="btn small ghost" type="button" id="ursogn-opna">Segja mig úr félaginu</button></div>
+        </section>
       </div>
     </div>
+
+    <dialog class="m-dialog" id="ursogn" aria-labelledby="ursogn-titill">
+      <form class="form" id="ursogn-form" novalidate>
+        <h2 id="ursogn-titill">Segja sig úr félaginu?</h2>
+        <p>Þú hættir strax að vera félagi og getur ekki skráð þig inn aftur nema sækja um á ný. Sláðu inn lykilorðið þitt til að staðfesta.</p>
+        <div class="field">
+          <label for="ursogn-pw">Lykilorð</label>
+          <input id="ursogn-pw" name="password" type="password" autocomplete="current-password" required>
+          <span class="err" aria-live="polite"></span>
+        </div>
+        <p class="alert" id="ursogn-error" hidden></p>
+        <div class="form-foot">
+          <button class="btn small ghost" type="button" id="ursogn-haetta">Hætta við</button>
+          <button class="btn small danger" type="submit">Segja mig úr félaginu</button>
+        </div>
+      </form>
+    </dialog>
   </main>
 </body>
 </html>

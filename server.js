@@ -9,6 +9,7 @@ import {
   createSession, sessionMember, destroySession, pruneSessions, SESSION_DAYS,
 } from './db.js';
 import { parseKennitala } from './kennitala.js';
+import { REMOTE, Unavailable, sendApplication, membership, overview, leave } from './adild.js';
 
 const PORT = Number(process.env.PORT ?? 3200);
 const HOST = process.env.HOST ?? '0.0.0.0';
@@ -134,13 +135,39 @@ async function api(req, res, path) {
     if (!b.consent) errors.consent = 'Hakaðu hér til að staðfesta umsóknina.';
     if (Object.keys(errors).length) return json(res, 422, { errors });
 
+    const DUP = {
+      kennitala: 'Umsókn með þessari kennitölu er þegar til.',
+      email: 'Umsókn með þessu netfangi er þegar til.',
+    };
+    // With the board dashboard connected, the application itself (kennitala,
+    // phone, guardian…) goes there and this site keeps only the login.
+    let id;
     try {
-      db.prepare(`INSERT INTO members (name, kennitala, email, phone, interests, message, guardian_name, guardian_contact, password_hash) VALUES (?,?,?,?,?,?,?,?,?)`)
-        .run(name, kt.kt, email, phone, JSON.stringify(interests), message, guardianName || null, guardianContact || null, hashPassword(password));
+      id = REMOTE
+        ? db.prepare('INSERT INTO members (name, email, password_hash) VALUES (?,?,?)').run(name, email, hashPassword(password)).lastInsertRowid
+        : db.prepare(`INSERT INTO members (name, kennitala, email, phone, interests, message, guardian_name, guardian_contact, password_hash) VALUES (?,?,?,?,?,?,?,?,?)`)
+          .run(name, kt.kt, email, phone, JSON.stringify(interests), message, guardianName || null, guardianContact || null, hashPassword(password)).lastInsertRowid;
     } catch (e) {
-      if (String(e.message).includes('members.kennitala')) return json(res, 409, { errors: { kennitala: 'Umsókn með þessari kennitölu er þegar til.' } });
-      if (String(e.message).includes('UNIQUE')) return json(res, 409, { errors: { email: 'Umsókn með þessu netfangi er þegar til.' } });
+      if (String(e.message).includes('members.kennitala')) return json(res, 409, { errors: { kennitala: DUP.kennitala } });
+      if (String(e.message).includes('UNIQUE')) return json(res, 409, { errors: { email: DUP.email } });
       throw e;
+    }
+    if (REMOTE) {
+      let dup;
+      try {
+        dup = await sendApplication({
+          name, email, kennitala: kt.kt, phone, interests, message,
+          guardian_name: guardianName, guardian_contact: guardianContact,
+        });
+      } catch (e) {
+        db.prepare('DELETE FROM members WHERE id = ?').run(id);
+        if (e instanceof Unavailable) return json(res, 503, { error: 'Ekki tókst að senda umsóknina núna. Reyndu aftur eftir smá stund.' });
+        throw e;
+      }
+      if (dup) {
+        db.prepare('DELETE FROM members WHERE id = ?').run(id);
+        return json(res, 409, { errors: { [dup]: DUP[dup] ?? DUP.email } });
+      }
     }
     return json(res, 201, { ok: true });
   }
@@ -154,14 +181,60 @@ async function api(req, res, path) {
     const m = db.prepare('SELECT id, password_hash, status FROM members WHERE email = ?').get(email);
     if (!m) { burnTime(password); return json(res, 401, { error: 'Rangt netfang eða lykilorð.' }); }
     if (!verifyPassword(password, m.password_hash)) return json(res, 401, { error: 'Rangt netfang eða lykilorð.' });
-    if (m.status === 'pending') return json(res, 403, { error: 'Aðgangurinn þinn hefur ekki verið virkjaður enn. Það gerist þegar félagsgjaldið hefur verið greitt.' });
-    if (m.status !== 'approved') return json(res, 403, { error: 'Þessi aðgangur er ekki virkur.' });
+    // Only members get in. With the dashboard connected it is asked every
+    // time, and the answer is mirrored into members.status for the session.
+    let st;
+    try { st = await membership(email, m.status); }
+    catch (e) { if (e instanceof Unavailable) return json(res, 503, { error: 'Innskráning liggur niðri í augnablikinu. Reyndu aftur eftir smá stund.' }); throw e; }
+    if (REMOTE) {
+      db.prepare(`UPDATE members SET status = ?, approved_at = CASE WHEN ? = 'approved' THEN COALESCE(approved_at, ?) ELSE approved_at END WHERE id = ?`)
+        .run(st.status === 'member' ? 'approved' : st.status === 'pending' ? 'pending' : 'rejected',
+          st.status === 'member' ? 'approved' : '', `${st.since ?? new Date().toISOString().slice(0, 10)} 00:00:00`, m.id);
+    }
+    if (st.status === 'pending') return json(res, 403, { error: 'Aðgangurinn þinn hefur ekki verið virkjaður enn. Það gerist þegar félagsgjaldið hefur verið greitt.' });
+    if (st.status !== 'member') return json(res, 403, { error: 'Þessi aðgangur er ekki virkur. Hafðu samband við stjórnina ef þú telur það rangt.' });
     const token = createSession(m.id);
     return json(res, 200, { ok: true }, { 'Set-Cookie': sessionCookie(token, SESSION_DAYS * 86_400) });
   }
 
   if (path === '/api/utskraning' && method === 'POST') {
     destroySession(cookies(req)[COOKIE]);
+    return json(res, 200, { ok: true }, { 'Set-Cookie': sessionCookie('', 0) });
+  }
+
+  // The members page: attendance, tournaments, totals, upcoming events.
+  // Membership is checked again here, so someone the board has taken off the
+  // roll is logged out the next time they open the page.
+  if (path === '/api/yfirlit' && method === 'GET') {
+    const token = cookies(req)[COOKIE];
+    const me = sessionMember(token);
+    if (!me) return json(res, 401, { error: 'Ekki innskráð(ur).' });
+    const local = db.prepare('SELECT status FROM members WHERE id = ?').get(me.id)?.status;
+    let data;
+    try { data = await overview(me.email, local); }
+    catch (e) { if (e instanceof Unavailable) return json(res, 503, { error: 'Náði ekki í upplýsingarnar núna.' }); throw e; }
+    if (data.status !== 'member') {
+      db.prepare("UPDATE members SET status = 'rejected' WHERE id = ? AND ? <> 'pending'").run(me.id, data.status);
+      destroySession(token);
+      return json(res, 401, { error: 'Aðildin er ekki lengur virk.' }, { 'Set-Cookie': sessionCookie('', 0) });
+    }
+    return json(res, 200, data);
+  }
+
+  // Leaving the club. Password again, because it cannot be undone from here:
+  // off the roll at once, the login and the application are deleted, and the
+  // board is told. Attendance and results stay with the dashboard's player.
+  if (path === '/api/ursogn' && method === 'POST') {
+    const ip = (TRUST_PROXY && req.headers['x-real-ip']) || req.socket.remoteAddress || '?';
+    if (throttled(ip)) return json(res, 429, { error: 'Of margar tilraunir. Reyndu aftur eftir smá stund.' });
+    const me = sessionMember(cookies(req)[COOKIE]);
+    if (!me) return json(res, 401, { error: 'Ekki innskráð(ur).' });
+    const b = await readJson(req);
+    const m = db.prepare('SELECT id, password_hash FROM members WHERE id = ?').get(me.id);
+    if (!verifyPassword(String(b.password ?? ''), m.password_hash)) return json(res, 401, { errors: { password: 'Rangt lykilorð.' } });
+    try { await leave(me.email); }
+    catch (e) { if (e instanceof Unavailable) return json(res, 503, { error: 'Ekki tókst að ganga frá úrsögninni núna. Reyndu aftur eftir smá stund.' }); throw e; }
+    db.prepare('DELETE FROM members WHERE id = ?').run(me.id); // sessions go with it (ON DELETE CASCADE)
     return json(res, 200, { ok: true }, { 'Set-Cookie': sessionCookie('', 0) });
   }
 

@@ -87,6 +87,11 @@ referenced as `/img/...`. Empty values are not shown.
 
 ## Membership flow
 
+> With the board dashboard connected (production), steps 1–3 happen there:
+> the kennitala for the krafa and the Samþykkja button are under Spilarar →
+> Umsóknir um aðild. See the next section. The `npm run felagar` commands
+> below are for running this site on its own.
+
 Under 4. gr. of the samþykktir, someone is a member once the félagsgjald is paid.
 
 1. Someone applies at `/ganga-i-felagid` with their kennitala and picks a password
@@ -107,6 +112,41 @@ npm run felagar -- samthykkja <netfang>
 npm run felagar -- hafna <netfang>  # also kills their sessions
 npm run felagar -- admin <netfang> "Fullt nafn"   # create/reset an admin; password from stdin
 ```
+
+## Membership and the board dashboard
+
+Only members can log in. **Who is a member is decided in the board dashboard**
+(stjórnborð, a separate app on the same server), not here:
+
+1. Someone applies at `/ganga-i-felagid`. This site keeps the login (name,
+   email, password hash); the application itself (kennitala, phone,
+   guardian, interests, message) goes to the dashboard.
+2. The board approves it under **Spilarar → Umsóknir um aðild** when the fee
+   is paid. That links the application to a player and ticks them onto the
+   roll. Every login asks the dashboard again, so unticking a player there
+   locks them out (and logs them out the next time they open `/felagar`).
+3. `/felagar` shows their attendance, tournament placings and record
+   (computed by the dashboard), plus upcoming events from `efni.json`.
+4. **Segja mig úr félaginu** (password required) takes effect at once: off
+   the roll, login and application deleted, the board sees it under
+   Úrsagnir. Their attendance and results stay, as part of other players'
+   standings.
+
+The two servers talk over localhost, with a shared key in the
+`x-innri-lykill` header (`INNRI_LYKILL`, same value in both env files;
+nginx also returns 404 for `/api/innri/` from outside). Code: `adild.js`.
+
+| Dashboard endpoint | Used for |
+|---|---|
+| `POST /api/innri/umsokn` | new application; 409 `{field}` if email/kennitala exists |
+| `GET /api/innri/adild?email=` | `{status: member/pending/declined/inactive/none}` on login |
+| `GET /api/innri/yfirlit?email=` | everything on `/felagar` |
+| `POST /api/innri/ursogn` | leaving |
+
+**Working on the site without the dashboard:** leave `STJORNBORD_URL` unset
+(the default for `npm run dev`). Then this site decides on its own: approve
+yourself with `npm run felagar -- samthykkja you@example.is`, and `/felagar`
+shows made-up sample numbers (marked "Sýnishorn") so you can still work on it.
 
 ## Security
 
