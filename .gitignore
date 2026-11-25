@@ -2,6 +2,8 @@ data/
 node_modules/
 .env
 
-# raw video exports (compress to public/img/hero.mp4 instead)
+# raw video exports live in originals/ (never served); compressed copies go in public/img/
 /public/*.mp4
+!/public/img/*.mp4
+originals/
 *.mov
