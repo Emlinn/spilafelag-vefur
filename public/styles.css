@@ -535,3 +535,20 @@ body:has(dialog.bio[open]) { overflow: hidden; }
 }
 @media (prefers-reduced-motion: reduce) { .roadmap .live .dot { animation: none; } }
 @media (max-width: 1000px) { .about-head { position: static; } }
+
+/* when & where — a glass strip under "Magic fyrst" */
+.schedule { display: grid; grid-template-columns: 1.1fr 1fr 1fr 1.1fr 1fr; max-width: 1180px; margin: 0 auto clamp(2rem, 4vw, 3rem);
+  border: 1px solid var(--line); border-radius: 16px; background: var(--bg-2); overflow: hidden; }
+.schedule div { padding: 18px clamp(1rem, 2.4vw, 2rem); }
+.schedule div + div { border-left: 1px solid var(--line); }
+.schedule dt { font: 500 11px/1.4 var(--mono); text-transform: uppercase; letter-spacing: 0.03em; color: var(--muted); }
+.schedule dd { margin: 0.3rem 0 0; font: 300 1.35rem/1.15 var(--serif); white-space: nowrap; }
+.schedule dd em { font-style: italic; }
+@media (max-width: 1000px) {
+  .schedule { grid-template-columns: 1fr 1fr; }
+  .schedule div + div { border-left: 0; }
+  .schedule div { border-bottom: 1px solid var(--line); }
+  .schedule div:first-child { grid-column: 1 / -1; }
+  .schedule div:nth-child(odd):not(:first-child) { border-left: 1px solid var(--line); }
+  .schedule div:nth-last-child(-n+2) { border-bottom: 0; }
+}
