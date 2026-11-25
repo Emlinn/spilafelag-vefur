@@ -12,6 +12,11 @@ import {
 const PORT = Number(process.env.PORT ?? 3200);
 const HOST = process.env.HOST ?? '0.0.0.0';
 const PROD = process.env.NODE_ENV === 'production';
+// Served under a sub-path (e.g. /heimasida behind nginx, which strips it before
+// proxying)? Pages get <base href="BASE/"> so their relative links follow.
+const BASE = (process.env.BASE_PATH ?? '').replace(/\/+$/, '');
+// Behind a reverse proxy every socket is 127.0.0.1; trust its X-Real-IP instead.
+const TRUST_PROXY = process.env.TRUST_PROXY === '1';
 const PUBLIC = resolve('public');
 const COOKIE = 'spv_session';
 
@@ -51,7 +56,7 @@ function cookies(req) {
 }
 
 function sessionCookie(token, maxAge) {
-  return `${COOKIE}=${token}; Path=/; HttpOnly; SameSite=Lax; Max-Age=${maxAge}${PROD ? '; Secure' : ''}`;
+  return `${COOKIE}=${token}; Path=${BASE}/; HttpOnly; SameSite=Lax; Max-Age=${maxAge}${PROD ? '; Secure' : ''}`;
 }
 
 function send(res, status, body, headers = {}) {
@@ -130,7 +135,7 @@ async function api(req, res, path) {
   }
 
   if (path === '/api/innskraning' && method === 'POST') {
-    const ip = req.socket.remoteAddress ?? '?';
+    const ip = (TRUST_PROXY && req.headers['x-real-ip']) || req.socket.remoteAddress || '?';
     if (throttled(ip)) return json(res, 429, { error: 'Of margar tilraunir. Reyndu aftur eftir smá stund.' });
     const b = await readJson(req);
     const email = clean(b.email, 200).toLowerCase();
@@ -167,7 +172,9 @@ async function serveFile(req, res, file, status = 200) {
     if (!s.isFile()) throw new Error('not a file');
     const ext = extname(full);
     if (ext === '.mp4' || ext === '.webm') return streamMedia(req, res, full, s.size, ext);
-    send(res, status, await readFile(full), {
+    let body = await readFile(full);
+    if (ext === '.html') body = body.toString('utf8').replace('<base href="/">', `<base href="${BASE}/">`);
+    send(res, status, body, {
       'Content-Type': TYPES[ext] ?? 'application/octet-stream',
       'Cache-Control': ext === '.html' ? 'no-cache' : PROD ? 'public, max-age=3600' : 'no-cache',
     });
@@ -214,10 +221,10 @@ const server = createServer(async (req, res) => {
     if (req.method !== 'GET' && req.method !== 'HEAD') return send(res, 405, 'Method not allowed');
 
     if (path === '/felagar' && !sessionMember(cookies(req)[COOKIE])) {
-      return send(res, 302, '', { Location: '/innskraning?aftur=/felagar' });
+      return send(res, 302, '', { Location: `${BASE}/innskraning?aftur=felagar` });
     }
     if (path === '/innskraning' && sessionMember(cookies(req)[COOKIE])) {
-      return send(res, 302, '', { Location: '/felagar' });
+      return send(res, 302, '', { Location: `${BASE}/felagar` });
     }
     if (PAGES[path]) return await serveFile(req, res, PAGES[path]);
     if (path.endsWith('.html')) return await serveFile(req, res, '404.html', 404); // only pretty URLs

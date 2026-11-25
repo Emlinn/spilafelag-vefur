@@ -1,0 +1,36 @@
+# /etc/systemd/system/spilafelag-vefur.service
+# Test copy of the public website, beside the dashboard on stjornbord.emlinn.is.
+[Unit]
+Description=Spilafélag Vestfjarða — heimasíða (prófun)
+Documentation=file:///srv/spilafelag-vefur/deploy/README.md
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=spilafelag-vefur
+Group=spilafelag-vefur
+WorkingDirectory=/srv/spilafelag-vefur
+# NODE_ENV, PORT, HOST=127.0.0.1, BASE_PATH=/heimasida, TRUST_PROXY=1, DB_PATH
+EnvironmentFile=/etc/spilafelag-vefur/env
+ExecStart=/usr/bin/node server.js
+Restart=always
+RestartSec=3
+
+NoNewPrivileges=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictNamespaces=true
+RestrictSUIDSGID=true
+LockPersonality=true
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+MemoryDenyWriteExecute=false
+ReadWritePaths=/var/lib/spilafelag-vefur
+
+[Install]
+WantedBy=multi-user.target

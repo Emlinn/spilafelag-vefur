@@ -112,7 +112,7 @@ if (signup) {
     const btn = signup.querySelector('button[type=submit]');
     btn.disabled = true;
     try {
-      const r = await post('/api/umsokn', body);
+      const r = await post('api/umsokn', body);
       if (r.ok) {
         const done = document.getElementById('umsokn-takk');
         const swap = () => { signup.hidden = true; done.hidden = false; done.querySelector('h2').focus(); };
@@ -137,10 +137,10 @@ if (login) {
     const btn = login.querySelector('button[type=submit]');
     btn.disabled = true;
     try {
-      const r = await post('/api/innskraning', { email: login.elements.email.value, password: login.elements.password.value });
+      const r = await post('api/innskraning', { email: login.elements.email.value, password: login.elements.password.value });
       if (r.ok) {
         const back = new URLSearchParams(location.search).get('aftur');
-        location.href = back && back.startsWith('/') && !back.startsWith('//') ? back : '/felagar';
+        location.href = /^[a-z-]+$/.test(back ?? '') ? back : 'felagar'; // a bare page name only — never an outside URL
         return;
       }
       alert.textContent = r.data.error ?? 'Innskráning tókst ekki.'; alert.hidden = false;
@@ -153,8 +153,8 @@ if (login) {
 /* ── member area ── */
 const memberName = document.getElementById('member-name');
 if (memberName) {
-  fetch('/api/eg', { credentials: 'same-origin' }).then(async (res) => {
-    if (!res.ok) { location.href = '/innskraning?aftur=/felagar'; return; }
+  fetch('api/eg', { credentials: 'same-origin' }).then(async (res) => {
+    if (!res.ok) { location.href = 'innskraning?aftur=felagar'; return; }
     const { member } = await res.json();
     memberName.textContent = member.name.split(' ')[0];
     const since = document.getElementById('member-since');
@@ -164,15 +164,15 @@ if (memberName) {
     }
   });
   document.getElementById('utskraning')?.addEventListener('click', async () => {
-    await post('/api/utskraning', {});
-    location.href = '/';
+    await post('api/utskraning', {});
+    location.href = './';
   });
 }
 
 /* ── front-page content from efni.json (board, grant, sponsors) ── */
 const slots = document.querySelectorAll('[data-render]');
 if (slots.length) {
-  fetch('/efni.json', { cache: 'no-cache' }).then((r) => r.json()).then(renderContent).catch(() => {});
+  fetch('efni.json', { cache: 'no-cache' }).then((r) => r.json()).then(renderContent).catch(() => {});
 }
 
 function el(tag, attrs = {}, ...kids) {
@@ -182,7 +182,8 @@ function el(tag, attrs = {}, ...kids) {
   return n;
 }
 const safeUrl = (u) => { try { const x = new URL(u, location.origin); return /^https?:$/.test(x.protocol) ? x.href : null; } catch { return null; } };
-const localImg = (p) => (typeof p === 'string' && p.startsWith('/img/') ? p : null);
+// efni.json may say /img/x or img/x; either way it becomes img/x, relative to <base>
+const localImg = (p) => (typeof p === 'string' && /^\/?img\/[\w./-]+$/.test(p) && !p.includes('..') ? p.replace(/^\//, '') : null);
 const EXT = '<svg class="ext" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 11 11 5M6 5h5v5"/></svg>';
 const svg = (html) => { const t = document.createElement('template'); t.innerHTML = html; return t.content.firstChild; };
 const initials = (name) => name.split(/\s+/).filter(Boolean).map((w) => w[0]).slice(0, 2).join('');
@@ -230,7 +231,7 @@ function renderContent(c) {
       const url = safeUrl(g.vefur), logo = localImg(g.merki);
       const [first, ...rest] = g.heiti.split(' ');
       grants.append(el('article', { class: 'grant reveal' },
-        el('img', { class: 'bg', src: '/img/fjord.svg', alt: '', 'aria-hidden': 'true' }),
+        el('img', { class: 'bg', src: 'img/fjord.svg', alt: '', 'aria-hidden': 'true' }),
         el('div', {},
           el('p', { class: 'label' }, `Styrkþegi ${g.ar ?? ''}`.trim()),
           el('h3', {}, el('em', {}, first), ' ' + rest.join(' ')),

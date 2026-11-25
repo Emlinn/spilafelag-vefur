@@ -116,7 +116,7 @@ h3 { font: 500 1.05rem/1.35 var(--sans); margin: 0; letter-spacing: -0.01em; }
 .hero-media { position: absolute; inset: 0; z-index: -1; }
 .hero-media > * { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .hero-media .photo { background: center / cover no-repeat; }
-.hero-media .photo.hero-photo { background-image: url('/img/hero.jpg'); }
+.hero-media .photo.hero-photo { background-image: url('img/hero.jpg'); }
 .hero-media .hero-video { opacity: 0; transition: opacity 1.2s var(--ease-out); }
 .hero-media .hero-video.on { opacity: 1; }
 .hero-media::after {   /* dissolve the landscape into the page */
@@ -186,9 +186,9 @@ section { position: relative; padding: clamp(5rem, 11vw, 9rem) 0; }
 .feature .copy p { color: var(--muted); margin: 0.3rem 0 0; font-size: 1.06rem; line-height: 1.4; }
 .feature .copy h3 { font-size: 1.08rem; }
 
-.f-bordspil { --card-bg: radial-gradient(120% 80% at 30% 10%, #3c5a35 0%, #1d2d1b 45%, #0d140c 100%); --card-photo: url('/img/bordspil.jpg'); }
-.f-safnkort { --card-bg: radial-gradient(120% 80% at 60% 20%, #2e5a52 0%, #173430 45%, #0a1615 100%); --card-photo: url('/img/safnkortaspil.jpg'); }
-.f-commander { --card-bg: radial-gradient(120% 80% at 35% 15%, #3a3560 0%, #1d1a33 45%, #0c0b14 100%); --card-photo: url('/img/commander.jpg'); }
+.f-bordspil { --card-bg: radial-gradient(120% 80% at 30% 10%, #3c5a35 0%, #1d2d1b 45%, #0d140c 100%); --card-photo: url('img/bordspil.jpg'); }
+.f-safnkort { --card-bg: radial-gradient(120% 80% at 60% 20%, #2e5a52 0%, #173430 45%, #0a1615 100%); --card-photo: url('img/safnkortaspil.jpg'); }
+.f-commander { --card-bg: radial-gradient(120% 80% at 35% 15%, #3a3560 0%, #1d1a33 45%, #0c0b14 100%); --card-photo: url('img/commander.jpg'); }
 .cards.two { grid-template-columns: repeat(2, 1fr); max-width: 1180px; }
 .cards.two .feature { min-height: 620px; }
 .life { display: grid; grid-template-columns: 1fr 1fr; text-align: center; }
@@ -198,7 +198,7 @@ section { position: relative; padding: clamp(5rem, 11vw, 9rem) 0; }
 .life span { display: block; color: var(--muted); font-size: 12px; }
 .life b { font: italic 300 34px/1.1 var(--serif); }
 .life .out b { color: var(--muted); text-decoration: line-through; text-decoration-thickness: 1px; }
-.f-hlutverk { --card-bg: radial-gradient(120% 80% at 50% 0%, #5a4a2a 0%, #2e2614 45%, #120f08 100%); --card-photo: url('/img/hlutverkaspil.jpg'); }
+.f-hlutverk { --card-bg: radial-gradient(120% 80% at 50% 0%, #5a4a2a 0%, #2e2614 45%, #120f08 100%); --card-photo: url('img/hlutverkaspil.jpg'); }
 
 .panel {
   border-radius: 12px; padding: 16px;
@@ -243,7 +243,7 @@ section { position: relative; padding: clamp(5rem, 11vw, 9rem) 0; }
 .cta .hero-media::after {
   background: linear-gradient(180deg, var(--bg) 0%, rgba(15,16,17,0.4) 35%, rgba(15,16,17,0.4) 65%, var(--bg) 100%);
 }
-.cta .photo.cta-photo { background-image: url('/img/cta.jpg'); }
+.cta .photo.cta-photo { background-image: url('img/cta.jpg'); }
 .cta .actions { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-top: 2rem; }
 
 .site-footer { border-top: 1px solid var(--line); padding: 2rem 0 2.4rem; }

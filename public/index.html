@@ -2,40 +2,41 @@
 <html lang="is">
 <head>
   <meta charset="utf-8">
+  <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Spilafélag Vestfjarða</title>
   <meta name="description" content="Spilafélag Vestfjarða — Magic: The Gathering á Ísafirði, og fleiri spilakvöld á leiðinni. Allir velkomnir við borðið.">
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,300;1,6..72,300&family=Roboto+Mono:wght@400;500&display=swap">
-  <link rel="stylesheet" href="/styles.css">
-  <script src="/site.js" type="module"></script>
+  <link rel="stylesheet" href="styles.css">
+  <script src="site.js" type="module"></script>
 </head>
 <body>
   <header class="site-header">
     <div class="bar">
-      <a class="brand" href="/" aria-label="Spilafélag Vestfjarða, forsíða">
+      <a class="brand" href="./" aria-label="Spilafélag Vestfjarða, forsíða">
         <svg class="brand-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="6"/><circle cx="12" cy="12" r="2.2" fill="currentColor" stroke="none"/></svg>
         <span class="brand-name">Spilafélag Vestfjarða</span>
       </a>
-      <nav class="nav-center" aria-label="Aðalvalmynd"><a class="nav-link" href="/#um">Félagið</a><a class="nav-link" href="/#spilin">Spilin</a><a class="nav-link" href="/#adild">Aðild</a></nav>
-      <div class="nav-right"><a class="nav-link plain" href="/innskraning">Innskráning</a><a class="btn small" href="/ganga-i-felagid">Ganga í félagið <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></svg></a></div>
+      <nav class="nav-center" aria-label="Aðalvalmynd"><a class="nav-link" href="./#um">Félagið</a><a class="nav-link" href="./#spilin">Spilin</a><a class="nav-link" href="./#adild">Aðild</a></nav>
+      <div class="nav-right"><a class="nav-link plain" href="innskraning">Innskráning</a><a class="btn small" href="ganga-i-felagid">Ganga í félagið <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></svg></a></div>
     </div>
   </header>
 
   <main>
     <section class="hero" style="padding:0">
       <div class="hero-media" aria-hidden="true">
-        <img src="/img/fjord.svg" alt="">
+        <img src="img/fjord.svg" alt="">
         <div class="photo hero-photo"></div>
-        <video class="hero-video" muted loop playsinline preload="none" poster="/img/hero.jpg" data-src="/img/hero.mp4"></video>
+        <video class="hero-video" muted loop playsinline preload="none" poster="img/hero.jpg" data-src="img/hero.mp4"></video>
       </div>
       <div class="hero-content">
         <h1 class="rise" style="--d:.15s"><em>Spilum</em> saman</h1>
         <p class="sub rise" style="--d:.3s">Magic: The Gathering á Ísafirði — og fleiri spilakvöld á leiðinni. Byrjendur jafnt sem reynsluboltar eru velkomnir við borðið.</p>
-        <a class="btn rise" style="--d:.42s" href="/ganga-i-felagid">Ganga í félagið <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></svg></a>
-        <a class="pill rise" style="--d:.55s" href="/ganga-i-felagid" aria-label="Ganga í félagið">
+        <a class="btn rise" style="--d:.42s" href="ganga-i-felagid">Ganga í félagið <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></svg></a>
+        <a class="pill rise" style="--d:.55s" href="ganga-i-felagid" aria-label="Ganga í félagið">
           <span>Við spilum <span class="typed" data-words="Commander|Draft|Prerelease|Pauper|Modern|Two-Headed Giant">Commander</span></span>
           <span class="go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5"/></svg></span>
         </a>
@@ -136,7 +137,7 @@
             <h3><em>Brennur</em> þú fyrir ákveðnu spili?</h3>
             <p>Við leitum að fólki sem vill halda utan um sína tegund spila — skipuleggja kvöld, kenna nýjum og byggja upp hóp. Pokémon, borðspil, hlutverkaspil eða eitthvað allt annað: hafðu samband og við hjálpum þér af stað.</p>
           </div>
-          <a class="btn" href="/#stjorn" data-render="samband">Hafðu samband <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></svg></a>
+          <a class="btn" href="./#stjorn" data-render="samband">Hafðu samband <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></svg></a>
         </div>
       </div>
     </section>
@@ -170,15 +171,15 @@
 
     <section class="cta">
       <div class="hero-media" aria-hidden="true" style="animation:none">
-        <img src="/img/fjord.svg" alt="">
+        <img src="img/fjord.svg" alt="">
         <div class="photo cta-photo"></div>
       </div>
       <div class="wrap">
         <h2 class="reveal"><em>Vertu</em> með</h2>
         <p class="sub reveal" style="--d:.1s">Félagið er rétt að byrja — og það verður það sem félagarnir gera það að.</p>
         <div class="actions reveal" style="--d:.2s">
-          <a class="btn" href="/ganga-i-felagid">Ganga í félagið <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></svg></a>
-          <a class="btn ghost" href="/innskraning">Innskráning</a>
+          <a class="btn" href="ganga-i-felagid">Ganga í félagið <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></svg></a>
+          <a class="btn ghost" href="innskraning">Innskráning</a>
         </div>
       </div>
     </section>
@@ -187,12 +188,12 @@
   <footer class="site-footer">
     <div class="wrap">
       <span>© Spilafélag Vestfjarða · Ísafjörður</span>
-      <a class="support-line" href="/#studningur">Með stuðningi Sóknaráætlunar Vestfjarða</a>
+      <a class="support-line" href="./#studningur">Með stuðningi Sóknaráætlunar Vestfjarða</a>
       <nav aria-label="Fótur">
-        <a href="/#um">Félagið</a>
-        <a href="/#spilin">Spilin</a>
-        <a href="/ganga-i-felagid">Ganga í félagið</a>
-        <a href="/innskraning">Innskráning</a>
+        <a href="./#um">Félagið</a>
+        <a href="./#spilin">Spilin</a>
+        <a href="ganga-i-felagid">Ganga í félagið</a>
+        <a href="innskraning">Innskráning</a>
       </nav>
     </div>
   </footer>
