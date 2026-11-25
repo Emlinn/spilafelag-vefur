@@ -231,7 +231,9 @@ function renderContent(c) {
       if (!b.nafn) continue;
       const url = safeUrl(b.vefur), logo = localImg(b.merki);
       const card = el(url ? 'a' : 'div', { class: 'sponsor reveal', href: url, target: url && '_blank', rel: url && 'noopener sponsored' },
-        el('div', { class: 'logo' }, logo ? el('img', { src: logo, alt: b.nafn }) : el('span', { class: 'wordmark' }, b.nafn)),
+        el('div', { class: 'logo' },
+          logo ? el('img', { src: logo, alt: b.syna_nafn ? '' : b.nafn }) : null,
+          !logo || b.syna_nafn ? el('span', { class: 'wordmark' }, b.nafn) : null),
         el('div', { class: 'meta' }, el('span', { class: 'what' }, b.framlag ?? 'Bakhjarl'), url ? svg(EXT) : null));
       sponsors.append(card);
 

@@ -385,7 +385,7 @@ fieldset.field { border: 0; padding: 0; margin: 0; }
   text-decoration: none; transition: border-color 0.3s var(--ease), background-color 0.3s var(--ease);
 }
 a.sponsor:hover { border-color: rgba(255,255,255,0.3); background: #17181a; }
-.sponsor .logo { height: 56px; display: flex; align-items: center; }
+.sponsor .logo { height: 56px; display: flex; align-items: center; gap: 14px; }
 .sponsor .logo img { max-height: 56px; max-width: 180px; width: auto; filter: grayscale(1) brightness(1.6); opacity: 0.85; transition: filter 0.4s, opacity 0.4s; }
 a.sponsor:hover .logo img { filter: none; opacity: 1; }
 .sponsor .wordmark { font: 300 1.8rem/1 var(--serif); letter-spacing: -0.015em; }

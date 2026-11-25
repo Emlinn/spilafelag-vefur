@@ -41,8 +41,9 @@
       "nafn": "Haukur Sig",
       "framlag": "Myndband og myndir á forsíðu",
       "vefur": "https://haukursig.is/",
-      "merki": "",
-      "ljosmyndari_forsidu": true
+      "merki": "/img/bakhjarlar/haukursig.webp",
+      "ljosmyndari_forsidu": true,
+      "syna_nafn": true
     }
   ],
   "styrkja_netfang": ""

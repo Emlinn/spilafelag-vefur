@@ -47,6 +47,8 @@ referenced as `/img/...`. Empty values are not shown.
   `img/bakhjarlar/` and set `merki`; until then the card shows the year.
 - `bakhjarlar` — sponsors, linked with `rel="sponsored"`. The one marked
   `ljosmyndari_forsidu: true` also gets a photo credit in the hero corner.
+  A logo goes in `img/bakhjarlar/` via `merki` and replaces the name, unless
+  `syna_nafn: true` (for logos that don't spell the name, e.g. Haukur Sig's Purple Hat).
 - `styrkja_netfang` — if set, the "Þitt fyrirtæki?" card becomes a mailto link.
 
 ## Membership flow
