@@ -65,12 +65,18 @@ startup, so each deploy busts the one-hour browser cache.
 
 ## Design
 
-Modelled on useorigin.com (fonts/colours read from its CSS): near-black `#0f1011`,
-light serif headlines opening on an italic word (Newsreader ≈ Lyon Display),
-Inter (≈ Suisse Intl), Roboto Mono uppercase for nav/buttons, frosted floating
-nav, full-bleed landscape dissolving into black, tall photo cards with glass
-panels. Photos go in `public/img/` (see `img/README.txt`); a drawn fjord stands in.
-Content fades up out of a blur as it scrolls in. Navigating between pages cross-fades via cross-document View
+Near-black `#0f1011`, light roman serif headlines (Newsreader), Inter for body,
+controls and labels in sentence case, frosted floating nav, full-bleed landscape
+dissolving into black. Photos go in `public/img/` (see `img/README.txt`); a drawn
+fjord stands in.
+
+The 2026-11 UX pass followed [Impeccable](https://impeccable.style)'s detector
+(`npx impeccable detect public/`, or the URL of a running copy): no italic-first-word
+headlines, no small labels above headings, no monospace as decoration, no typing
+animation or pulsing dot, grey text at 4.5:1 or better, and one entrance animation
+(the hero) instead of every section fading in. Still flagged on purpose: Inter.
+Keep new work clear of those patterns, or install Impeccable in Claude Code
+(`/plugin` → Impeccable, `/impeccable hooks on`) so edits are checked as you go. Navigating between pages cross-fades via cross-document View
 Transitions (Chrome/Edge/Safari; Firefox just navigates normally). All motion
 turns off under `prefers-reduced-motion`.
 
@@ -81,13 +87,13 @@ no code. Images go in `public/img/stjorn/` and `public/img/bakhjarlar/` and are
 referenced as `/img/...`. Empty values are not shown.
 
 - `vidburdir` — upcoming events under "Næstu viðburðir": `dags` (YYYY-MM-DD),
-  `tegund` (`commander` also puts the date in the Commander strip), `heiti`,
+  `tegund` (e.g. `commander`), `heiti`,
   `klukkan`, `stadur`, optional `texti` and `tengill` (e.g. a Facebook event). Past dates drop off by themselves; the next one also appears in the hero.
   Add the next few dates whenever they're booked.
 - `hagnyt` — "Í fyrsta sinn?" questions and answers (`spurning`, `svar`).
 - `stjorn` — the board under Um félagið. Name, role, photo, a short line for the card (`texti`), a bio (`um`,
   blank line = new paragraph) and favourite games (`uppahaldsspil`, a list).
-  Cards with a bio open it in a dialog; no photo → italic initials.
+  Cards with a bio open it in a dialog; no photo → initials.
 - `styrkir` — grants. A grant is only shown when `"veittur": true`. The
   Uppbyggingarsjóður Vestfjarða 2027 result is announced 26 Nov 2026; if it
   isn't awarded, set it to `false` before the site goes live. Its 2027 rules (§10) require

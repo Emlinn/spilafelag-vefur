@@ -43,13 +43,12 @@
         <video class="hero-video" muted loop playsinline preload="none" poster="img/hero.jpg" data-src="img/hero.mp4"></video>
       </div>
       <div class="hero-content">
-        <h1 class="rise" style="--d:.15s"><em>Spilum</em> saman</h1>
+        <h1 class="rise" style="--d:.15s">Spilum saman</h1>
         <p class="sub rise" style="--d:.3s">Magic: The Gathering á Ísafirði. Frítt inn, opið öllum og byrjendur jafnt sem reynsluboltar eru velkomnir við borðið.</p>
-        <a class="btn rise" style="--d:.42s" href="./#vidburdir">Næstu spilakvöld <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></svg></a>
-        <a class="pill rise" style="--d:.55s" href="./#vidburdir" aria-label="Sjá næstu spilakvöld">
-          <span>Við spilum <span class="typed" data-words="Commander|Sealed|Draft|Prerelease">Commander</span></span>
-          <span class="go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5"/></svg></span>
-        </a>
+        <div class="actions rise" style="--d:.42s">
+          <a class="btn" href="./#vidburdir">Næstu spilakvöld <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></svg></a>
+          <a class="btn ghost" href="ganga-i-felagid">Ganga í félagið</a>
+        </div>
         <p class="caption rise" style="--d:.7s" data-render="naest">Komdu og spilaðu. Lærðu eitthvað nýtt.</p>
       </div>
       <p class="photo-credit" data-render="credit" hidden></p>
@@ -59,8 +58,7 @@
       <div class="wrap">
         <div class="about">
           <div class="about-head">
-            <p class="label reveal">Um félagið</p>
-            <h2 class="reveal" style="--d:.08s"><em>Samfélag</em> í kringum spil</h2>
+            <h2 class="reveal" style="--d:.08s">Samfélag í kringum spil</h2>
           </div>
           <div class="about-body">
             <p class="lead reveal">Spilafélag Vestfjarða er félag fyrir fólk á Vestfjörðum sem hefur gaman af spilum. Markmiðið er einfalt: að skapa stað þar sem fólk hittist, kynnist og spilar saman.</p>
@@ -78,7 +76,7 @@
 
         <div id="stjorn" class="board-block">
           <div class="board-head">
-            <h3 class="reveal"><em>Stjórnin</em></h3>
+            <h3 class="reveal">Stjórnin</h3>
             <p class="reveal" style="--d:.08s">Kosin á stofnfundi. Náðu í okkur á <a href="mailto:spilafelagvestfjarda@gmail.com">spilafelagvestfjarda@gmail.com</a>.</p>
           </div>
           <div class="board compact" data-render="stjorn"></div>
@@ -91,33 +89,26 @@
     <section id="vidburdir">
       <div class="wrap">
         <div class="section-title">
-          <h2 class="reveal"><em>Spilakvöld</em> og mót</h2>
+          <h2 class="reveal">Spilakvöld og mót</h2>
           <p class="sub reveal" style="--d:.1s">Hvort sem þú átt hundrað stokka eða hefur aldrei spilað, þá finnum við þér sæti við borðið.</p>
         </div>
         <div id="dagskra" class="dates-block reveal">
           <div>
-            <p class="label">Næstu viðburðir</p>
+            <h3>Næstu viðburðir</h3>
             <ol class="dates" data-render="vidburdir"></ol>
             <p class="dates-empty" hidden>Næstu dagsetningar eru auglýstar á Facebook.</p>
           </div>
           <div>
-            <p class="label">Ertu að mæta í fyrsta sinn?</p>
+            <h3>Ertu að mæta í fyrsta sinn?</h3>
             <dl class="faq" data-render="hagnyt"></dl>
           </div>
         </div>
-        <dl class="schedule reveal" style="--d:.15s" aria-label="Commander-kvöld">
-          <div><dt>Hvað</dt><dd><em>Commander</em>-kvöld</dd></div>
-          <div><dt>Hvenær</dt><dd>Annan hvern fimmtudag</dd></div>
-          <div><dt>Næst</dt><dd data-render="naest-commander">Sjá Facebook</dd></div>
-          <div><dt>Klukkan</dt><dd>19:00–22:00</dd></div>
-          <div><dt>Hvar</dt><dd>Edinborgarhúsið</dd></div>
-        </dl>
         <div class="cards two">
           <article class="feature f-commander reveal">
             <div class="copy">
               <h3>Commander</h3>
               <p>Hver spilari kemur með sinn eigin stokk og þrír til fjórir spila saman við borð. Afslappað og félagslegt, og besta leiðin til að kynnast hópnum.</p>
-              <ul class="tags"><li>Annan hvern fimmtudag</li><li>Eigin stokkur</li><li>Frítt inn</li></ul>
+              <ul class="tags"><li>Annan hvern fimmtudag</li><li>19:00–22:00</li><li>Edinborgarhúsið</li><li>Frítt inn</li></ul>
             </div>
           </article>
           <article class="feature f-safnkort reveal" style="--d:.1s">
@@ -132,7 +123,7 @@
 
         <div class="volunteer reveal">
           <div>
-            <h3><em>Brennur</em> þú fyrir ákveðnu spili?</h3>
+            <h3>Brennur þú fyrir ákveðnu spili?</h3>
             <p>Við leitum að fólki sem vill taka að sér önnur spil en Magic: skipuleggja kvöldin, kenna nýjum og byggja upp hóp, hvort sem það eru borðspil, Pokémon, D&amp;D eða eitthvað allt annað. Félagið hjálpar þér af stað, til dæmis með að finna stað og auglýsa.</p>
           </div>
           <a class="btn" href="mailto:spilafelagvestfjarda@gmail.com" data-render="samband">Hafðu samband <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></svg></a>
@@ -145,14 +136,14 @@
     <section id="adild">
       <div class="wrap">
         <div class="section-title">
-          <h2 class="reveal"><em>Þrjú</em> skref að borðinu</h2>
+          <h2 class="reveal">Þrjú skref að borðinu</h2>
           <p class="sub reveal" style="--d:.1s">Viðburðirnir eru öllum opnir, hvort sem þú ert félagi eða ekki. Með aðild styður þú starfið og færð atkvæðisrétt á aðalfundi.</p>
           <p class="sub reveal" style="--d:.15s" data-render="felagsgjald" hidden></p>
         </div>
         <ol class="steps">
-          <li class="reveal"><span class="n">01</span><h3><em>Sæktu</em> um</h3><p>Fylltu út stutt eyðublað. Það tekur um eina mínútu.</p></li>
-          <li class="reveal" style="--d:.1s"><span class="n">02</span><h3><em>Greiddu</em> félagsgjaldið</h3><p>Krafa birtist í heimabankanum þínum. Þú telst félagi þegar hún hefur verið greidd.</p></li>
-          <li class="reveal" style="--d:.2s"><span class="n">03</span><h3><em>Mættu</em> og spilaðu</h3><p>Finndu næsta spilakvöld og taktu vin með.</p></li>
+          <li class="reveal"><span class="n">1</span><h3>Sæktu um</h3><p>Fylltu út stutt eyðublað. Það tekur um eina mínútu.</p></li>
+          <li class="reveal" style="--d:.1s"><span class="n">2</span><h3>Greiddu félagsgjaldið</h3><p>Krafa birtist í heimabankanum þínum. Þú telst félagi þegar hún hefur verið greidd.</p></li>
+          <li class="reveal" style="--d:.2s"><span class="n">3</span><h3>Mættu og spilaðu</h3><p>Finndu næsta spilakvöld og taktu vin með.</p></li>
         </ol>
         <div class="governance reveal">
           <div>
@@ -164,37 +155,32 @@
             <p>Þú getur sagt þig úr félaginu hvenær sem er með pósti á <a href="mailto:spilafelagvestfjarda@gmail.com">spilafelagvestfjarda@gmail.com</a>.</p>
           </div>
         </div>
-      </div>
-    </section>
-
-    <section id="samthykktir" style="padding-top:0">
-      <div class="wrap">
-        <div class="section-title">
-          <h2 class="reveal"><em>Samþykktir</em> félagsins</h2>
-          <p class="sub reveal" style="--d:.1s">Samþykktar á stofnfundi 12. september 2026. Smelltu á grein til að lesa hana.</p>
-        </div>
-        <div class="bylaws reveal">
-          <details><summary>1. gr. — Heiti og heimili</summary><div><p>Félagið heitir Spilafélag Vestfjarða. Heimili þess og varnarþing er í Ísafjarðarbæ.</p></div></details>
-          <details><summary>2. gr. — Tilgangur</summary><div><p>Tilgangur félagsins er að efla áhuga á borðspilum, safnspilum og skyldum spilum meðal íbúa á Vestfjörðum, á öllum aldri, og að skapa reglulegan og opinn vettvang fyrir spilamennsku, félagsstarf og samveru í fjórðungnum.</p><p>Félagið er almenn félagasamtök sem starfa að ófjárhagslegum tilgangi. Félagið stundar ekki atvinnurekstur.</p></div></details>
-          <details><summary>3. gr. — Leiðir að tilgangi</summary><div><p>Tilgangi sínum hyggst félagið ná með því að:</p><ol type="a"><li>halda regluleg opin spilakvöld sem öllum eru heimil,</li><li>standa fyrir mótum og viðburðum í ýmsum spilaformum, m.a. við útgáfu nýrra spilasetta,</li><li>kenna nýliðum og halda byrjendakvöld þar sem félagið leggur til kennslustokka og búnað,</li><li>halda sérstaka viðburði fyrir börn og ungmenni,</li><li>eiga og viðhalda spilum, spilabúnaði og öðrum búnaði sem nýttur er á viðburðum félagsins,</li><li>eiga samstarf við sveitarfélög, skóla, bókasöfn, félagsmiðstöðvar og önnur félög á Vestfjörðum,</li><li>sækja um styrki til að standa straum af starfsemi félagsins.</li></ol></div></details>
-          <details><summary>4. gr. — Félagsaðild</summary><div><p>Öllum er heimilt að ganga í félagið sem vilja leggja tilgangi þess lið, án tillits til búsetu, aldurs eða reynslu. Aðild að félaginu er frjáls og engum er skylt að vera félagsmaður til að sækja viðburði félagsins, sem eru öllum opnir.</p><p>Umsókn um aðild er beint til stjórnar og telst félagsmaður skráður þegar félagsgjald hefur verið greitt. Stjórn heldur félagatal.</p><p>Félagsmaður getur sagt sig úr félaginu hvenær sem er með tilkynningu til stjórnar. Gangi félagsmaður úr félaginu á hann ekki tilkall til eigna þess.</p></div></details>
-          <details><summary>5. gr. — Starfstímabil</summary><div><p>Starfstímabil og reikningsár félagsins er almanaksárið. Á aðalfundi skal stjórn gera upp árangur liðins árs. Aðeins félagsmenn mega vera þátttakendur í aðalfundi.</p></div></details>
-          <details><summary>6. gr. — Aðalfundur</summary><div><p>Aðalfund skal halda eigi síðar en 30. apríl ár hvert og skal boða til hans með minnst tveggja vikna fyrirvara með sannanlegum hætti, með tölvupósti til skráðra félagsmanna og auglýsingu á vef eða samfélagsmiðlum félagsins. Aðalfundur er löglegur, sé rétt til hans boðað. Einfaldur meirihluti mættra félagsmanna ræður úrslitum mála.</p><p>Dagskrá aðalfundar skal vera sem hér segir:</p><ol><li>Kosning fundarstjóra og fundarritara</li><li>Skýrsla stjórnar lögð fram</li><li>Reikningar lagðir fram til samþykktar</li><li>Lagabreytingar</li><li>Ákvörðun félagsgjalds</li><li>Kosning stjórnar</li><li>Kosning tveggja skoðunarmanna reikninga</li><li>Önnur mál</li></ol></div></details>
-          <details><summary>7. gr. — Stjórn</summary><div><p>Stjórn félagsins skal skipuð að minnsta kosti þremur félagsmönnum, formanni og meðstjórnendum, kjörnum á aðalfundi til eins árs í senn. Heimilt er að kjósa allt að tvo varamenn. Stjórnin skiptir með sér verkum og skal meðal annars velja gjaldkera og ritara úr sínum röðum.</p><p>Stjórn félagsins fer með málefni félagsins milli aðalfunda. Formaður boðar til stjórnarfunda og skal halda fundargerð um þá. Stjórnarfundur er ályktunarhæfur þegar meirihluti stjórnar situr fund.</p><p>Firmaritun er í höndum meirihluta stjórnar. Stjórn er heimilt að veita einum stjórnarmanni prókúru fyrir félagið.</p></div></details>
-          <details><summary>8. gr. — Félagsgjöld og fjármögnun</summary><div><p>Ákvörðun um félagsgjald skal tekin á aðalfundi. Félagsgjöld skulu innheimt tvisvar á ári. Stjórn er heimilt að ákveða lægra eða ekkert félagsgjald fyrir félagsmenn yngri en 18 ára.</p><p>Auk félagsgjalda er félaginu heimilt að fjármagna starfsemi sína með styrkjum, frjálsum framlögum og þátttökugjöldum vegna einstakra viðburða.</p></div></details>
-          <details><summary>9. gr. — Ráðstöfun rekstrarafgangs</summary><div><p>Rekstrarafgangi af starfsemi félagsins skal eingöngu varið í samræmi við tilgang félagsins skv. 2. gr. Félagsmenn njóta ekki fjárhagslegs ávinnings af starfsemi félagsins og óheimilt er að greiða þeim arð eða annað fé úr sjóðum félagsins.</p></div></details>
-          <details><summary>10. gr. — Slit félagsins</summary><div><p>Ákvörðun um slit félagsins skal taka á aðalfundi með einföldum meirihluta atkvæða. Renna eignir félagsins þá til félagasamtaka eða góðgerðarmála með sambærilegan tilgang, sem ákveðin verða á slitafundi. Eignum félagsins skal aldrei ráðstafað til félagsmanna.</p></div></details>
-          <details><summary>11. gr. — Lagabreytingar</summary><div><p>Samþykktum þessum verður aðeins breytt á aðalfundi eða löglega boðuðum félagsfundi, enda hafi tillögu að breytingum verið getið í fundarboði. Til samþykkis breytinga þarf 2/3 hluta greiddra atkvæða.</p></div></details>
-          <details><summary>12. gr. — Félagsfundir</summary><div><p>Stjórn boðar til félagsfundar þegar hún telur ástæðu til, og er henni skylt að gera það krefjist minnst fimmtungur félagsmanna þess skriflega og tilgreini fundarefni. Boða skal til félagsfundar með minnst viku fyrirvara.</p></div></details>
-          <p class="bylaws-foot"><a href="skjol/samthykktir-spilafelag-vestfjarda.pdf" target="_blank" rel="noopener">Undirritað eintak (PDF) →</a></p>
-        </div>
+        <details class="bylaws-all reveal" id="samthykktir">
+          <summary>Samþykktir félagsins <span>12 greinar</span></summary>
+          <div class="bylaws-text">
+            <p class="note">Samþykktar á stofnfundi 12. september 2026.</p>
+            <h3>1. gr. — Heiti og heimili</h3><p>Félagið heitir Spilafélag Vestfjarða. Heimili þess og varnarþing er í Ísafjarðarbæ.</p>
+            <h3>2. gr. — Tilgangur</h3><p>Tilgangur félagsins er að efla áhuga á borðspilum, safnspilum og skyldum spilum meðal íbúa á Vestfjörðum, á öllum aldri, og að skapa reglulegan og opinn vettvang fyrir spilamennsku, félagsstarf og samveru í fjórðungnum.</p><p>Félagið er almenn félagasamtök sem starfa að ófjárhagslegum tilgangi. Félagið stundar ekki atvinnurekstur.</p>
+            <h3>3. gr. — Leiðir að tilgangi</h3><p>Tilgangi sínum hyggst félagið ná með því að:</p><ol type="a"><li>halda regluleg opin spilakvöld sem öllum eru heimil,</li><li>standa fyrir mótum og viðburðum í ýmsum spilaformum, m.a. við útgáfu nýrra spilasetta,</li><li>kenna nýliðum og halda byrjendakvöld þar sem félagið leggur til kennslustokka og búnað,</li><li>halda sérstaka viðburði fyrir börn og ungmenni,</li><li>eiga og viðhalda spilum, spilabúnaði og öðrum búnaði sem nýttur er á viðburðum félagsins,</li><li>eiga samstarf við sveitarfélög, skóla, bókasöfn, félagsmiðstöðvar og önnur félög á Vestfjörðum,</li><li>sækja um styrki til að standa straum af starfsemi félagsins.</li></ol>
+            <h3>4. gr. — Félagsaðild</h3><p>Öllum er heimilt að ganga í félagið sem vilja leggja tilgangi þess lið, án tillits til búsetu, aldurs eða reynslu. Aðild að félaginu er frjáls og engum er skylt að vera félagsmaður til að sækja viðburði félagsins, sem eru öllum opnir.</p><p>Umsókn um aðild er beint til stjórnar og telst félagsmaður skráður þegar félagsgjald hefur verið greitt. Stjórn heldur félagatal.</p><p>Félagsmaður getur sagt sig úr félaginu hvenær sem er með tilkynningu til stjórnar. Gangi félagsmaður úr félaginu á hann ekki tilkall til eigna þess.</p>
+            <h3>5. gr. — Starfstímabil</h3><p>Starfstímabil og reikningsár félagsins er almanaksárið. Á aðalfundi skal stjórn gera upp árangur liðins árs. Aðeins félagsmenn mega vera þátttakendur í aðalfundi.</p>
+            <h3>6. gr. — Aðalfundur</h3><p>Aðalfund skal halda eigi síðar en 30. apríl ár hvert og skal boða til hans með minnst tveggja vikna fyrirvara með sannanlegum hætti, með tölvupósti til skráðra félagsmanna og auglýsingu á vef eða samfélagsmiðlum félagsins. Aðalfundur er löglegur, sé rétt til hans boðað. Einfaldur meirihluti mættra félagsmanna ræður úrslitum mála.</p><p>Dagskrá aðalfundar skal vera sem hér segir:</p><ol><li>Kosning fundarstjóra og fundarritara</li><li>Skýrsla stjórnar lögð fram</li><li>Reikningar lagðir fram til samþykktar</li><li>Lagabreytingar</li><li>Ákvörðun félagsgjalds</li><li>Kosning stjórnar</li><li>Kosning tveggja skoðunarmanna reikninga</li><li>Önnur mál</li></ol>
+            <h3>7. gr. — Stjórn</h3><p>Stjórn félagsins skal skipuð að minnsta kosti þremur félagsmönnum, formanni og meðstjórnendum, kjörnum á aðalfundi til eins árs í senn. Heimilt er að kjósa allt að tvo varamenn. Stjórnin skiptir með sér verkum og skal meðal annars velja gjaldkera og ritara úr sínum röðum.</p><p>Stjórn félagsins fer með málefni félagsins milli aðalfunda. Formaður boðar til stjórnarfunda og skal halda fundargerð um þá. Stjórnarfundur er ályktunarhæfur þegar meirihluti stjórnar situr fund.</p><p>Firmaritun er í höndum meirihluta stjórnar. Stjórn er heimilt að veita einum stjórnarmanni prókúru fyrir félagið.</p>
+            <h3>8. gr. — Félagsgjöld og fjármögnun</h3><p>Ákvörðun um félagsgjald skal tekin á aðalfundi. Félagsgjöld skulu innheimt tvisvar á ári. Stjórn er heimilt að ákveða lægra eða ekkert félagsgjald fyrir félagsmenn yngri en 18 ára.</p><p>Auk félagsgjalda er félaginu heimilt að fjármagna starfsemi sína með styrkjum, frjálsum framlögum og þátttökugjöldum vegna einstakra viðburða.</p>
+            <h3>9. gr. — Ráðstöfun rekstrarafgangs</h3><p>Rekstrarafgangi af starfsemi félagsins skal eingöngu varið í samræmi við tilgang félagsins skv. 2. gr. Félagsmenn njóta ekki fjárhagslegs ávinnings af starfsemi félagsins og óheimilt er að greiða þeim arð eða annað fé úr sjóðum félagsins.</p>
+            <h3>10. gr. — Slit félagsins</h3><p>Ákvörðun um slit félagsins skal taka á aðalfundi með einföldum meirihluta atkvæða. Renna eignir félagsins þá til félagasamtaka eða góðgerðarmála með sambærilegan tilgang, sem ákveðin verða á slitafundi. Eignum félagsins skal aldrei ráðstafað til félagsmanna.</p>
+            <h3>11. gr. — Lagabreytingar</h3><p>Samþykktum þessum verður aðeins breytt á aðalfundi eða löglega boðuðum félagsfundi, enda hafi tillögu að breytingum verið getið í fundarboði. Til samþykkis breytinga þarf 2/3 hluta greiddra atkvæða.</p>
+            <h3>12. gr. — Félagsfundir</h3><p>Stjórn boðar til félagsfundar þegar hún telur ástæðu til, og er henni skylt að gera það krefjist minnst fimmtungur félagsmanna þess skriflega og tilgreini fundarefni. Boða skal til félagsfundar með minnst viku fyrirvara.</p>
+            <p><a href="skjol/samthykktir-spilafelag-vestfjarda.pdf" target="_blank" rel="noopener">Undirritað eintak (PDF) →</a></p>
+          </div>
+        </details>
       </div>
     </section>
 
     <section id="studningur" style="padding-top:0">
       <div class="wrap">
         <div class="section-title">
-          <h2 class="reveal"><em>Með</em> stuðningi</h2>
+          <h2 class="reveal">Með stuðningi</h2>
           <p class="sub reveal" style="--d:.1s">Félagið byggir á sjálfboðavinnu, félagsgjöldum og þeim sem trúa á verkefnið með okkur.</p>
         </div>
         <div data-render="styrkir"></div>
@@ -207,7 +193,7 @@
         <img src="img/cta.jpg" alt="" loading="lazy" decoding="async">
       </div>
       <div class="wrap">
-        <h2 class="reveal"><em>Vertu</em> með</h2>
+        <h2 class="reveal">Vertu með</h2>
         <p class="sub reveal" style="--d:.1s">Félagið er rétt að byrja og verður það sem félagarnir gera úr því.</p>
         <div class="actions reveal" style="--d:.2s">
           <a class="btn" href="ganga-i-felagid">Ganga í félagið <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></svg></a>

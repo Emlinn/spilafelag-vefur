@@ -43,13 +43,12 @@
         <video class="hero-video" muted loop playsinline preload="none" poster="img/hero.jpg" data-src="img/hero.mp4"></video>
       </div>
       <div class="hero-content">
-        <h1 class="rise" style="--d:.15s"><em>Let's</em> play</h1>
+        <h1 class="rise" style="--d:.15s">Let's play</h1>
         <p class="sub rise" style="--d:.3s">Magic: The Gathering in Ísafjörður. Free entry, open to everyone, and beginners and veterans alike are welcome at the table.</p>
-        <a class="btn rise" style="--d:.42s" href="en#vidburdir">Upcoming game nights <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></svg></a>
-        <a class="pill rise" style="--d:.55s" href="en#vidburdir" aria-label="See upcoming game nights">
-          <span>We play <span class="typed" data-words="Commander|Sealed|Draft|Prerelease">Commander</span></span>
-          <span class="go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5"/></svg></span>
-        </a>
+        <div class="actions rise" style="--d:.42s">
+          <a class="btn" href="en#vidburdir">Upcoming game nights <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></svg></a>
+          <a class="btn ghost" href="en/join">Join the club</a>
+        </div>
         <p class="caption rise" style="--d:.7s" data-render="naest">Come and play. Learn something new.</p>
       </div>
       <p class="photo-credit" data-render="credit" hidden></p>
@@ -59,8 +58,7 @@
       <div class="wrap">
         <div class="about">
           <div class="about-head">
-            <p class="label reveal">About the club</p>
-            <h2 class="reveal" style="--d:.08s"><em>A community</em> around games</h2>
+            <h2 class="reveal" style="--d:.08s">A community around games</h2>
           </div>
           <div class="about-body">
             <p class="lead reveal">Spilafélag Vestfjarða is a club for people in the Westfjords who enjoy games. The goal is simple: a place where people meet, get to know each other and play together.</p>
@@ -78,7 +76,7 @@
 
         <div id="stjorn" class="board-block">
           <div class="board-head">
-            <h3 class="reveal"><em>The board</em></h3>
+            <h3 class="reveal">The board</h3>
             <p class="reveal" style="--d:.08s">Elected at the founding meeting. Reach us at <a href="mailto:spilafelagvestfjarda@gmail.com">spilafelagvestfjarda@gmail.com</a>.</p>
           </div>
           <div class="board compact" data-render="stjorn"></div>
@@ -91,33 +89,26 @@
     <section id="vidburdir">
       <div class="wrap">
         <div class="section-title">
-          <h2 class="reveal"><em>Game nights</em> and tournaments</h2>
+          <h2 class="reveal">Game nights and tournaments</h2>
           <p class="sub reveal" style="--d:.1s">Whether you own a hundred decks or have never played, we'll find you a seat at the table.</p>
         </div>
         <div id="dagskra" class="dates-block reveal">
           <div>
-            <p class="label">Upcoming events</p>
+            <h3>Upcoming events</h3>
             <ol class="dates" data-render="vidburdir"></ol>
             <p class="dates-empty" hidden>Upcoming dates are posted on Facebook.</p>
           </div>
           <div>
-            <p class="label">Coming for the first time?</p>
+            <h3>Coming for the first time?</h3>
             <dl class="faq" data-render="hagnyt"></dl>
           </div>
         </div>
-        <dl class="schedule reveal" style="--d:.15s" aria-label="Commander nights">
-          <div><dt>What</dt><dd><em>Commander</em> night</dd></div>
-          <div><dt>When</dt><dd>Every other Thursday</dd></div>
-          <div><dt>Next</dt><dd data-render="naest-commander">See Facebook</dd></div>
-          <div><dt>Time</dt><dd>19:00–22:00</dd></div>
-          <div><dt>Where</dt><dd>Edinborgarhúsið</dd></div>
-        </dl>
         <div class="cards two">
           <article class="feature f-commander reveal">
             <div class="copy">
               <h3>Commander</h3>
               <p>Everyone brings their own deck and three or four players share a table. Relaxed and social, and the best way to get to know the group.</p>
-              <ul class="tags"><li>Every other Thursday</li><li>Your own deck</li><li>Free entry</li></ul>
+              <ul class="tags"><li>Every other Thursday</li><li>19:00–22:00</li><li>Edinborgarhúsið</li><li>Free entry</li></ul>
             </div>
           </article>
           <article class="feature f-safnkort reveal" style="--d:.1s">
@@ -132,7 +123,7 @@
 
         <div class="volunteer reveal">
           <div>
-            <h3><em>Passionate</em> about a particular game?</h3>
+            <h3>Passionate about a particular game?</h3>
             <p>We're looking for people to take on games other than Magic: plan the nights, teach newcomers and build a group, whether it's board games, Pokémon, D&amp;D or something else entirely. The club will help you get started, for example with finding a place and advertising.</p>
           </div>
           <a class="btn" href="mailto:spilafelagvestfjarda@gmail.com" data-render="samband">Get in touch <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></svg></a>
@@ -145,14 +136,14 @@
     <section id="adild">
       <div class="wrap">
         <div class="section-title">
-          <h2 class="reveal"><em>Three</em> steps to the table</h2>
+          <h2 class="reveal">Three steps to the table</h2>
           <p class="sub reveal" style="--d:.1s">Events are open to everyone, member or not. Membership supports the club and gives you a vote at the annual general meeting.</p>
           <p class="sub reveal" style="--d:.15s" data-render="felagsgjald" hidden></p>
         </div>
         <ol class="steps">
-          <li class="reveal"><span class="n">01</span><h3><em>Apply</em></h3><p>Fill in a short form. It takes about a minute.</p></li>
-          <li class="reveal" style="--d:.1s"><span class="n">02</span><h3><em>Pay</em> the fee</h3><p>A payment request appears in your online bank. You're a member once it's paid.</p></li>
-          <li class="reveal" style="--d:.2s"><span class="n">03</span><h3><em>Show up</em> and play</h3><p>Find the next game night and bring a friend.</p></li>
+          <li class="reveal"><span class="n">1</span><h3>Apply</h3><p>Fill in a short form. It takes about a minute.</p></li>
+          <li class="reveal" style="--d:.1s"><span class="n">2</span><h3>Pay the fee</h3><p>A payment request appears in your online bank. You're a member once it's paid.</p></li>
+          <li class="reveal" style="--d:.2s"><span class="n">3</span><h3>Show up and play</h3><p>Find the next game night and bring a friend.</p></li>
         </ol>
         <div class="governance reveal">
           <div>
@@ -164,37 +155,32 @@
             <p>You can leave at any time by emailing <a href="mailto:spilafelagvestfjarda@gmail.com">spilafelagvestfjarda@gmail.com</a>.</p>
           </div>
         </div>
-      </div>
-    </section>
-
-    <section id="samthykktir" style="padding-top:0">
-      <div class="wrap">
-        <div class="section-title">
-          <h2 class="reveal"><em>Bylaws</em></h2>
-          <p class="sub reveal" style="--d:.1s">Adopted at the founding meeting on 12 September 2026. This is an unofficial translation; the Icelandic text applies. Click an article to read it.</p>
-        </div>
-        <div class="bylaws reveal">
-          <details><summary>Art. 1 — Name and seat</summary><div><p>The club is called Spilafélag Vestfjarða. Its seat and legal venue is in Ísafjarðarbær.</p></div></details>
-          <details><summary>Art. 2 — Purpose</summary><div><p>The purpose of the club is to promote interest in board games, collectible games and related games among residents of the Westfjords of all ages, and to create a regular and open forum for play, social activity and companionship in the region.</p><p>The club is a general non-profit association. The club does not engage in commercial activity.</p></div></details>
-          <details><summary>Art. 3 — Means</summary><div><p>The club intends to achieve its purpose by:</p><ol type="a"><li>holding regular open game nights that everyone may attend,</li><li>organising tournaments and events in various game formats, including when new sets are released,</li><li>teaching newcomers and holding beginner nights where the club provides teaching decks and equipment,</li><li>holding special events for children and young people,</li><li>owning and maintaining games, game equipment and other equipment used at the club&#x27;s events,</li><li>cooperating with municipalities, schools, libraries, youth centres and other associations in the Westfjords,</li><li>applying for grants to fund the club&#x27;s activities.</li></ol></div></details>
-          <details><summary>Art. 4 — Membership</summary><div><p>Anyone who wishes to support the club&#x27;s purpose may join, regardless of residence, age or experience. Membership is voluntary and nobody has to be a member to attend the club&#x27;s events, which are open to all.</p><p>Applications for membership are made to the board, and a member is registered once the membership fee has been paid. The board keeps the member register.</p><p>A member may leave the club at any time by notifying the board. A member who leaves has no claim on the club&#x27;s assets.</p></div></details>
-          <details><summary>Art. 5 — Operating year</summary><div><p>The club&#x27;s operating and financial year is the calendar year. At the annual general meeting the board reports on the previous year. Only members may take part in the annual general meeting.</p></div></details>
-          <details><summary>Art. 6 — Annual general meeting</summary><div><p>The annual general meeting shall be held no later than 30 April each year and called with at least two weeks&#x27; notice in a verifiable manner, by email to registered members and by announcement on the club&#x27;s website or social media. The meeting is lawful if properly called. A simple majority of members present decides matters.</p><p>The agenda of the annual general meeting shall be:</p><ol><li>Election of a chair and secretary for the meeting</li><li>Board&#x27;s report</li><li>Accounts presented for approval</li><li>Amendments to the bylaws</li><li>Decision on the membership fee</li><li>Election of the board</li><li>Election of two auditors</li><li>Other business</li></ol></div></details>
-          <details><summary>Art. 7 — Board</summary><div><p>The board consists of at least three members, a chair and board members, elected at the annual general meeting for one year at a time. Up to two alternates may be elected. The board divides its duties and shall among other things choose a treasurer and a secretary from among its members.</p><p>The board manages the club&#x27;s affairs between annual general meetings. The chair calls board meetings and keeps minutes of them. A board meeting has a quorum when a majority of the board attends.</p><p>A majority of the board signs on behalf of the club. The board may grant one board member power of procuration for the club.</p></div></details>
-          <details><summary>Art. 8 — Fees and funding</summary><div><p>The membership fee is decided at the annual general meeting. Fees are collected twice a year. The board may set a lower fee, or none, for members under 18.</p><p>Besides membership fees, the club may fund its activities with grants, voluntary contributions and participation fees for individual events.</p></div></details>
-          <details><summary>Art. 9 — Use of surplus</summary><div><p>Any operating surplus shall be used only in line with the club&#x27;s purpose under Art. 2. Members receive no financial benefit from the club&#x27;s activities, and no dividends or other money may be paid to them from the club&#x27;s funds.</p></div></details>
-          <details><summary>Art. 10 — Dissolution</summary><div><p>A decision to dissolve the club shall be taken at an annual general meeting by a simple majority of votes. The club&#x27;s assets then pass to associations or charities with a similar purpose, decided at the dissolution meeting. The club&#x27;s assets shall never be distributed to members.</p></div></details>
-          <details><summary>Art. 11 — Amendments</summary><div><p>These bylaws may only be amended at an annual general meeting or a lawfully called general meeting, provided the proposed amendment was stated in the notice of the meeting. Amendments require two thirds of votes cast.</p></div></details>
-          <details><summary>Art. 12 — General meetings</summary><div><p>The board calls a general meeting when it sees reason to, and must do so if at least one fifth of members request it in writing and state the subject. General meetings shall be called with at least one week&#x27;s notice.</p></div></details>
-          <p class="bylaws-foot"><a href="skjol/samthykktir-spilafelag-vestfjarda.pdf" target="_blank" rel="noopener">Signed copy in Icelandic (PDF) →</a></p>
-        </div>
+        <details class="bylaws-all reveal" id="samthykktir">
+          <summary>Bylaws <span>12 articles</span></summary>
+          <div class="bylaws-text">
+            <p class="note">Adopted at the founding meeting on 12 September 2026. This is an unofficial translation; the Icelandic text applies.</p>
+            <h3>Art. 1 — Name and seat</h3><p>The club is called Spilafélag Vestfjarða. Its seat and legal venue is in Ísafjarðarbær.</p>
+            <h3>Art. 2 — Purpose</h3><p>The purpose of the club is to promote interest in board games, collectible games and related games among residents of the Westfjords of all ages, and to create a regular and open forum for play, social activity and companionship in the region.</p><p>The club is a general non-profit association. The club does not engage in commercial activity.</p>
+            <h3>Art. 3 — Means</h3><p>The club intends to achieve its purpose by:</p><ol type="a"><li>holding regular open game nights that everyone may attend,</li><li>organising tournaments and events in various game formats, including when new sets are released,</li><li>teaching newcomers and holding beginner nights where the club provides teaching decks and equipment,</li><li>holding special events for children and young people,</li><li>owning and maintaining games, game equipment and other equipment used at the club&#x27;s events,</li><li>cooperating with municipalities, schools, libraries, youth centres and other associations in the Westfjords,</li><li>applying for grants to fund the club&#x27;s activities.</li></ol>
+            <h3>Art. 4 — Membership</h3><p>Anyone who wishes to support the club&#x27;s purpose may join, regardless of residence, age or experience. Membership is voluntary and nobody has to be a member to attend the club&#x27;s events, which are open to all.</p><p>Applications for membership are made to the board, and a member is registered once the membership fee has been paid. The board keeps the member register.</p><p>A member may leave the club at any time by notifying the board. A member who leaves has no claim on the club&#x27;s assets.</p>
+            <h3>Art. 5 — Operating year</h3><p>The club&#x27;s operating and financial year is the calendar year. At the annual general meeting the board reports on the previous year. Only members may take part in the annual general meeting.</p>
+            <h3>Art. 6 — Annual general meeting</h3><p>The annual general meeting shall be held no later than 30 April each year and called with at least two weeks&#x27; notice in a verifiable manner, by email to registered members and by announcement on the club&#x27;s website or social media. The meeting is lawful if properly called. A simple majority of members present decides matters.</p><p>The agenda of the annual general meeting shall be:</p><ol><li>Election of a chair and secretary for the meeting</li><li>Board&#x27;s report</li><li>Accounts presented for approval</li><li>Amendments to the bylaws</li><li>Decision on the membership fee</li><li>Election of the board</li><li>Election of two auditors</li><li>Other business</li></ol>
+            <h3>Art. 7 — Board</h3><p>The board consists of at least three members, a chair and board members, elected at the annual general meeting for one year at a time. Up to two alternates may be elected. The board divides its duties and shall among other things choose a treasurer and a secretary from among its members.</p><p>The board manages the club&#x27;s affairs between annual general meetings. The chair calls board meetings and keeps minutes of them. A board meeting has a quorum when a majority of the board attends.</p><p>A majority of the board signs on behalf of the club. The board may grant one board member power of procuration for the club.</p>
+            <h3>Art. 8 — Fees and funding</h3><p>The membership fee is decided at the annual general meeting. Fees are collected twice a year. The board may set a lower fee, or none, for members under 18.</p><p>Besides membership fees, the club may fund its activities with grants, voluntary contributions and participation fees for individual events.</p>
+            <h3>Art. 9 — Use of surplus</h3><p>Any operating surplus shall be used only in line with the club&#x27;s purpose under Art. 2. Members receive no financial benefit from the club&#x27;s activities, and no dividends or other money may be paid to them from the club&#x27;s funds.</p>
+            <h3>Art. 10 — Dissolution</h3><p>A decision to dissolve the club shall be taken at an annual general meeting by a simple majority of votes. The club&#x27;s assets then pass to associations or charities with a similar purpose, decided at the dissolution meeting. The club&#x27;s assets shall never be distributed to members.</p>
+            <h3>Art. 11 — Amendments</h3><p>These bylaws may only be amended at an annual general meeting or a lawfully called general meeting, provided the proposed amendment was stated in the notice of the meeting. Amendments require two thirds of votes cast.</p>
+            <h3>Art. 12 — General meetings</h3><p>The board calls a general meeting when it sees reason to, and must do so if at least one fifth of members request it in writing and state the subject. General meetings shall be called with at least one week&#x27;s notice.</p>
+            <p><a href="skjol/samthykktir-spilafelag-vestfjarda.pdf" target="_blank" rel="noopener">Signed copy in Icelandic (PDF) →</a></p>
+          </div>
+        </details>
       </div>
     </section>
 
     <section id="studningur" style="padding-top:0">
       <div class="wrap">
         <div class="section-title">
-          <h2 class="reveal"><em>With</em> support from</h2>
+          <h2 class="reveal">With support from</h2>
           <p class="sub reveal" style="--d:.1s">The club runs on volunteer work, membership fees and the people who believe in it with us.</p>
         </div>
         <div data-render="styrkir"></div>
@@ -207,7 +193,7 @@
         <img src="img/cta.jpg" alt="" loading="lazy" decoding="async">
       </div>
       <div class="wrap">
-        <h2 class="reveal"><em>Join</em> us</h2>
+        <h2 class="reveal">Join us</h2>
         <p class="sub reveal" style="--d:.1s">The club is just getting started and will become what its members make of it.</p>
         <div class="actions reveal" style="--d:.2s">
           <a class="btn" href="en/join">Join the club <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></svg></a>

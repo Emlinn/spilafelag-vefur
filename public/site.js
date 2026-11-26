@@ -49,26 +49,6 @@ if (heroVideo && !reduced && !navigator.connection?.saveData) {
   heroVideo.play().catch(() => {});
 }
 
-/* ── typewriter in the glass pill ── */
-const typed = document.querySelector('.typed[data-words]');
-if (typed && !reduced) {
-  const words = typed.dataset.words.split('|');
-  let w = 0, i = words[0].length, deleting = true;
-  const tick = () => {
-    const word = words[w];
-    if (deleting) {
-      i--;
-      if (i <= 0) { deleting = false; w = (w + 1) % words.length; }
-    } else {
-      i++;
-      if (i >= words[w].length) { deleting = true; typed.textContent = words[w]; return setTimeout(tick, 2200); }
-    }
-    typed.textContent = (deleting ? word : words[w]).slice(0, Math.max(i, 0));
-    setTimeout(tick, deleting ? 45 : 85);
-  };
-  setTimeout(tick, 2600);
-}
-
 /* ── helpers ── */
 async function post(url, body) {
   const res = await fetch(url, {
@@ -364,7 +344,7 @@ function renderContent(c) {
   if (dates) {
     upcoming.forEach((v, i) => {
       const p = parts(v.dags), url = (v.tengill ?? '').trim() ? safeUrl(v.tengill.trim()) : null;
-      const title = el('h3', {}, i === 0 ? el('span', { class: 'dot', 'aria-hidden': 'true' }) : null, url ? el('a', { href: url, target: '_blank', rel: 'noopener' }, tx(v, 'heiti')) : tx(v, 'heiti'));
+      const title = el('h4', {}, url ? el('a', { href: url, target: '_blank', rel: 'noopener' }, tx(v, 'heiti')) : tx(v, 'heiti'));
       dates.append(el('li', {},
         el('div', { class: 'day' }, dayNum(p), el('small', {}, p.month.slice(0, 3))),
         el('div', {}, title,
@@ -421,12 +401,10 @@ function renderContent(c) {
   if (grants) {
     for (const g of awarded) {
       const url = safeUrl(g.vefur), logo = localImg(g.merki);
-      const [first, ...rest] = g.heiti.split(' ');
       grants.append(el('article', { class: 'grant reveal' },
         el('img', { class: 'bg', src: 'img/fjord.svg', alt: '', 'aria-hidden': 'true' }),
         el('div', {},
-          el('p', { class: 'label' }, `${L('Styrkþegi', 'Grant recipient')} ${g.ar ?? ''}`.trim()),
-          el('h3', {}, el('em', {}, first), ' ' + rest.join(' ')),
+          el('h3', {}, g.heiti),
           tx(g, 'texti') ? el('p', {}, tx(g, 'texti')) : null,
           tx(g, 'studningur') ? el('p', { class: 'support' }, tx(g, 'studningur')) : null,
           url ? (() => { const a = el('a', { class: 'btn ghost small', href: url, target: '_blank', rel: 'noopener' }, L('Um sjóðinn', 'About the fund')); a.append(svg('<svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 11 11 5M6 5h5v5"/></svg>')); return a; })() : null),
@@ -492,4 +470,12 @@ function openBio(p) {
   bioDialog.replaceChildren(close, el('div', { class: 'bio-grid' }, portrait(p), body));
   bioDialog.showModal();
   close.focus();
+}
+
+/* ── bylaws: a link to #samthykktir opens the folded text ── */
+const bylaws = document.getElementById('samthykktir');
+if (bylaws?.tagName === 'DETAILS') {
+  const openIfTargeted = () => { if (location.hash === '#samthykktir') bylaws.open = true; };
+  openIfTargeted();
+  addEventListener('hashchange', openIfTargeted);
 }
