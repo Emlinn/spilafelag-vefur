@@ -645,3 +645,16 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
 .btn { white-space: nowrap; }
 /* Narrow phones: login stays in the footer, so the header keeps EN and the join button on one line */
 @media (max-width: 480px) { .nav-right a[href$="innskraning"], .nav-right a[href$="en/login"] { display: none; } }
+
+/* ── membership: why first, then how (replaces the three steps) ───── */
+.join { max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: 1.15fr 0.85fr; gap: clamp(2rem, 6vw, 5rem); align-items: start; }
+.join-why .sub { margin: 1.4rem 0 0; max-width: 34rem; }
+.join-list { list-style: none; margin: 2rem 0 0; padding: 0; max-width: 34rem; }
+.join-list li { padding: 0.9rem 0; border-top: 1px solid var(--line); }
+.join-list li:last-child { border-bottom: 1px solid var(--line); }
+.join-how { padding: clamp(1.4rem, 3vw, 2rem); border-radius: 16px; border: 1px solid var(--line); background: var(--bg-2); display: grid; gap: 1rem; justify-items: start; }
+.join-how h3 { font: 400 1.5rem/1.15 var(--serif); }
+.join-how p { margin: 0; color: var(--muted); }
+.join-how .btn { margin-top: 0.4rem; }
+#adild .governance { margin-top: clamp(2.5rem, 5vw, 4rem); }
+@media (max-width: 860px) { .join { grid-template-columns: 1fr; } }
