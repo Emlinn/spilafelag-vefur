@@ -24,6 +24,32 @@ const onScroll = () => header?.classList.toggle('scrolled', scrollY > 16);
 addEventListener('scroll', onScroll, { passive: true });
 onScroll();
 
+/* ── phone menu: on narrow screens the section links and Innskráning/EN fold into one button ── */
+const navCenter = header?.querySelector('.nav-center');
+const navRight = header?.querySelector('.nav-right');
+if (navCenter && navRight) {
+  navCenter.id = 'valmynd';
+  [...navRight.querySelectorAll(':scope > .nav-link.plain')].sort((a) => (a.hasAttribute('lang') ? 1 : -1)).forEach((a) => { // language last
+    const copy = a.cloneNode(true);
+    copy.classList.remove('plain', 'lang-switch');
+    copy.classList.add('m-only');
+    if (copy.hasAttribute('lang')) { copy.textContent = copy.getAttribute('aria-label'); copy.removeAttribute('aria-label'); } // "EN" → "English"
+    navCenter.append(copy);
+  });
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'nav-link menu-btn';
+  btn.setAttribute('aria-controls', 'valmynd');
+  btn.setAttribute('aria-expanded', 'false');
+  btn.innerHTML = `<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2 4.5h12M2 8h12M2 11.5h12"/></svg><span>${L('Valmynd', 'Menu')}</span>`;
+  navRight.append(btn);
+  const setOpen = (open) => { header.classList.toggle('menu-open', open); btn.setAttribute('aria-expanded', String(open)); };
+  btn.addEventListener('click', () => setOpen(!header.classList.contains('menu-open')));
+  navCenter.addEventListener('click', (e) => { if (e.target.closest('a')) setOpen(false); });
+  addEventListener('keydown', (e) => { if (e.key === 'Escape' && header.classList.contains('menu-open')) { setOpen(false); btn.focus(); } });
+  document.addEventListener('click', (e) => { if (!header.contains(e.target)) setOpen(false); });
+}
+
 /* ── hero: the copy drifts up and fades, the landscape sinks slower (parallax) ── */
 const hero = document.querySelector('.hero');
 if (hero && !reduced) {

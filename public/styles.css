@@ -149,14 +149,6 @@ h3 { font: 500 1.05rem/1.35 var(--sans); margin: 0; letter-spacing: -0.01em; }
 .hero-content .sub { max-width: 27rem; color: rgba(250, 250, 250, 0.9); font-size: 1.05rem; }
 .hero-content .btn { margin-top: 1.8rem; }
 
-  display: flex; align-items: center; gap: 1rem; justify-content: space-between;
-  width: min(590px, 100%); margin: 2.6rem auto 0; padding: 10px 10px 10px 30px;
-  border-radius: 999px; text-align: left;
-  background: rgba(255, 255, 255, 0.12); border: 1px solid rgba(255, 255, 255, 0.08);
-  -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px);
-  color: var(--fg); font-size: 1rem; min-height: 80px; text-decoration: none;
-}
-@keyframes caret { 50% { opacity: 0; } }
 .caption { color: var(--muted); margin-top: 1.4rem; font-size: 1rem; }
 
 /* ── sections ─────────────────────────────────────────────────────── */
@@ -658,3 +650,20 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
 .join-how .btn { margin-top: 0.4rem; }
 #adild .governance { margin-top: clamp(2.5rem, 5vw, 4rem); }
 @media (max-width: 860px) { .join { grid-template-columns: 1fr; } }
+
+/* ── phone menu; anchors clear the fixed header ───────────────────── */
+html { scroll-padding-top: 88px; }
+.menu-btn { display: none; align-items: center; gap: 6px; border: 0; cursor: pointer; }
+.menu-btn svg { width: 16px; height: 16px; }
+.nav-center .m-only { display: none; }
+@media (max-width: 760px) {
+  .menu-btn { display: inline-flex; }
+  .nav-right > .nav-link.plain { display: none; }
+  .site-header.menu-open { background: rgba(15, 16, 17, 0.92); -webkit-backdrop-filter: blur(24px); backdrop-filter: blur(24px); border-color: var(--glass-line); }
+  .site-header.menu-open .bar { height: auto; min-height: 56px; }
+  .site-header.menu-open .nav-center { display: flex; flex-direction: column; gap: 4px; grid-column: 1 / -1; grid-row: 2; padding: 4px 0 12px; }
+  .site-header.menu-open .nav-right { grid-row: 1; grid-column: 2; }
+  .site-header.menu-open .brand { grid-row: 1; height: 56px; }
+  .site-header.menu-open .nav-center .nav-link { padding: 12px; font-size: 15px; }
+  .nav-center .m-only { display: block; }
+}

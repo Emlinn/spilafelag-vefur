@@ -31,7 +31,7 @@
         <svg class="brand-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="6"/><circle cx="12" cy="12" r="2.2" fill="currentColor" stroke="none"/></svg>
         <span class="brand-name">Spilafélag Vestfjarða</span>
       </a>
-      <nav class="nav-center" aria-label="Main menu"><a class="nav-link" href="en#um">About</a><a class="nav-link" href="en#vidburdir">Events</a><a class="nav-link" href="en#adild">Membership</a></nav>
+      <nav class="nav-center" aria-label="Main menu"><a class="nav-link" href="en#vidburdir">Events</a><a class="nav-link" href="en#um">About</a><a class="nav-link" href="en#adild">Membership</a></nav>
       <div class="nav-right"><a class="nav-link plain lang-switch" href="./" hreflang="is" lang="is" aria-label="Íslenska">IS</a><a class="nav-link plain" href="en/login">Sign in</a><a class="btn small" href="en/join">Join the club <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></svg></a></div>
     </div>
   </header>
@@ -54,39 +54,7 @@
       <p class="photo-credit" data-render="credit" hidden></p>
     </section>
 
-    <section id="um" style="padding-top:clamp(3rem,6vw,5rem)">
-      <div class="wrap">
-        <div class="about">
-          <div class="about-head">
-            <h2 class="reveal" style="--d:.08s">A community around games</h2>
-          </div>
-          <div class="about-body">
-            <p class="lead reveal">Spilafélag Vestfjarða is a club for people in the Westfjords who enjoy games. The goal is simple: a place where people meet, get to know each other and play together.</p>
-            <p class="reveal" style="--d:.04s">The club was founded on 12 September 2026 around the Commander nights at Edinborgarhúsið in Ísafjörður. Right now it's mostly Magic: The Gathering, but the club is open to all kinds of games, whether that's board games, Pokémon, roleplaying games or whatever else members want to play.</p>
-            <p class="reveal" style="--d:.08s">The club is run by volunteers and is not for profit.</p>
-            <dl class="facts reveal" style="--d:.16s">
-              <div><dt>Based in</dt><dd>Ísafjörður</dd></div>
-              <div><dt>Playing now</dt><dd>Magic: The Gathering</dd></div>
-              <div><dt>Founded</dt><dd>12 September 2026</dd></div>
-              <div><dt>Membership</dt><dd>Open to all</dd></div>
-              <div data-hide-empty hidden><dt>Kennitala</dt><dd data-render="kennitala"></dd></div>
-            </dl>
-          </div>
-        </div>
-
-        <div id="stjorn" class="board-block">
-          <div class="board-head">
-            <h3 class="reveal">The board</h3>
-            <p class="reveal" style="--d:.08s">Elected at the founding meeting. Reach us at <a href="mailto:spilafelagvestfjarda@gmail.com">spilafelagvestfjarda@gmail.com</a>.</p>
-          </div>
-          <div class="board compact" data-render="stjorn"></div>
-        </div>
-      </div>
-    </section>
-
-    <hr class="divider">
-
-    <section id="vidburdir">
+    <section id="vidburdir" style="padding-top:clamp(3rem,6vw,5rem)">
       <div class="wrap">
         <div class="section-title">
           <h2 class="reveal">Game nights and tournaments</h2>
@@ -133,6 +101,38 @@
 
     <hr class="divider">
 
+    <section id="um">
+      <div class="wrap">
+        <div class="about">
+          <div class="about-head">
+            <h2 class="reveal" style="--d:.08s">A community around games</h2>
+          </div>
+          <div class="about-body">
+            <p class="lead reveal">Spilafélag Vestfjarða is a club for people in the Westfjords who enjoy games. The goal is simple: a place where people meet, get to know each other and play together.</p>
+            <p class="reveal" style="--d:.04s">The club was founded on 12 September 2026 around the Commander nights at Edinborgarhúsið in Ísafjörður. Right now it's mostly Magic: The Gathering, but the club is open to all kinds of games, whether that's board games, Pokémon, roleplaying games or whatever else members want to play.</p>
+            <p class="reveal" style="--d:.08s">The club is run by volunteers and is not for profit.</p>
+            <dl class="facts reveal" style="--d:.16s">
+              <div><dt>Based in</dt><dd>Ísafjörður</dd></div>
+              <div><dt>Playing now</dt><dd>Magic: The Gathering</dd></div>
+              <div><dt>Founded</dt><dd>12 September 2026</dd></div>
+              <div><dt>Membership</dt><dd>Open to all</dd></div>
+              <div data-hide-empty hidden><dt>Kennitala</dt><dd data-render="kennitala"></dd></div>
+            </dl>
+          </div>
+        </div>
+
+        <div id="stjorn" class="board-block">
+          <div class="board-head">
+            <h3 class="reveal">The board</h3>
+            <p class="reveal" style="--d:.08s">Elected at the founding meeting. Reach us at <a href="mailto:spilafelagvestfjarda@gmail.com">spilafelagvestfjarda@gmail.com</a>.</p>
+          </div>
+          <div class="board compact" data-render="stjorn"></div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="divider">
+
     <section id="adild">
       <div class="wrap">
         <div class="join reveal">
@@ -159,7 +159,7 @@
           </div>
           <div>
             <h3>Leaving the club</h3>
-            <p>You can leave at any time by emailing <a href="mailto:spilafelagvestfjarda@gmail.com">spilafelagvestfjarda@gmail.com</a>.</p>
+            <p>You can leave at any time: <a href="en/login">log in</a> and choose “Leave the club” in the members area, or email <a href="mailto:spilafelagvestfjarda@gmail.com">spilafelagvestfjarda@gmail.com</a>.</p>
           </div>
         </div>
         <details class="bylaws-all reveal" id="samthykktir">
@@ -215,8 +215,8 @@
       <span>© Spilafélag Vestfjarða · Ísafjörður</span>
       <a class="support-line" href="en#studningur" data-render="studningur" hidden></a>
       <nav aria-label="Footer">
-        <a href="en#um">About</a>
         <a href="en#vidburdir">Events</a>
+        <a href="en#um">About</a>
         <a href="en/join">Join the club</a>
         <a href="en/login">Sign in</a>
         <a href="en#samthykktir">Bylaws</a>
