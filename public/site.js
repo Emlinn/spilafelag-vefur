@@ -388,9 +388,20 @@ if (slots.length) {
   const boardNews = wantsNews
     ? fetch('api/frettir', { cache: 'no-cache' }).then((r) => (r.ok ? r.json() : [])).catch(() => [])
     : Promise.resolve([]);
+  // Upcoming events the board marked "Á heimasíðunni" come from api/vidburdir.
+  const wantsEvents = !!document.querySelector('[data-render="vidburdir"], [data-render="naest"], [data-render="naest-commander"]');
+  const boardEventsP = wantsEvents
+    ? fetch('api/vidburdir', { cache: 'no-cache' }).then((r) => (r.ok ? r.json() : [])).catch(() => [])
+    : Promise.resolve([]);
   fetch('efni.json', { cache: 'no-cache' })
     .then((r) => { if (!r.ok) throw new Error(`efni.json: HTTP ${r.status}`); return r.json(); })
     .then(async (raw) => {
+      const boardEvents = await boardEventsP;
+      if (Array.isArray(boardEvents) && boardEvents.length && raw && typeof raw === 'object') {
+        // An event from the dashboard replaces an efni.json event on the same day.
+        const days = new Set(boardEvents.map((v) => v && v.dags));
+        raw.vidburdir = [...boardEvents, ...(Array.isArray(raw.vidburdir) ? raw.vidburdir : []).filter((v) => !days.has(v && v.dags))];
+      }
       const extra = await boardNews;
       if (Array.isArray(extra) && extra.length && raw && typeof raw === 'object') {
         // A dashboard post wins over an efni.json post with the same slod.

@@ -9,7 +9,7 @@ import {
   createSession, sessionMember, destroySession, pruneSessions, SESSION_DAYS,
 } from './db.js';
 import { parseKennitala } from './kennitala.js';
-import { REMOTE, Unavailable, sendApplication, membership, overview, leave, news, newsImage } from './adild.js';
+import { REMOTE, Unavailable, sendApplication, membership, overview, leave, news, events, newsImage } from './adild.js';
 
 const PORT = Number(process.env.PORT ?? 3200);
 const HOST = process.env.HOST ?? '0.0.0.0';
@@ -168,6 +168,10 @@ async function api(req, res, path) {
   // News from the board's dashboard, merged with efni.json's posts by site.js.
   if (path === '/api/frettir' && method === 'GET') {
     return json(res, 200, await news(), { 'Cache-Control': 'no-cache' });
+  }
+  // Upcoming events the board has put on the website, merged with efni.json's by site.js.
+  if (path === '/api/vidburdir' && method === 'GET') {
+    return json(res, 200, await events(), { 'Cache-Control': 'no-cache' });
   }
   const img = /^\/api\/frettir\/mynd\/(\d{1,9})$/.exec(path);
   if (img && method === 'GET') {

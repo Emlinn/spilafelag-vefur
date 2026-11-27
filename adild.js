@@ -71,22 +71,27 @@ export async function leave(email) {
   if (status !== 200 && status !== 404) throw new Unavailable(`úrsögn ${status}`); // 404: nothing on file there
 }
 
-// News written in the dashboard's Fréttir page. Kept for a minute, so a busy
-// news page doesn't ask the dashboard on every view, and the last good list is
-// served if the dashboard stops answering. The site still has efni.json's own posts.
-let newsCache = { at: 0, list: [] };
-export async function news() {
-  if (!REMOTE) return [];
-  if (Date.now() - newsCache.at < 60_000) return newsCache.list;
-  try {
-    const { status, data } = await call('/api/innri/frettir');
-    if (status === 200 && Array.isArray(data)) newsCache = { at: Date.now(), list: data };
-    else newsCache.at = Date.now();
-  } catch {
-    newsCache.at = Date.now() - 45_000; // try again in 15 s, not on every request
-  }
-  return newsCache.list;
+// News and upcoming events written in the dashboard (Fréttir, and Viðburðir
+// marked "Á heimasíðunni"). Each list is kept for a minute, so a busy page
+// doesn't ask the dashboard on every view, and the last good list is served if
+// the dashboard stops answering. The site still has efni.json's own entries.
+function cachedList(path) {
+  let cache = { at: 0, list: [] };
+  return async () => {
+    if (!REMOTE) return [];
+    if (Date.now() - cache.at < 60_000) return cache.list;
+    try {
+      const { status, data } = await call(path);
+      if (status === 200 && Array.isArray(data)) cache = { at: Date.now(), list: data };
+      else cache.at = Date.now();
+    } catch {
+      cache.at = Date.now() - 45_000; // try again in 15 s, not on every request
+    }
+    return cache.list;
+  };
 }
+export const news = cachedList('/api/innri/frettir');
+export const events = cachedList('/api/innri/vidburdir');
 
 /** A news photo from the dashboard: { type, body } or null. Only photos a published post uses are served there. */
 export async function newsImage(id) {
