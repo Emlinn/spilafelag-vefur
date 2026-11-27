@@ -32,7 +32,7 @@
         <span class="brand-name">Spilafélag Vestfjarða</span>
       </a>
       <nav class="nav-center" aria-label="Main menu"><a class="nav-link" href="en#vidburdir">Events</a><a class="nav-link" href="en#um">About</a><a class="nav-link" href="en#adild">Membership</a><a class="nav-link" href="en/news">News</a></nav>
-      <div class="nav-right"><a class="nav-link plain lang-switch" href="ganga-i-felagid" hreflang="is" lang="is" aria-label="Íslenska">IS</a><a class="nav-link plain" href="en/login">Sign in</a><a class="btn small" href="en/join">Join the club <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></svg></a></div>
+      <div class="nav-right"><a class="nav-link plain lang-switch" href="ganga-i-felagid" hreflang="is" lang="is" >IS<span class="sr-only"> (íslenska)</span></a><a class="nav-link plain" href="en/login">Sign in</a><a class="btn small" href="en/join">Join the club <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></svg></a></div>
     </div>
   </header>
 
@@ -58,39 +58,39 @@
           <div class="field">
             <label for="name">Full name</label>
             <input id="name" name="name" type="text" autocomplete="name" required maxlength="120">
-            <span class="err" aria-live="polite"></span>
+            <span class="err"></span>
           </div>
           <div class="field">
             <label for="kennitala">Kennitala</label>
             <input id="kennitala" name="kennitala" type="text" inputmode="numeric" autocomplete="off" required maxlength="11" placeholder="000000-0000">
             <span class="hint">Your Icelandic ID number. Used to send a payment request for the fee and to confirm your age. No Icelandic kennitala? Email us at <a href="mailto:spilafelagvestfjarda@gmail.com">spilafelagvestfjarda@gmail.com</a>.</span>
-            <span class="err" aria-live="polite"></span>
+            <span class="err"></span>
           </div>
           <div class="row">
             <div class="field">
               <label for="email">Email</label>
               <input id="email" name="email" type="email" autocomplete="email" required maxlength="200">
-              <span class="err" aria-live="polite"></span>
+              <span class="err"></span>
             </div>
             <div class="field">
               <label for="phone">Phone <span class="opt">(optional)</span></label>
               <input id="phone" name="phone" type="tel" autocomplete="tel" maxlength="40">
-              <span class="err" aria-live="polite"></span>
+              <span class="err"></span>
             </div>
           </div>
-          <fieldset class="field" id="forradamadur" hidden>
+          <fieldset class="field" id="forradamadur">
             <legend>Parent or guardian</legend>
-            <span class="hint">You're under 18, so membership is free. Please add a parent or guardian.</span>
+            <span class="hint">Only for under-18s. Membership is then free, but please add a parent or guardian.</span>
             <div class="row">
               <div class="field">
                 <label for="guardian_name">Parent or guardian's name</label>
                 <input id="guardian_name" name="guardian_name" type="text" autocomplete="off" maxlength="120">
-                <span class="err" aria-live="polite"></span>
+                <span class="err"></span>
               </div>
               <div class="field">
                 <label for="guardian_contact">Phone or email</label>
                 <input id="guardian_contact" name="guardian_contact" type="text" autocomplete="off" maxlength="200">
-                <span class="err" aria-live="polite"></span>
+                <span class="err"></span>
               </div>
             </div>
           </fieldset>
@@ -103,19 +103,19 @@
               <label for="password">Password</label>
               <input id="password" name="password" type="password" autocomplete="new-password" required minlength="10">
               <span class="hint">At least 10 characters.</span>
-              <span class="err" aria-live="polite"></span>
+              <span class="err"></span>
             </div>
             <div class="field">
               <label for="password2">Confirm password</label>
               <input id="password2" name="password2" type="password" autocomplete="new-password" required>
-              <span class="err" aria-live="polite"></span>
+              <span class="err"></span>
             </div>
           </div>
           <div class="hp" aria-hidden="true"><label>Website <input name="website" type="text" tabindex="-1" autocomplete="off"></label></div>
           <div class="field">
             <label class="check"><input id="consent" type="checkbox" name="consent" value="1" required><span>I'd like to become a member of Spilafélag Vestfjarða.</span></label>
             <span class="hint">The board uses this information to keep the member register and collect fees. See the club's <a class="link-quiet" href="en/privacy">privacy notice</a>.</span>
-            <span class="err" aria-live="polite"></span>
+            <span class="err"></span>
           </div>
           <div class="alert" role="alert" hidden></div>
           <div class="form-foot">

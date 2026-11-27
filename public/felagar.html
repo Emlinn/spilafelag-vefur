@@ -23,7 +23,7 @@
         <span class="brand-name">Spilafélag Vestfjarða</span>
       </a>
       <nav class="nav-center" aria-label="Aðalvalmynd"><a class="nav-link" href="felagar" aria-current="page">Félagssvæði</a></nav>
-      <div class="nav-right"><a class="nav-link plain lang-switch" href="en/members" hreflang="en" lang="en" aria-label="English">EN</a><button id="utskraning" class="btn small ghost" type="button">Skrá út</button></div>
+      <div class="nav-right"><a class="nav-link plain lang-switch" href="en/members" hreflang="en" lang="en" >EN<span class="sr-only"> (English)</span></a><button id="utskraning" class="btn small ghost" type="button">Skrá út</button></div>
     </div>
   </header>
 
@@ -32,7 +32,7 @@
     <div class="wrap" style="display:block">
       <h1 class="rise" style="--d:.08s">Hæ, <span id="member-name">félagi</span></h1>
       <p class="sub rise" style="--d:.16s;margin-left:0" id="member-sub">Félagi frá <span id="member-since">—</span>.</p>
-      <p class="sample-note" id="m-sample" hidden>Sýnishorn: vefurinn er ekki tengdur stjórnborðinu, svo tölurnar hér eru tilbúnar.</p>
+      <p class="sample-note" id="m-sample" hidden>Sýnishorn: vefurinn er ekki tengdur stjórnborðinu, svo tölurnar hér eru ekki raunverulegar.</p>
       <p class="alert" id="m-error" hidden></p>
 
       <dl class="m-stats reveal" aria-label="Þín tölfræði">
@@ -81,11 +81,11 @@
     <dialog class="m-dialog" id="ursogn" aria-labelledby="ursogn-titill">
       <form class="form" id="ursogn-form" novalidate>
         <h2 id="ursogn-titill">Segja sig úr félaginu?</h2>
-        <p>Þú hættir strax að vera félagi og getur ekki skráð þig inn aftur nema sækja um á ný. Sláðu inn lykilorðið þitt til að staðfesta.</p>
+        <p>Þú hættir strax að vera félagi og getur ekki skráð þig inn aftur nema þú sækir um á ný. Sláðu inn lykilorðið þitt til að staðfesta.</p>
         <div class="field">
           <label for="ursogn-pw">Lykilorð</label>
           <input id="ursogn-pw" name="password" type="password" autocomplete="current-password" required>
-          <span class="err" aria-live="polite"></span>
+          <span class="err"></span>
         </div>
         <p class="alert" id="ursogn-error" hidden></p>
         <div class="form-foot">

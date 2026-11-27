@@ -55,6 +55,7 @@ const SECURITY_HEADERS = {
   'X-Content-Type-Options': 'nosniff',
   'Referrer-Policy': 'same-origin',
   'X-Frame-Options': 'DENY',
+  'Permissions-Policy': 'camera=(), microphone=(), geolocation=(), payment=()',
   'Content-Security-Policy':
     "default-src 'self'; style-src 'self'; style-src-attr 'unsafe-inline'; font-src 'self'; " +
     "img-src 'self' data:; script-src 'self'; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'self'",
@@ -101,8 +102,12 @@ async function readJson(req) {
     if (out.lang === 'en') req.lang = 'en';
     return out;
   }
-  try { return JSON.parse(text || '{}'); }
+  let body;
+  try { body = JSON.parse(text || '{}'); }
   catch { throw Object.assign(new Error('bad json'), { status: 400 }); }
+  // Only a plain object is a valid request body; null, arrays and bare values are refused.
+  if (body === null || typeof body !== 'object' || Array.isArray(body)) throw Object.assign(new Error('bad json'), { status: 400 });
+  return body;
 }
 
 // What a script-less form post gets back: a plain page, in the form's language.
@@ -127,12 +132,21 @@ function sameOrigin(req) {
 // Throttles per IP: login and leaving, 10 tries / 15 min; applications, 10 / hour.
 function limiter(max, windowMs) {
   const hits = new Map();
+  // Old entries are swept every few minutes so the map can't grow without end.
+  setInterval(() => {
+    const now = Date.now();
+    for (const [ip, list] of hits) {
+      const fresh = list.filter((t) => now - t < windowMs);
+      if (fresh.length) hits.set(ip, fresh); else hits.delete(ip);
+    }
+  }, 5 * 60_000).unref();
   return (ip) => {
     const now = Date.now();
     const list = (hits.get(ip) ?? []).filter((t) => now - t < windowMs);
+    if (list.length >= max) { hits.set(ip, list); return true; } // blocked: don't keep stacking timestamps
     list.push(now);
     hits.set(ip, list);
-    return list.length > max;
+    return false;
   };
 }
 const throttled = limiter(10, 15 * 60_000);
@@ -185,7 +199,7 @@ async function api(req, res, path) {
     if (!EMAIL_RE.test(email)) errors.email = email ? t('Athugaðu netfangið.', "That email address doesn't look right.") : t('Sláðu inn netfang.', 'Please enter your email.');
     if (password.length < 10) errors.password = t('Lykilorðið þarf að vera minnst 10 stafir.', 'The password must be at least 10 characters.');
     if (b.password2 !== undefined && String(b.password2) !== password) errors.password2 = t('Lykilorðin eru ekki eins.', "The passwords don't match."); // only plain form posts send it
-    if (!b.consent) errors.consent = t('Hakaðu við hér til að staðfesta umsóknina.', 'Tick this box to confirm your application.');
+    if (!(b.consent === true || b.consent === '1' || b.consent === 'on')) errors.consent = t('Hakaðu við hér til að staðfesta umsóknina.', 'Tick this box to confirm your application.');
     if (Object.keys(errors).length) return reply(422, { errors });
 
     const DUP = {
@@ -271,7 +285,7 @@ async function api(req, res, path) {
     const local = db.prepare('SELECT status FROM members WHERE id = ?').get(me.id)?.status;
     let data;
     try { data = await overview(me.email, local); }
-    catch (e) { if (e instanceof Unavailable) return json(res, 503, { error: t('Náði ekki í upplýsingarnar núna.', "Couldn't load your information right now.") }); throw e; }
+    catch (e) { if (e instanceof Unavailable) return json(res, 503, { error: t('Ekki tókst að sækja upplýsingarnar núna.', "Couldn't load your information right now.") }); throw e; }
     if (data.status !== 'member') {
       db.prepare("UPDATE members SET status = 'rejected' WHERE id = ? AND ? <> 'pending'").run(me.id, data.status);
       destroySession(token);

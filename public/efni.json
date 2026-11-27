@@ -20,7 +20,7 @@
       "klukkan": "19:00–22:00",
       "stadur": "Edinborgarhúsið",
       "texti": "Síðasta kvöld ársins.",
-      "texti_en": "Last night of the year.",
+      "texti_en": "Last game night of the year.",
       "tengill": ""
     },
     {
@@ -31,7 +31,7 @@
       "klukkan": "19:00–22:00",
       "stadur": "Edinborgarhúsið",
       "texti": "Fyrsta kvöld ársins.",
-      "texti_en": "First night of the year.",
+      "texti_en": "First game night of the year.",
       "tengill": ""
     }
   ],
@@ -57,7 +57,7 @@
     {
       "spurning": "Hvað á ég að taka með?",
       "spurning_en": "What should I bring?",
-      "svar": "Commander-stokkinn þinn, ef þú átt hann. Áttu engan stokk? Þú getur fengið lánaðan.",
+      "svar": "Commander-stokkinn þinn, ef þú átt hann. Áttu engan stokk? Þú getur fengið einn lánaðan.",
       "svar_en": "Your Commander deck, if you have one. Don't have a deck? You can borrow one."
     },
     {
@@ -148,7 +148,7 @@
         "Félagið var stofnað í september og síðan þá höfum við haldið tvö mót auk reglubundinna Commander-kvölda. Takk öll sem hafið mætt, það eruð þið sem gerið þetta að veruleika.",
         "Kærar þakkir til Uppbyggingarsjóðs Vestfjarða og Vestfjarðastofu!",
         {
-          "hnappur": "Viltu styðja félagið? Gakktu í félagið",
+          "hnappur": "Viltu styðja starfið? Gakktu í félagið",
           "href": "ganga-i-felagid"
         }
       ],
@@ -161,7 +161,7 @@
         "The club was founded in September, and since then we've held two tournaments as well as the regular Commander nights. Thanks to everyone who has come along: you're the ones making this happen.",
         "Many thanks to Uppbyggingarsjóður Vestfjarða and Vestfjarðastofa!",
         {
-          "hnappur": "Want to support the club? Join the club",
+          "hnappur": "Want to support us? Join the club",
           "href": "en/join"
         }
       ]
@@ -172,7 +172,7 @@
       "titill": "Star Trek prerelease: takk fyrir frábæran dag!",
       "titill_en": "Star Trek prerelease: thanks for a great day!",
       "efni": [
-        "Veðrið reyndi sitt besta til að stoppa okkur, en fólk mokaði sig út, Dynjandisheiðin var mokuð um morguninn og kassinn komst á leiðarenda. Ragnar fær sérstakar þakkir fyrir að koma honum til okkar! 18 manns spiluðu og allir fóru heim með verðlaun.",
+        "Veðrið reyndi sitt besta til að stoppa okkur, en fólk mokaði sig út, Dynjandisheiðin var mokuð um morguninn og kassinn komst á leiðarenda. Ragnar fær sérstakar þakkir fyrir að koma honum til okkar! Átján manns spiluðu og allir fóru heim með verðlaun.",
         {
           "titill": "Sigurvegarar dagsins",
           "listi": [
@@ -182,7 +182,7 @@
           ]
         },
         "Hilmir mætti fyrst á sealed-mótið í Dokkunni um páskana, hefur mætt á öll Commander-kvöld síðan og brennur fyrir Magic. Algjör meistari!",
-        "Kærar þakkir til Nexus fyrir samstarfið, kittin og land station-ið. Þetta var fyrsta prerelease-ið sem við höldum með Nexus, og vonandi ekki það síðasta.",
+        "Kærar þakkir til Nexus fyrir samstarfið, kittin og land station-ið. Þetta var fyrsta prerelease-ið sem við héldum með Nexus, og vonandi ekki það síðasta.",
         {
           "stokkur": "Vinningsstokkur Agnars (GW)",
           "spil": [
@@ -216,7 +216,7 @@
         "Sjáumst á næsta Commander-kvöldi í Edinborgarhúsinu!"
       ],
       "efni_en": [
-        "The weather did its best to stop us, but people dug themselves out, Dynjandisheiði was cleared in the morning and the box made it all the way. Special thanks to Ragnar for getting it to us! 18 people played and everyone went home with a prize.",
+        "The weather did its best to stop us, but people dug themselves out, Dynjandisheiði was cleared in the morning and the box made it all the way. Special thanks to Ragnar for getting it to us! Eighteen people played and everyone went home with a prize.",
         {
           "titill": "Winners of the day",
           "listi": [
@@ -274,7 +274,7 @@
       "mynd_alt": "Fullur salur í Edinborgarhúsinu, spilarar við löng borð á sealed-mótinu",
       "mynd_alt_en": "A full hall at Edinborgarhúsið, players at long tables during the sealed tournament",
       "efni": [
-        "Sealed-mótið okkar í Reality Fracture tókst frábærlega. 16 spilarar mættu í Edinborgarhúsið og það var tappað, galdrað og barist fram á síðustu umferð.",
+        "Sealed-mótið okkar í Reality Fracture tókst frábærlega. Sextán spilarar mættu í Edinborgarhúsið og það var tappað, galdrað og barist fram á síðustu umferð.",
         {
           "titill": "Efstu sex sætin",
           "listi": [
@@ -320,7 +320,7 @@
         }
       ],
       "efni_en": [
-        "Our Reality Fracture sealed tournament was a great success. 16 players came to Edinborgarhúsið, and there was tapping, casting and battling right up to the final round.",
+        "Our Reality Fracture sealed tournament was a great success. Sixteen players came to Edinborgarhúsið, and there was tapping, casting and battling right up to the final round.",
         {
           "titill": "Top six",
           "listi": [

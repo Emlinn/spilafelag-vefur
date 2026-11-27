@@ -257,7 +257,7 @@ section { position: relative; padding: clamp(5rem, 11vw, 9rem) 0; }
 .field .opt { color: var(--faint); }
 .field input[type='text'], .field input[type='email'], .field input[type='tel'], .field input[type='password'], .field textarea {
   width: 100%; font: inherit; font-size: 1rem; color: var(--fg);
-  background: rgba(255, 255, 255, 0.05); border: 1px solid var(--line); border-radius: 10px;
+  background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.4); border-radius: 10px; /* 3:1 against the card */
   padding: 0.85rem 1rem; transition: border-color 0.2s, background-color 0.2s;
 }
 .field textarea { min-height: 110px; resize: vertical; }
@@ -732,3 +732,22 @@ html { scroll-padding-top: 88px; }
 .news-latest-date { font: 500 14px/1.4 var(--sans); color: var(--faint); }
 .news-latest a { text-underline-offset: 3px; }
 .news-latest-all { font-size: 0.95rem; color: var(--muted); }
+
+/* the subtitle in the "Vertu með" band sits on a photo: full-strength text there */
+.cta .sub { color: var(--fg-2); }
+/* tablets: the full nav plus every header link doesn't fit, so "Innskráning" lives in the footer and join page there */
+@media (min-width: 761px) and (max-width: 960px) {
+  .nav-right > .nav-link.plain:not(.lang-switch) { display: none; }
+  .site-header .bar { gap: 0.6rem; }
+}
+/* very narrow or zoomed-in screens: the header keeps the name, EN and the menu; joining is one tap away in the menu and the hero */
+@media (max-width: 320px) {
+  .nav-right .btn { display: none; }
+}
+@media (max-width: 760px) { .menu-btn { min-height: 44px; min-width: 44px; justify-content: center; } }
+/* long words and email addresses wrap instead of pushing the page sideways on narrow or zoomed screens */
+h1, h2, h3, h4, p, li, dd, dt, a { overflow-wrap: break-word; }
+.governance > *, .grant > *, .grant > * > *, .dates-block > *, .cards > * { min-width: 0; }
+a[href^="mailto:"] { overflow-wrap: anywhere; }
+.page .wrap > *, .board > *, .board-head, .about > * { min-width: 0; }
+.news-action .btn { white-space: normal; text-align: left; }

@@ -32,7 +32,7 @@
         <span class="brand-name">Spilafélag Vestfjarða</span>
       </a>
       <nav class="nav-center" aria-label="Aðalvalmynd"><a class="nav-link" href="./#vidburdir">Viðburðir</a><a class="nav-link" href="./#um">Félagið</a><a class="nav-link" href="./#adild">Aðild</a><a class="nav-link" href="frettir">Fréttir</a></nav>
-      <div class="nav-right"><a class="nav-link plain lang-switch" href="en/join" hreflang="en" lang="en" aria-label="English">EN</a><a class="nav-link plain" href="innskraning">Innskráning</a><a class="btn small" href="ganga-i-felagid">Ganga í félagið <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></svg></a></div>
+      <div class="nav-right"><a class="nav-link plain lang-switch" href="en/join" hreflang="en" lang="en" >EN<span class="sr-only"> (English)</span></a><a class="nav-link plain" href="innskraning">Innskráning</a><a class="btn small" href="ganga-i-felagid">Ganga í félagið <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></svg></a></div>
     </div>
   </header>
 
@@ -57,39 +57,39 @@
           <div class="field">
             <label for="name">Fullt nafn</label>
             <input id="name" name="name" type="text" autocomplete="name" required maxlength="120">
-            <span class="err" aria-live="polite"></span>
+            <span class="err"></span>
           </div>
           <div class="field">
             <label for="kennitala">Kennitala</label>
             <input id="kennitala" name="kennitala" type="text" inputmode="numeric" autocomplete="off" required maxlength="11" placeholder="000000-0000">
             <span class="hint">Notuð til að stofna kröfu um félagsgjaldið og staðfesta aldur. Ekki með íslenska kennitölu? Sendu okkur póst á <a href="mailto:spilafelagvestfjarda@gmail.com">spilafelagvestfjarda@gmail.com</a>.</span>
-            <span class="err" aria-live="polite"></span>
+            <span class="err"></span>
           </div>
           <div class="row">
             <div class="field">
               <label for="email">Netfang</label>
               <input id="email" name="email" type="email" autocomplete="email" required maxlength="200">
-              <span class="err" aria-live="polite"></span>
+              <span class="err"></span>
             </div>
             <div class="field">
               <label for="phone">Sími <span class="opt">(má sleppa)</span></label>
               <input id="phone" name="phone" type="tel" autocomplete="tel" maxlength="40">
-              <span class="err" aria-live="polite"></span>
+              <span class="err"></span>
             </div>
           </div>
-          <fieldset class="field" id="forradamadur" hidden>
+          <fieldset class="field" id="forradamadur">
             <legend>Forráðamaður</legend>
-            <span class="hint">Þú ert yngri en 18 ára, svo aðildin er ókeypis. Skráðu forráðamann þinn hér.</span>
+            <span class="hint">Aðeins fyrir yngri en 18 ára. Aðildin er þá ókeypis, en skráðu forráðamann þinn hér.</span>
             <div class="row">
               <div class="field">
                 <label for="guardian_name">Nafn forráðamanns</label>
                 <input id="guardian_name" name="guardian_name" type="text" autocomplete="off" maxlength="120">
-                <span class="err" aria-live="polite"></span>
+                <span class="err"></span>
               </div>
               <div class="field">
                 <label for="guardian_contact">Sími eða netfang</label>
                 <input id="guardian_contact" name="guardian_contact" type="text" autocomplete="off" maxlength="200">
-                <span class="err" aria-live="polite"></span>
+                <span class="err"></span>
               </div>
             </div>
           </fieldset>
@@ -102,19 +102,19 @@
               <label for="password">Lykilorð</label>
               <input id="password" name="password" type="password" autocomplete="new-password" required minlength="10">
               <span class="hint">Minnst 10 stafir.</span>
-              <span class="err" aria-live="polite"></span>
+              <span class="err"></span>
             </div>
             <div class="field">
               <label for="password2">Endurtaktu lykilorðið</label>
               <input id="password2" name="password2" type="password" autocomplete="new-password" required>
-              <span class="err" aria-live="polite"></span>
+              <span class="err"></span>
             </div>
           </div>
           <div class="hp" aria-hidden="true"><label>Vefsíða <input name="website" type="text" tabindex="-1" autocomplete="off"></label></div>
           <div class="field">
             <label class="check"><input id="consent" type="checkbox" name="consent" value="1" required><span>Ég óska eftir aðild að Spilafélagi Vestfjarða.</span></label>
             <span class="hint">Stjórnin notar upplýsingarnar til að halda félagatal og innheimta félagsgjöld. Nánar í <a class="link-quiet" href="personuvernd">persónuverndarstefnu félagsins</a>.</span>
-            <span class="err" aria-live="polite"></span>
+            <span class="err"></span>
           </div>
           <div class="alert" role="alert" hidden></div>
           <div class="form-foot">
