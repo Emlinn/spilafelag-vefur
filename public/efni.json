@@ -28,8 +28,14 @@
     {
       "spurning": "Hvað kostar?",
       "spurning_en": "What does it cost?",
-      "svar": "Ekkert. Það er frítt inn á spilakvöldin og þú þarft ekki að vera í félaginu.",
-      "svar_en": "Nothing. Entry to game nights is free and you don't need to be a member."
+      "svar": "Ekkert á Commander-kvöldum: það er frítt inn og þú þarft ekki að vera í félaginu. Á mótum (sealed, draft og prerelease) borgar þú fyrir pakkana. Verðið fer eftir settinu og á prerelease er það Nexus sem selur pakkana og ákveður verðið.",
+      "svar_en": "Nothing on Commander nights: entry is free and you don't need to be a member. At tournaments (sealed, draft and prerelease) you pay for the packs. The price depends on the set, and at prereleases the packs are sold by Nexus, who set the price."
+    },
+    {
+      "spurning": "Hvar er þetta?",
+      "spurning_en": "Where is it?",
+      "svar": "Í Rögnvaldssal, salnum á annarri hæð í Edinborgarhúsinu. Farðu upp stigann og svo til hægri.",
+      "svar_en": "In Rögnvaldssalur, the second-floor hall in Edinborgarhúsið. Go up the stairs and turn right."
     },
     {
       "spurning": "Ég hef aldrei spilað",
@@ -42,6 +48,12 @@
       "spurning_en": "What should I bring?",
       "svar": "Commander-stokkinn þinn, ef þú átt hann. Áttu engan stokk? Þú getur fengið lánaðan.",
       "svar_en": "Your Commander deck, if you have one. Don't have a deck? You can borrow one."
+    },
+    {
+      "spurning": "Mega börn koma?",
+      "spurning_en": "Can children come?",
+      "svar": "Já, öll eru velkomin. Yngri börn ættu þó að koma með foreldri eða eldra systkini, því félagið sér ekki um barnagæslu.",
+      "svar_en": "Yes, everyone is welcome. Younger children should come with a parent or an older sibling, though, as the club doesn't provide childcare."
     }
   ],
   "stjorn": [
@@ -98,8 +110,8 @@
       "syna_nafn": true
     }
   ],
-  "felagsgjald": "Félagsgjaldið er nú 3.000 kr. og gildir fram að næsta aðalfundi, þar sem gjaldið fyrir 2027 verður ákveðið. Frítt fyrir yngri en 18 ára.",
-  "felagsgjald_en": "The membership fee is currently 3,000 kr and covers you until the next annual general meeting, where the 2027 fee will be set. Free for under-18s.",
+  "felagsgjald": "Félagsgjaldið er nú 3.000 kr. og gildir fram að næsta aðalfundi, þar sem gjaldið fyrir 2027 verður ákveðið. Frítt fyrir yngri en 18 ára. Gjaldið fer í leigu á salnum, verðlaun, lánsstokka og annan rekstur félagsins.",
+  "felagsgjald_en": "The membership fee is currently 3,000 kr and covers you until the next annual general meeting, where the 2027 fee will be set. Free for under-18s. It pays for the hall, prizes, loaner decks and the club's other running costs.",
   "facebook": "https://www.facebook.com/profile.php?id=61594705529073",
   "facebook_hopur": "https://www.facebook.com/groups/2612492249215869",
   "styrkja_netfang": "spilafelagvestfjarda@gmail.com",
