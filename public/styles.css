@@ -478,7 +478,8 @@ body:has(dialog.bio[open]) { overflow: hidden; }
 
 /* ── upcoming events + first-timer Q&A ─────────────────────────────── */
 
-.dates-block { max-width: 1180px; margin: 0 auto clamp(2rem, 4vw, 3rem); display: grid; grid-template-columns: 1.25fr 1fr; gap: 16px; }
+/* same columns and gap as the two cards below, so the boxes line up as one grid */
+.dates-block { max-width: 1180px; margin: 0 auto 16px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 .dates-block > div { padding: clamp(1.4rem, 3vw, 2rem); border-radius: 16px; border: 1px solid var(--line); background: var(--bg-2); }
 .dates { list-style: none; margin: 0; padding: 0; }
 .dates li { display: grid; grid-template-columns: 4.6rem 1fr; gap: 1rem; align-items: center; padding: 14px 0; border-top: 1px solid var(--line); }
