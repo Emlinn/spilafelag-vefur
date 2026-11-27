@@ -5,12 +5,16 @@
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Innskráning · Spilafélag Vestfjarða</title>
-  <link rel="alternate" hreflang="en" href="en/login">
+  <link rel="canonical" href="https://spilvest.is/innskraning">
+  <link rel="alternate" hreflang="is" href="https://spilvest.is/innskraning">
+  <link rel="alternate" hreflang="en" href="https://spilvest.is/en/login">
+  <link rel="alternate" hreflang="x-default" href="https://spilvest.is/innskraning">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="styles.css">
   <script src="site.js" type="module"></script>
 </head>
 <body>
+  <a class="skip-link" href="innskraning#efni">Fara beint í efnið</a>
   <header class="site-header">
     <div class="bar">
       <a class="brand" href="./" aria-label="Spilafélag Vestfjarða, forsíða">
@@ -22,7 +26,7 @@
     </div>
   </header>
 
-  <main class="page narrow">
+  <main id="efni" class="page narrow">
     <div class="glow" aria-hidden="true"><img src="img/fjord.svg" alt=""></div>
     <div class="wrap">
       <div class="page-intro">
@@ -30,7 +34,7 @@
         <p class="sub rise" style="--d:.16s">Skráðu þig inn með netfanginu og lykilorðinu sem þú valdir þegar þú sóttir um.</p>
       </div>
 
-      <form id="innskraning" class="form rise" style="--d:.24s" novalidate>
+      <form id="innskraning" class="form rise" style="--d:.24s" method="post" action="api/innskraning" novalidate>
         <div class="field">
           <label for="email">Netfang</label>
           <input id="email" name="email" type="email" autocomplete="username" required>

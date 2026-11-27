@@ -18,6 +18,16 @@ function watchReveals(root = document) {
 }
 watchReveals();
 
+/* ── skip link: moves focus into the page itself, whatever the URL (also on the 404 page) ── */
+document.querySelector('.skip-link')?.addEventListener('click', (e) => {
+  const main = document.getElementById('efni');
+  if (!main) return;
+  e.preventDefault();
+  main.tabIndex = -1;
+  main.focus();
+  main.scrollIntoView();
+});
+
 /* ── header turns to frosted glass once you leave the top ── */
 const header = document.querySelector('.site-header');
 const onScroll = () => header?.classList.toggle('scrolled', scrollY > 16);
@@ -44,7 +54,13 @@ if (navCenter && navRight) {
   btn.innerHTML = `<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2 4.5h12M2 8h12M2 11.5h12"/></svg><span>${L('Valmynd', 'Menu')}</span>`;
   navRight.append(btn);
   const setOpen = (open) => { header.classList.toggle('menu-open', open); btn.setAttribute('aria-expanded', String(open)); };
-  btn.addEventListener('click', () => setOpen(!header.classList.contains('menu-open')));
+  btn.addEventListener('click', () => {
+    const open = !header.classList.contains('menu-open');
+    setOpen(open);
+    if (open) navCenter.querySelector('a')?.focus(); // keyboard and screen-reader users land in the menu
+  });
+  // Tabbing out of the header closes the menu, so it never hangs open behind the focus.
+  header.addEventListener('focusout', (e) => { if (e.relatedTarget && !header.contains(e.relatedTarget)) setOpen(false); });
   navCenter.addEventListener('click', (e) => { if (e.target.closest('a')) setOpen(false); });
   addEventListener('keydown', (e) => { if (e.key === 'Escape' && header.classList.contains('menu-open')) { setOpen(false); btn.focus(); } });
   document.addEventListener('click', (e) => { if (!header.contains(e.target)) setOpen(false); });
@@ -66,11 +82,25 @@ if (hero && !reduced) {
   addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
 }
 
-/* ── hero video: loaded only when motion is welcome and data isn't scarce.
+/* ── hero video: loaded only on wider screens, when motion is welcome and data isn't scarce
+   (on a phone the 6 MB file costs more than it adds).
    Hidden until it actually plays, so a missing file leaves the photo/fjord. ── */
 const heroVideo = document.querySelector('video.hero-video[data-src]');
-if (heroVideo && !reduced && !navigator.connection?.saveData) {
-  heroVideo.addEventListener('playing', () => heroVideo.classList.add('on'), { once: true });
+if (heroVideo && !reduced && !navigator.connection?.saveData && matchMedia('(min-width: 768px)').matches) {
+  const toggle = document.createElement('button');
+  toggle.type = 'button';
+  toggle.className = 'video-toggle';
+  const label = () => {
+    const paused = heroVideo.paused;
+    toggle.setAttribute('aria-label', paused ? L('Spila myndband', 'Play video') : L('Stöðva myndband', 'Pause video'));
+    toggle.innerHTML = paused
+      ? '<svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M5 3.5v9l7.5-4.5z"/></svg>'
+      : '<svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M4.5 3.5h2.5v9H4.5zM9 3.5h2.5v9H9z"/></svg>';
+  };
+  toggle.addEventListener('click', () => { heroVideo.paused ? heroVideo.play().catch(() => {}) : heroVideo.pause(); });
+  heroVideo.addEventListener('play', label);
+  heroVideo.addEventListener('pause', label);
+  heroVideo.addEventListener('playing', () => { heroVideo.classList.add('on'); label(); heroVideo.closest('.hero')?.append(toggle); }, { once: true });
   heroVideo.src = heroVideo.dataset.src;
   heroVideo.play().catch(() => {});
 }
@@ -86,21 +116,44 @@ async function post(url, body) {
   return { ok: res.ok, status: res.status, data };
 }
 
+// Each field's hint and error line get ids and are tied to the input with
+// aria-describedby, so a screen reader reads them with the field.
+let fieldIds = 0;
+function wireFields(form) {
+  form.querySelectorAll('.field').forEach((f) => {
+    const input = f.querySelector(':scope > input, :scope > textarea, :scope > label > input');
+    if (!input) return;
+    const ids = [...f.querySelectorAll(':scope > .hint, :scope > .err')].map((n) => (n.id ||= `f${++fieldIds}`));
+    if (ids.length) input.setAttribute('aria-describedby', ids.join(' '));
+  });
+}
+document.querySelectorAll('form').forEach(wireFields);
+
+// Shows every error at once; the summary goes in the form's alert so it is announced.
 function showFieldErrors(form, errors = {}) {
   form.querySelectorAll('.field').forEach((f) => {
     f.classList.remove('invalid');
-    const e = f.querySelector('.err'); if (e) e.textContent = '';
+    const e = f.querySelector(':scope > .err'); if (e) e.textContent = '';
   });
-  let first = null;
+  form.querySelectorAll('[aria-invalid]').forEach((n) => n.removeAttribute('aria-invalid'));
+  let first = null, count = 0;
   for (const [name, msg] of Object.entries(errors)) {
     const input = form.elements[name];
-    const field = (input?.length && !input.tagName ? input[0] : input)?.closest('.field');
+    const ctl = input?.length && !input.tagName ? input[0] : input;
+    const field = ctl?.closest('.field');
     if (!field) continue;
+    count++;
     field.classList.add('invalid');
-    const e = field.querySelector('.err'); if (e) e.textContent = msg;
-    first ??= field;
+    ctl.setAttribute('aria-invalid', 'true');
+    const e = field.querySelector(':scope > .err'); if (e) e.textContent = msg;
+    first ??= ctl;
   }
-  first?.querySelector('input,textarea')?.focus();
+  const summary = form.querySelector('.alert');
+  if (summary && count > 1) {
+    summary.textContent = L(`Það þarf að laga ${count} atriði hér að ofan.`, `${count} things above need fixing.`);
+    summary.hidden = false;
+  } else if (summary && !count) summary.hidden = true;
+  first?.focus();
 }
 
 /* ── kennitala: checksum + birth date (same rules as the server) ── */
@@ -142,14 +195,24 @@ if (signup) {
       message: f.message.value, password: f.password.value, consent: f.consent.checked,
       website: f.website.value,
     };
+    // Every field is checked in one go, with the same rules as the server.
     const errors = {};
-    if (!parseKennitala(body.kennitala)) errors.kennitala = L('Kennitalan er ekki gild.', 'That kennitala is not valid.');
+    if (body.name.trim().length < 2) errors.name = L('Skrifaðu fullt nafn.', 'Please enter your full name.');
+    if (!parseKennitala(body.kennitala)) errors.kennitala = body.kennitala.trim()
+      ? L('Kennitalan er ekki gild.', 'That kennitala is not valid.')
+      : L('Sláðu inn kennitölu.', 'Please enter your kennitala.');
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(body.email.trim())) errors.email = body.email.trim()
+      ? L('Athugaðu netfangið.', "That email address doesn't look right.")
+      : L('Sláðu inn netfang.', 'Please enter your email.');
     if (isMinor()) {
       if (body.guardian_name.trim().length < 2) errors.guardian_name = L('Skráðu nafn forráðamanns.', "Please enter a parent or guardian's name.");
       if (body.guardian_contact.trim().length < 5) errors.guardian_contact = L('Skráðu síma eða netfang forráðamanns.', "Please enter a parent or guardian's phone or email.");
     }
-    if (body.password !== f.password2.value) errors.password2 = L('Lykilorðin eru ekki eins.', "The passwords don't match.");
-    if (Object.keys(errors).length) return showFieldErrors(signup, errors);
+    if (body.password.length < 10) errors.password = L('Lykilorðið þarf að vera minnst 10 stafir.', 'The password must be at least 10 characters.');
+    else if (body.password !== f.password2.value) errors.password2 = L('Lykilorðin eru ekki eins.', "The passwords don't match.");
+    if (!body.consent) errors.consent = L('Hakaðu við hér til að staðfesta umsóknina.', 'Tick this box to confirm your application.');
+    showFieldErrors(signup, errors);
+    if (Object.keys(errors).length) return;
 
     const btn = signup.querySelector('button[type=submit]');
     btn.disabled = true;
@@ -157,14 +220,17 @@ if (signup) {
       const r = await post('api/umsokn', body);
       if (r.ok) {
         const done = document.getElementById('umsokn-takk');
+        const minor = isMinor(); // no payment request for under-18s, so they get a different next step
+        done.querySelectorAll('[data-adult]').forEach((n) => { n.hidden = minor; });
+        done.querySelectorAll('[data-minor]').forEach((n) => { n.hidden = !minor; });
         const swap = () => { signup.hidden = true; done.hidden = false; done.querySelector('h2').focus(); };
         document.startViewTransition && !reduced ? document.startViewTransition(swap) : swap();
         return;
       }
-      if (r.data.errors) showFieldErrors(signup, r.data.errors);
+      if (r.data.errors) { showFieldErrors(signup, r.data.errors); if (Object.keys(r.data.errors).length === 1) { alert.hidden = true; } }
       else { alert.textContent = r.data.error ?? L('Eitthvað fór úrskeiðis. Reyndu aftur.', 'Something went wrong. Please try again.'); alert.hidden = false; }
     } catch {
-      alert.textContent = L('Náði ekki sambandi. Athugaðu nettenginguna.', "Couldn't connect. Check your internet connection."); alert.hidden = false;
+      alert.textContent = L('Ekki náðist samband. Athugaðu nettenginguna.', "Couldn't connect. Check your internet connection."); alert.hidden = false;
     } finally { btn.disabled = false; }
   });
 }
@@ -187,7 +253,7 @@ if (login) {
       }
       alert.textContent = r.data.error ?? L('Innskráning tókst ekki.', 'Sign-in failed.'); alert.hidden = false;
     } catch {
-      alert.textContent = L('Náði ekki sambandi. Athugaðu nettenginguna.', "Couldn't connect. Check your internet connection."); alert.hidden = false;
+      alert.textContent = L('Ekki náðist samband. Athugaðu nettenginguna.', "Couldn't connect. Check your internet connection."); alert.hidden = false;
     } finally { btn.disabled = false; }
   });
 }
@@ -338,14 +404,21 @@ function renderContent(c) {
   if (board) {
     (c.stjorn ?? []).filter((p) => p.nafn).forEach((p, i) => {
       const hasBio = !!(tx(p, 'um') ?? '').trim();
-      const card = el(hasBio ? 'button' : 'article', { class: 'person reveal', style: `--d:${i * 0.1}s`, type: hasBio ? 'button' : null, 'aria-haspopup': hasBio ? 'dialog' : null },
+      const more = hasBio ? (() => {
+        const b = el('button', { class: 'more', type: 'button', 'aria-haspopup': 'dialog' }, L('Lesa meira', 'Read more'), el('span', { class: 'sr-only' }, L(` um ${p.nafn}`, ` about ${p.nafn}`)));
+        b.append(svg('<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></svg>'));
+        b.addEventListener('click', () => openBio(p));
+        return b;
+      })() : null;
+      const card = el('article', { class: `person reveal${hasBio ? ' has-bio' : ''}`, style: `--d:${i * 0.1}s` },
         portrait(p),
         el('div', { class: 'info' },
           el('div', { class: 'role' }, tx(p, 'hlutverk') ?? ''),
-          el('h3', { class: 'name' }, p.nafn),
+          el('h4', { class: 'name' }, p.nafn),
           tx(p, 'texti') ? el('p', { class: 'text' }, tx(p, 'texti')) : null,
-          hasBio ? (() => { const m = el('span', { class: 'more' }, L('Lesa meira', 'Read more')); m.append(svg('<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></svg>')); return m; })() : null));
-      if (hasBio) card.addEventListener('click', () => openBio(p));
+          more));
+      // The whole card stays clickable with a mouse; the button is what keyboards and screen readers use.
+      if (more) card.addEventListener('click', (e) => { if (!e.target.closest('button')) more.click(); });
       board.append(card);
     });
   }
@@ -435,7 +508,7 @@ function renderContent(c) {
           tx(g, 'studningur') ? el('p', { class: 'support' }, tx(g, 'studningur')) : null,
           url ? (() => { const a = el('a', { class: 'btn ghost small', href: url, target: '_blank', rel: 'noopener' }, L('Um sjóðinn', 'About the fund')); a.append(svg('<svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 11 11 5M6 5h5v5"/></svg>')); return a; })() : null),
         el('div', { class: 'mark' },
-          logo ? el('img', { src: logo, alt: g.heiti }) : el('div', {}, el('div', { class: 'year' }, g.ar ?? ''), el('div', { class: 'year-label' }, L('Styrkár', 'Grant year'))))));
+          logo ? el('img', { src: logo, alt: tx(g, 'merki_alt') ?? '' }) : el('div', {}, el('div', { class: 'year' }, g.ar ?? ''), el('div', { class: 'year-label' }, L('Styrkár', 'Grant year'))))));
     }
   }
 
@@ -454,7 +527,7 @@ function renderContent(c) {
       if (b.ljosmyndari_forsidu) {
         const credit = slot('credit');
         if (credit) {
-          credit.append(L('Myndefni: ', 'Footage: '), url ? el('a', { href: url, target: '_blank', rel: 'noopener' }, b.nafn + ' ↗') : b.nafn);
+          credit.append(L('Myndefni: ', 'Footage: '), url ? el('a', { href: url, target: '_blank', rel: 'noopener' }, b.nafn, el('span', { 'aria-hidden': 'true' }, ' ↗')) : b.nafn);
           credit.hidden = false;
         }
       }
@@ -471,7 +544,8 @@ function renderContent(c) {
 
 function portrait(p) {
   const img = localImg(p.mynd);
-  return el('div', { class: 'portrait' }, img ? el('img', { src: img, alt: p.nafn, loading: 'lazy' }) : el('span', { class: 'monogram', 'aria-hidden': 'true' }, initials(p.nafn)));
+  // The name is printed right beside the picture, so the picture itself needs no text.
+  return el('div', { class: 'portrait' }, img ? el('img', { src: img, alt: '', loading: 'lazy' }) : el('span', { class: 'monogram', 'aria-hidden': 'true' }, initials(p.nafn)));
 }
 
 let bioDialog;

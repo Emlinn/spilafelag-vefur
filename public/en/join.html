@@ -5,12 +5,26 @@
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Join the club · Spilafélag Vestfjarða</title>
-  <link rel="alternate" hreflang="is" href="ganga-i-felagid">
+  <meta name="description" content="Join Spilafélag Vestfjarða. The application takes about a minute, and membership is free for under-18s.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Spilafélag Vestfjarða">
+  <meta property="og:locale" content="en_GB">
+  <meta property="og:url" content="https://spilvest.is/en/join">
+  <meta property="og:title" content="Join the club · Spilafélag Vestfjarða">
+  <meta property="og:description" content="Join Spilafélag Vestfjarða. The application takes about a minute, and membership is free for under-18s.">
+  <meta property="og:image" content="https://spilvest.is/img/deila.jpg">
+  <meta property="og:image:alt" content="Ísafjörður in snow, seen from above">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://spilvest.is/en/join">
+  <link rel="alternate" hreflang="is" href="https://spilvest.is/ganga-i-felagid">
+  <link rel="alternate" hreflang="en" href="https://spilvest.is/en/join">
+  <link rel="alternate" hreflang="x-default" href="https://spilvest.is/ganga-i-felagid">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="styles.css">
   <script src="site.js" type="module"></script>
 </head>
 <body>
+  <a class="skip-link" href="en/join#efni">Skip to content</a>
   <header class="site-header">
     <div class="bar">
       <a class="brand" href="en" aria-label="Spilafélag Vestfjarða, home">
@@ -22,7 +36,7 @@
     </div>
   </header>
 
-  <main class="page">
+  <main id="efni" class="page">
     <div class="glow" aria-hidden="true"><img src="img/fjord.svg" alt=""></div>
     <div class="wrap">
       <div class="page-intro">
@@ -34,10 +48,12 @@
           <li><b>02</b>A payment request for the fee appears in your online bank.</li>
           <li><b>03</b>Once it's paid, the board activates your account and you can sign in.</li>
         </ul>
+        <p class="sub small-note rise" style="--d:.28s">Under 18? Then there is no payment request. The board reviews your application and activates your account.</p>
       </div>
 
       <div class="rise" style="--d:.2s">
-        <form id="umsokn" class="form" novalidate>
+        <form id="umsokn" class="form" method="post" action="api/umsokn" novalidate>
+          <input type="hidden" name="lang" value="en">
           <div class="field">
             <label for="name">Full name</label>
             <input id="name" name="name" type="text" autocomplete="name" required maxlength="120">
@@ -46,7 +62,7 @@
           <div class="field">
             <label for="kennitala">Kennitala</label>
             <input id="kennitala" name="kennitala" type="text" inputmode="numeric" autocomplete="off" required maxlength="11" placeholder="000000-0000">
-            <span class="hint">Your Icelandic ID number. Used to send the fee to your online bank and to confirm your age.</span>
+            <span class="hint">Your Icelandic ID number. Used to send a payment request for the fee and to confirm your age.</span>
             <span class="err" aria-live="polite"></span>
           </div>
           <div class="row">
@@ -66,7 +82,7 @@
             <span class="hint">You're under 18, so membership is free. Please add a parent or guardian.</span>
             <div class="row">
               <div class="field">
-                <label for="guardian_name">Their name</label>
+                <label for="guardian_name">Parent or guardian's name</label>
                 <input id="guardian_name" name="guardian_name" type="text" autocomplete="off" maxlength="120">
                 <span class="err" aria-live="polite"></span>
               </div>
@@ -89,14 +105,14 @@
               <span class="err" aria-live="polite"></span>
             </div>
             <div class="field">
-              <label for="password2">Password again</label>
+              <label for="password2">Confirm password</label>
               <input id="password2" name="password2" type="password" autocomplete="new-password" required>
               <span class="err" aria-live="polite"></span>
             </div>
           </div>
           <div class="hp" aria-hidden="true"><label>Website <input name="website" type="text" tabindex="-1" autocomplete="off"></label></div>
           <div class="field">
-            <label class="check"><input type="checkbox" name="consent" required><span>I'd like to become a member of Spilafélag Vestfjarða.</span></label>
+            <label class="check"><input id="consent" type="checkbox" name="consent" value="1" required><span>I'd like to become a member of Spilafélag Vestfjarða.</span></label>
             <span class="hint">The board uses this information to keep the member register and collect fees. See the club's <a class="link-quiet" href="en/privacy">privacy notice</a>.</span>
             <span class="err" aria-live="polite"></span>
           </div>
@@ -108,8 +124,9 @@
         </form>
 
         <div id="umsokn-takk" class="form done" hidden>
-          <h2 class="display" tabindex="-1">Thanks, talk soon</h2>
-          <p>If you're 18 or over, a payment request will appear in your online bank in the next few days. Once it's paid, the board activates your account and you can sign in with the email and password you chose.</p>
+          <h2 class="display" tabindex="-1">Thanks, your application is in</h2>
+          <p data-adult>A payment request for the fee will appear in your online bank in the next few days. Once it's paid, the board activates your account and you can sign in with the email and password you chose.</p>
+          <p data-minor hidden>As you're under 18 there is no payment request. The board reviews your application and activates your account. After that you can sign in with the email and password you chose.</p>
           <div class="form-foot"><a class="btn ghost" href="en">Back to the front page</a></div>
         </div>
       </div>

@@ -5,12 +5,26 @@
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Ganga í félagið · Spilafélag Vestfjarða</title>
-  <link rel="alternate" hreflang="en" href="en/join">
+  <meta name="description" content="Gakktu í Spilafélag Vestfjarða. Umsóknin tekur um eina mínútu og aðild er ókeypis fyrir yngri en 18 ára.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Spilafélag Vestfjarða">
+  <meta property="og:locale" content="is_IS">
+  <meta property="og:url" content="https://spilvest.is/ganga-i-felagid">
+  <meta property="og:title" content="Ganga í félagið · Spilafélag Vestfjarða">
+  <meta property="og:description" content="Gakktu í Spilafélag Vestfjarða. Umsóknin tekur um eina mínútu og aðild er ókeypis fyrir yngri en 18 ára.">
+  <meta property="og:image" content="https://spilvest.is/img/deila.jpg">
+  <meta property="og:image:alt" content="Ísafjörður í snjó, ofan frá">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://spilvest.is/ganga-i-felagid">
+  <link rel="alternate" hreflang="is" href="https://spilvest.is/ganga-i-felagid">
+  <link rel="alternate" hreflang="en" href="https://spilvest.is/en/join">
+  <link rel="alternate" hreflang="x-default" href="https://spilvest.is/ganga-i-felagid">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="styles.css">
   <script src="site.js" type="module"></script>
 </head>
 <body>
+  <a class="skip-link" href="ganga-i-felagid#efni">Fara beint í efnið</a>
   <header class="site-header">
     <div class="bar">
       <a class="brand" href="./" aria-label="Spilafélag Vestfjarða, forsíða">
@@ -22,22 +36,23 @@
     </div>
   </header>
 
-  <main class="page">
+  <main id="efni" class="page">
     <div class="glow" aria-hidden="true"><img src="img/fjord.svg" alt=""></div>
     <div class="wrap">
       <div class="page-intro">
-        <h1 class="rise" style="--d:.08s">Gakktu í félagið</h1>
+        <h1 class="rise" style="--d:.08s">Ganga í félagið</h1>
         <p class="sub rise" style="--d:.16s">Fylltu út eyðublaðið og veldu þér lykilorð. Þú telst félagi þegar félagsgjaldið hefur verið greitt.</p>
         <p class="sub rise" style="--d:.2s" data-render="felagsgjald" hidden></p>
         <ul class="aside-list rise" style="--d:.24s">
-          <li><b>01</b>Þú sendir umsókn. Það tekur um mínútu.</li>
-          <li><b>02</b>Krafa fyrir félagsgjaldinu birtist í heimabankanum þínum.</li>
+          <li><b>01</b>Þú sendir umsókn. Það tekur um eina mínútu.</li>
+          <li><b>02</b>Krafa um félagsgjaldið birtist í heimabankanum þínum.</li>
           <li><b>03</b>Þegar hún er greidd virkjar stjórnin aðganginn og þú getur skráð þig inn.</li>
         </ul>
+        <p class="sub small-note rise" style="--d:.28s">Yngri en 18 ára? Þá er engin krafa. Stjórnin fer yfir umsóknina og virkjar aðganginn.</p>
       </div>
 
       <div class="rise" style="--d:.2s">
-        <form id="umsokn" class="form" novalidate>
+        <form id="umsokn" class="form" method="post" action="api/umsokn" novalidate>
           <div class="field">
             <label for="name">Fullt nafn</label>
             <input id="name" name="name" type="text" autocomplete="name" required maxlength="120">
@@ -46,7 +61,7 @@
           <div class="field">
             <label for="kennitala">Kennitala</label>
             <input id="kennitala" name="kennitala" type="text" inputmode="numeric" autocomplete="off" required maxlength="11" placeholder="000000-0000">
-            <span class="hint">Notuð til að stofna kröfu fyrir félagsgjaldinu og staðfesta aldur.</span>
+            <span class="hint">Notuð til að stofna kröfu um félagsgjaldið og staðfesta aldur.</span>
             <span class="err" aria-live="polite"></span>
           </div>
           <div class="row">
@@ -56,7 +71,7 @@
               <span class="err" aria-live="polite"></span>
             </div>
             <div class="field">
-              <label for="phone">Sími <span class="opt">(valkvætt)</span></label>
+              <label for="phone">Sími <span class="opt">(má sleppa)</span></label>
               <input id="phone" name="phone" type="tel" autocomplete="tel" maxlength="40">
               <span class="err" aria-live="polite"></span>
             </div>
@@ -78,7 +93,7 @@
             </div>
           </fieldset>
           <div class="field">
-            <label for="message">Athugasemdir <span class="opt">(valkvætt)</span></label>
+            <label for="message">Athugasemdir <span class="opt">(má sleppa)</span></label>
             <textarea id="message" name="message" maxlength="2000"></textarea>
           </div>
           <div class="row">
@@ -89,14 +104,14 @@
               <span class="err" aria-live="polite"></span>
             </div>
             <div class="field">
-              <label for="password2">Lykilorð aftur</label>
+              <label for="password2">Endurtaktu lykilorðið</label>
               <input id="password2" name="password2" type="password" autocomplete="new-password" required>
               <span class="err" aria-live="polite"></span>
             </div>
           </div>
           <div class="hp" aria-hidden="true"><label>Vefsíða <input name="website" type="text" tabindex="-1" autocomplete="off"></label></div>
           <div class="field">
-            <label class="check"><input type="checkbox" name="consent" required><span>Ég óska eftir aðild að Spilafélagi Vestfjarða.</span></label>
+            <label class="check"><input id="consent" type="checkbox" name="consent" value="1" required><span>Ég óska eftir aðild að Spilafélagi Vestfjarða.</span></label>
             <span class="hint">Stjórnin notar upplýsingarnar til að halda félagatal og innheimta félagsgjöld. Nánar í <a class="link-quiet" href="personuvernd">persónuverndarstefnu félagsins</a>.</span>
             <span class="err" aria-live="polite"></span>
           </div>
@@ -108,8 +123,9 @@
         </form>
 
         <div id="umsokn-takk" class="form done" hidden>
-          <h2 class="display" tabindex="-1">Takk, við heyrumst</h2>
-          <p>Ef þú ert 18 ára eða eldri birtist krafa í heimabankanum þínum á næstu dögum. Þegar hún hefur verið greidd virkjar stjórnin aðganginn og þú getur skráð þig inn með netfanginu og lykilorðinu sem þú valdir.</p>
+          <h2 class="display" tabindex="-1">Takk fyrir umsóknina!</h2>
+          <p data-adult>Krafa um félagsgjaldið birtist í heimabankanum þínum á næstu dögum. Þegar hún hefur verið greidd virkjar stjórnin aðganginn og þú getur skráð þig inn með netfanginu og lykilorðinu sem þú valdir.</p>
+          <p data-minor hidden>Þar sem þú ert yngri en 18 ára er engin krafa. Stjórnin fer yfir umsóknina og virkjar aðganginn. Eftir það getur þú skráð þig inn með netfanginu og lykilorðinu sem þú valdir.</p>
           <div class="form-foot"><a class="btn ghost" href="./">Aftur á forsíðu</a></div>
         </div>
       </div>

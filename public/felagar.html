@@ -6,12 +6,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Félagssvæði · Spilafélag Vestfjarða</title>
   <meta name="robots" content="noindex">
-  <link rel="alternate" hreflang="en" href="en/members">
+  <link rel="canonical" href="https://spilvest.is/felagar">
+  <link rel="alternate" hreflang="is" href="https://spilvest.is/felagar">
+  <link rel="alternate" hreflang="en" href="https://spilvest.is/en/members">
+  <link rel="alternate" hreflang="x-default" href="https://spilvest.is/felagar">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="styles.css">
   <script src="site.js" type="module"></script>
 </head>
 <body>
+  <a class="skip-link" href="felagar#efni">Fara beint í efnið</a>
   <header class="site-header">
     <div class="bar">
       <a class="brand" href="./" aria-label="Spilafélag Vestfjarða, forsíða">
@@ -23,11 +27,11 @@
     </div>
   </header>
 
-  <main class="page">
+  <main id="efni" class="page">
     <div class="glow" aria-hidden="true"><img src="img/fjord.svg" alt=""></div>
     <div class="wrap" style="display:block">
       <h1 class="rise" style="--d:.08s">Hæ, <span id="member-name">félagi</span></h1>
-      <p class="sub rise" style="--d:.16s;margin-left:0" id="member-sub">Félagi síðan <span id="member-since">—</span>.</p>
+      <p class="sub rise" style="--d:.16s;margin-left:0" id="member-sub">Félagi frá <span id="member-since">—</span>.</p>
       <p class="sample-note" id="m-sample" hidden>Sýnishorn: vefurinn er ekki tengdur stjórnborðinu, svo tölurnar hér eru tilbúnar.</p>
       <p class="alert" id="m-error" hidden></p>
 
@@ -61,14 +65,14 @@
         </section>
 
         <section class="form m-card reveal" style="--d:.12s">
-          <h2>Framundan</h2>
+          <h2>Fram undan</h2>
           <ul class="m-list" data-m="framundan"></ul>
           <p class="m-empty" data-m="framundan-empty" hidden>Ekkert auglýst í augnablikinu. Fylgstu með á Facebook.</p>
         </section>
 
         <section class="form m-card m-adild reveal" style="--d:.16s">
-          <h2>Þín aðild</h2>
-          <p>Þú getur sagt þig úr félaginu hvenær sem er. Aðgangurinn þinn og umsóknin eyðast strax og stjórnin fær að vita af því. Mætingar og úrslit standa áfram, því þau eru hluti af stöðu annarra spilara.</p>
+          <h2>Aðildin þín</h2>
+          <p>Þú getur sagt þig úr félaginu hvenær sem er. Aðganginum þínum og umsókninni er eytt um leið og stjórnin er látin vita. Mætingar og úrslit standa áfram, því þau eru hluti af stöðu annarra spilara.</p>
           <div><button class="btn small ghost" type="button" id="ursogn-opna">Segja mig úr félaginu</button></div>
         </section>
       </div>

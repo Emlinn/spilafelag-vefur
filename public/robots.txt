@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /api/
+Disallow: /felagar
+Disallow: /en/members
+
+Sitemap: https://spilvest.is/sitemap.xml

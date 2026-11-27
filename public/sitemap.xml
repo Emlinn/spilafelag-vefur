@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url><loc>https://spilvest.is/</loc><xhtml:link rel="alternate" hreflang="is" href="https://spilvest.is/"/><xhtml:link rel="alternate" hreflang="en" href="https://spilvest.is/en"/></url>
+  <url><loc>https://spilvest.is/en</loc><xhtml:link rel="alternate" hreflang="is" href="https://spilvest.is/"/><xhtml:link rel="alternate" hreflang="en" href="https://spilvest.is/en"/></url>
+  <url><loc>https://spilvest.is/ganga-i-felagid</loc><xhtml:link rel="alternate" hreflang="is" href="https://spilvest.is/ganga-i-felagid"/><xhtml:link rel="alternate" hreflang="en" href="https://spilvest.is/en/join"/></url>
+  <url><loc>https://spilvest.is/en/join</loc><xhtml:link rel="alternate" hreflang="is" href="https://spilvest.is/ganga-i-felagid"/><xhtml:link rel="alternate" hreflang="en" href="https://spilvest.is/en/join"/></url>
+  <url><loc>https://spilvest.is/personuvernd</loc><xhtml:link rel="alternate" hreflang="is" href="https://spilvest.is/personuvernd"/><xhtml:link rel="alternate" hreflang="en" href="https://spilvest.is/en/privacy"/></url>
+  <url><loc>https://spilvest.is/en/privacy</loc><xhtml:link rel="alternate" hreflang="is" href="https://spilvest.is/personuvernd"/><xhtml:link rel="alternate" hreflang="en" href="https://spilvest.is/en/privacy"/></url>
+</urlset>
