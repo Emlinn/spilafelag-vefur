@@ -82,14 +82,15 @@ turns off under `prefers-reduced-motion`.
 
 ## Editing content — `public/efni.json`
 
-Events, board, grant, sponsors and félag details are read from `public/efni.json`; edit it and reload,
+Board, grant, sponsors and félag details are read from `public/efni.json`; edit it and reload,
 no code. Images go in `public/img/stjorn/` and `public/img/bakhjarlar/` and are
 referenced as `/img/...`. Empty values are not shown.
 
-- `vidburdir` — upcoming events under "Næstu viðburðir": `dags` (YYYY-MM-DD),
-  `tegund` (e.g. `commander`), `heiti`,
-  `klukkan`, `stadur`, optional `texti` and `tengill` (e.g. a Facebook event). Past dates drop off by themselves; the next one also appears in the hero.
-  Add the next few dates whenever they're booked.
+- `vidburdir` — **events are now entered in the board dashboard** (stjorn.spilvest.is → Viðburðir → open an
+  event → "Á heimasíðunni"), and the site fetches them from `/api/vidburdir`. This list is kept empty; anything
+  put here still shows (`dags` YYYY-MM-DD, `tegund` e.g. `commander`, `heiti`, `klukkan`, `stadur`, optional
+  `texti` and `tengill`), but a dashboard event on the same day replaces it. Past dates drop off by themselves;
+  the next one also appears in the hero.
 - `hagnyt` — "Í fyrsta sinn?" questions and answers (`spurning`, `svar`).
 - `stjorn` — the board under Um félagið. Name, role, photo, a short line for the card (`texti`), a bio (`um`,
   blank line = new paragraph) and favourite games (`uppahaldsspil`, a list).
@@ -197,7 +198,12 @@ catches form bots; strict CSP (scripts from self only).
 
 ## Fréttir / News
 
-`/frettir` and `/en/news` list the posts in `efni.json` → `frettir`, newest first (posts dated in the future stay hidden until their day).
+**News is now written in the board dashboard** (stjorn.spilvest.is → Fréttir): drafts, publish, photos from the
+photo archive, a preview. The site fetches published posts from `/api/frettir` (the server asks the dashboard's
+`/api/innri/frettir` over localhost, cached a minute) and their photos from `/api/frettir/mynd/:id`.
+`efni.json` → `frettir` is kept empty; a post put there still shows, unless a dashboard post has the same `slod`.
+
+`/frettir` and `/en/news` list the posts newest first (posts dated in the future stay hidden until their day).
 Each post: `slod` (anchor, `frettir#slod`), `dags`, `titill`/`titill_en`, optional `mynd` + `mynd_alt`/`mynd_alt_en`,
 and `efni`/`efni_en`: a list where a string is a paragraph, `{"titill","listi"}` a numbered list and `{"stokkur","spil"}` a collapsible decklist.
-The newest post also shows under the events on the front page for 60 days. A proper editor (CMS) can come later.
+The newest post also shows under the events on the front page for 60 days.
