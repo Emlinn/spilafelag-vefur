@@ -258,7 +258,12 @@
           ]
         },
         "See you at the next Commander night at Edinborgarhúsið!"
-      ]
+      ],
+      "mynd": "img/frettir/star-trek-sigurvegarar.jpg",
+      "mynd_alt": "Þrír sigurvegarar standa saman með verðlaunin sín: ungur strákur, maður í gulum vinnugalla og maður í svartri úlpu sem gefur þumal upp",
+      "mynd_alt_en": "Three winners standing together with their prizes: a young boy, a man in yellow hi-vis overalls and a man in a black jacket giving a thumbs up",
+      "mynd_texti": "Sigurvegarar dagsins, frá vinstri: Hilmir, Agnar og Ragnar.",
+      "mynd_texti_en": "The day's winners, from left: Hilmir, Agnar and Ragnar."
     },
     {
       "slod": "reality-fracture-sealed",
