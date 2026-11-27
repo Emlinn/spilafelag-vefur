@@ -71,6 +71,40 @@ export async function leave(email) {
   if (status !== 200 && status !== 404) throw new Unavailable(`úrsögn ${status}`); // 404: nothing on file there
 }
 
+// News written in the dashboard's Fréttir page. Kept for a minute, so a busy
+// news page doesn't ask the dashboard on every view, and the last good list is
+// served if the dashboard stops answering. The site still has efni.json's own posts.
+let newsCache = { at: 0, list: [] };
+export async function news() {
+  if (!REMOTE) return [];
+  if (Date.now() - newsCache.at < 60_000) return newsCache.list;
+  try {
+    const { status, data } = await call('/api/innri/frettir');
+    if (status === 200 && Array.isArray(data)) newsCache = { at: Date.now(), list: data };
+    else newsCache.at = Date.now();
+  } catch {
+    newsCache.at = Date.now() - 45_000; // try again in 15 s, not on every request
+  }
+  return newsCache.list;
+}
+
+/** A news photo from the dashboard: { type, body } or null. Only photos a published post uses are served there. */
+export async function newsImage(id) {
+  if (!REMOTE) return null;
+  try {
+    const res = await fetch(`${BASE}/api/innri/frettir/mynd/${id}`, {
+      headers: { 'x-innri-lykill': KEY },
+      signal: AbortSignal.timeout(10_000),
+    });
+    if (!res.ok) return null;
+    const type = res.headers.get('content-type') ?? '';
+    if (!/^image\/(jpeg|png|webp)$/.test(type)) return null;
+    return { type, body: Buffer.from(await res.arrayBuffer()) };
+  } catch {
+    return null;
+  }
+}
+
 // Local development only. Never shown when the dashboard is connected.
 const SAMPLE = {
   status: 'member',

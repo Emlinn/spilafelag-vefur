@@ -383,8 +383,22 @@ if (memberName) {
 /* ── front-page content from efni.json (board, grant, sponsors) ── */
 const slots = document.querySelectorAll('[data-render]');
 if (slots.length) {
+  // News written in the board's dashboard comes from api/frettir; only pages that show news ask for it.
+  const wantsNews = !!document.querySelector('[data-render="frettir"], [data-render="frettir-nyjast"]');
+  const boardNews = wantsNews
+    ? fetch('api/frettir', { cache: 'no-cache' }).then((r) => (r.ok ? r.json() : [])).catch(() => [])
+    : Promise.resolve([]);
   fetch('efni.json', { cache: 'no-cache' })
     .then((r) => { if (!r.ok) throw new Error(`efni.json: HTTP ${r.status}`); return r.json(); })
+    .then(async (raw) => {
+      const extra = await boardNews;
+      if (Array.isArray(extra) && extra.length && raw && typeof raw === 'object') {
+        // A dashboard post wins over an efni.json post with the same slod.
+        const taken = new Set(extra.map((n) => n && n.slod));
+        raw.frettir = [...extra, ...(Array.isArray(raw.frettir) ? raw.frettir : []).filter((n) => !taken.has(n && n.slod))];
+      }
+      return raw;
+    })
     .then((raw) => renderContent(cleanContent(raw)))
     .catch((e) => {
       // A typo in efni.json shouldn't blank the page silently: say so in the console and show the fallbacks.
@@ -434,7 +448,11 @@ function el(tag, attrs = {}, ...kids) {
 }
 const safeUrl = (u) => { if (typeof u !== 'string' || !u.trim()) return null; try { const x = new URL(u, location.origin); return /^https?:$/.test(x.protocol) ? x.href : null; } catch { return null; } };
 // efni.json may say /img/x or img/x; either way it becomes img/x, relative to <base>
-const localImg = (p) => (typeof p === 'string' && /^\/?img\/[\w./-]+$/.test(p) && !p.includes('..') ? p.replace(/^\//, '') : null);
+const localImg = (p) => {
+  if (typeof p !== 'string') return null;
+  if (/^api\/frettir\/mynd\/\d+$/.test(p)) return p; // a news photo from the board's dashboard
+  return /^\/?img\/[\w./-]+$/.test(p) && !p.includes('..') ? p.replace(/^\//, '') : null;
+};
 const EXT = '<svg class="ext" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 11 11 5M6 5h5v5"/></svg>';
 const svg = (html) => { const t = document.createElement('template'); t.innerHTML = html; return t.content.firstChild; };
 // Month abbreviations: Icelandic "maí" has none and "ágúst" is "ág.".

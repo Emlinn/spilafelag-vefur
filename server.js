@@ -9,7 +9,7 @@ import {
   createSession, sessionMember, destroySession, pruneSessions, SESSION_DAYS,
 } from './db.js';
 import { parseKennitala } from './kennitala.js';
-import { REMOTE, Unavailable, sendApplication, membership, overview, leave } from './adild.js';
+import { REMOTE, Unavailable, sendApplication, membership, overview, leave, news, newsImage } from './adild.js';
 
 const PORT = Number(process.env.PORT ?? 3200);
 const HOST = process.env.HOST ?? '0.0.0.0';
@@ -164,6 +164,17 @@ async function api(req, res, path) {
   // The English pages send X-Lang: en so their error messages come back in English.
   const t = (is, en) => (req.headers['x-lang'] === 'en' || req.lang === 'en' ? en : is);
   if (method !== 'GET' && !sameOrigin(req)) return json(res, 403, { error: t('Óheimill uppruni.', 'Forbidden origin.') });
+
+  // News from the board's dashboard, merged with efni.json's posts by site.js.
+  if (path === '/api/frettir' && method === 'GET') {
+    return json(res, 200, await news(), { 'Cache-Control': 'no-cache' });
+  }
+  const img = /^\/api\/frettir\/mynd\/(\d{1,9})$/.exec(path);
+  if (img && method === 'GET') {
+    const pic = await newsImage(Number(img[1]));
+    if (!pic) return send(res, 404, 'Fannst ekki');
+    return send(res, 200, pic.body, { 'Content-Type': pic.type, 'Cache-Control': 'public, max-age=86400' });
+  }
 
   if (path === '/api/umsokn' && method === 'POST') {
     const ip = (TRUST_PROXY && req.headers['x-real-ip']) || req.socket.remoteAddress || '?';
