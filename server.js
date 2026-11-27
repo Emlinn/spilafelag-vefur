@@ -173,7 +173,7 @@ async function api(req, res, path) {
     // A script-less post gets a plain page instead of JSON.
     const reply = (status, data) => {
       if (!req.isForm) return json(res, status, data);
-      if (status < 300) return formReply(req, res, 200, t('Takk fyrir umsóknina!', 'Thanks, your application is in'), [t('Stjórnin fer yfir umsóknina og þú færð að vita hvað gerist næst.', 'The board will go through it and let you know what happens next.')], req.lang === 'en' ? 'en' : '');
+      if (status < 300) return formReply(req, res, 200, t('Takk fyrir umsóknina!', 'Thanks, your application is in'), [t('Stjórnin fer yfir umsóknina og þú færð að vita hvað gerist næst.', 'The board will go through it and let you know what happens next.'), t('Ef þú hefur sótt um áður þarftu ekki að gera neitt meira.', "If you've applied before, there's nothing more you need to do.")], req.lang === 'en' ? 'en' : '');
       const lines = data.errors ? Object.values(data.errors) : [data.error];
       return formReply(req, res, status, t('Athugaðu umsóknina', 'Please check your application'), lines, back);
     };
@@ -202,10 +202,10 @@ async function api(req, res, path) {
     if (!(b.consent === true || b.consent === '1' || b.consent === 'on')) errors.consent = t('Hakaðu við hér til að staðfesta umsóknina.', 'Tick this box to confirm your application.');
     if (Object.keys(errors).length) return reply(422, { errors });
 
-    const DUP = {
-      kennitala: t('Umsókn með þessari kennitölu er þegar til. Skráðu þig inn, eða sendu okkur póst á spilafelagvestfjarda@gmail.com ef eitthvað er að.', 'An application with this kennitala already exists. Sign in, or email spilafelagvestfjarda@gmail.com if something is wrong.'),
-      email: t('Umsókn með þessu netfangi er þegar til. Skráðu þig inn, eða sendu okkur póst á spilafelagvestfjarda@gmail.com ef eitthvað er að.', 'An application with this email already exists. Sign in, or email spilafelagvestfjarda@gmail.com if something is wrong.'),
-    };
+    // A kennitala or email that's already on file gets exactly the same answer as a new
+    // application, so the form can't be used to find out who has applied. The board sees
+    // the existing application and follows up by email if anything needs sorting out.
+    const duplicate = (which) => { console.info(`umsókn: tvítekin (${which}), svarað eins og nýrri`); return reply(201, { ok: true }); };
     // With the board dashboard connected, the application itself (kennitala,
     // phone, guardian…) goes there and this site keeps only the login.
     let id;
@@ -215,8 +215,8 @@ async function api(req, res, path) {
         : db.prepare(`INSERT INTO members (name, kennitala, email, phone, interests, message, guardian_name, guardian_contact, password_hash) VALUES (?,?,?,?,?,?,?,?,?)`)
           .run(name, kt.kt, email, phone, JSON.stringify(interests), message, guardianName || null, guardianContact || null, hashPassword(password)).lastInsertRowid;
     } catch (e) {
-      if (String(e.message).includes('members.kennitala')) return reply(409, { errors: { kennitala: DUP.kennitala } });
-      if (String(e.message).includes('UNIQUE')) return reply(409, { errors: { email: DUP.email } });
+      if (String(e.message).includes('members.kennitala')) return duplicate('kennitala');
+      if (String(e.message).includes('UNIQUE')) return duplicate('netfang');
       throw e;
     }
     if (REMOTE) {
@@ -233,7 +233,7 @@ async function api(req, res, path) {
       }
       if (dup) {
         db.prepare('DELETE FROM members WHERE id = ?').run(id);
-        return reply(409, { errors: { [dup]: DUP[dup] ?? DUP.email } });
+        return duplicate(dup);
       }
     }
     return reply(201, { ok: true });
