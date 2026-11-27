@@ -15,12 +15,12 @@
     {
       "dags": "2026-12-17",
       "tegund": "commander",
-      "heiti": "Commander-kvöld",
-      "heiti_en": "Commander night",
+      "heiti": "Jóla-Commander",
+      "heiti_en": "Christmas Commander night",
       "klukkan": "19:00–22:00",
       "stadur": "Edinborgarhúsið",
-      "texti": "Síðasta kvöld ársins.",
-      "texti_en": "Last game night of the year.",
+      "texti": "Síðasta spilakvöld ársins. Heitt kakó og smákökur, mættu í jólapeysu og við verðum með smá glaðning handa ykkur.",
+      "texti_en": "Last game night of the year. Hot cocoa and cookies, come in your Christmas sweater, and we'll have a little something for you.",
       "tengill": ""
     },
     {
@@ -30,7 +30,7 @@
       "heiti_en": "Commander night",
       "klukkan": "19:00–22:00",
       "stadur": "Edinborgarhúsið",
-      "texti": "Fyrsta kvöld ársins.",
+      "texti": "Fyrsta spilakvöld ársins.",
       "texti_en": "First game night of the year.",
       "tengill": ""
     }
@@ -53,6 +53,12 @@
       "spurning_en": "I've never played",
       "svar": "Komdu samt. Láttu vita þegar þú mætir og einhver kennir þér grunninn.",
       "svar_en": "Come anyway. Tell us it's your first time and someone will teach you the basics."
+    },
+    {
+      "spurning": "Þarf ég að tala íslensku?",
+      "spurning_en": "Do I need to speak Icelandic?",
+      "svar": "Nei. Enskumælandi spilarar eru velkomnir og hafa komist vel af hjá okkur.",
+      "svar_en": "No. English speakers are welcome and have been getting by just fine."
     },
     {
       "spurning": "Hvað á ég að taka með?",
@@ -79,8 +85,8 @@
     },
     {
       "nafn": "Ármann Haraldsson",
-      "hlutverk": "Meðstjórnandi",
-      "hlutverk_en": "Board member",
+      "hlutverk": "Gjaldkeri",
+      "hlutverk_en": "Treasurer",
       "mynd": "",
       "texti": "",
       "um": "",
@@ -88,8 +94,8 @@
     },
     {
       "nafn": "Emil Ragnarsson",
-      "hlutverk": "Meðstjórnandi",
-      "hlutverk_en": "Board member",
+      "hlutverk": "Ritari",
+      "hlutverk_en": "Secretary",
       "mynd": "",
       "texti": "",
       "um": "",
@@ -121,13 +127,13 @@
       "syna_nafn": true
     }
   ],
-  "felagsgjald": "Félagsgjaldið er nú 3.000 kr. og gildir fram að næsta aðalfundi, þar sem gjaldið fyrir 2027 verður ákveðið. Frítt fyrir yngri en 18 ára. Gjaldið fer í leigu á salnum, verðlaun, lánsstokka og annan rekstur félagsins.",
-  "felagsgjald_en": "The membership fee is currently 3,000 kr and covers you until the next annual general meeting, where the 2027 fee will be set. Free for under-18s. It pays for the hall, prizes, loaner decks and the club's other running costs.",
+  "felagsgjald": "Félagsgjaldið er nú 3.000 kr. og gildir út árið 2026 og fram að næsta aðalfundi. Þar verður gjaldið fyrir 2027 ákveðið og þá greiða allir á ný. Frítt fyrir yngri en 18 ára. Gjaldið fer í leigu á salnum, verðlaun, lánsstokka og annan rekstur félagsins.",
+  "felagsgjald_en": "The membership fee is currently 3,000 kr and covers you for the rest of 2026 and until the next annual general meeting. The 2027 fee is set there, and everyone pays again then. Free for under-18s. It pays for the hall, prizes, loaner decks and the club's other running costs.",
   "facebook": "https://www.facebook.com/profile.php?id=61594705529073",
   "facebook_hopur": "https://www.facebook.com/groups/2612492249215869",
   "styrkja_netfang": "spilafelagvestfjarda@gmail.com",
   "samband_netfang": "spilafelagvestfjarda@gmail.com",
-  "kennitala": "",
+  "kennitala": "411026-0430",
   "frettir": [
     {
       "slod": "styrkur-uppbyggingarsjods",
@@ -290,7 +296,7 @@
         "Takk, Edinborgarhúsið, fyrir að hýsa okkur, og takk, Hamraborg, fyrir aukaverðlaunin. Við viljum líka þakka öllum sem hjálpuðu til við að láta þetta ganga upp. Og takk öll sem mættuð, það eruð þið sem gerðuð daginn svona skemmtilegan.",
         "Við erum strax farin að hlakka til næsta móts.",
         {
-          "stokkur": "Vinningsstokkurinn",
+          "stokkur": "Vinningsstokkur Ármanns (UR)",
           "spil": [
             "1 Ajani Unrelenting",
             "1 Chandra's Emberling",
@@ -336,7 +342,7 @@
         "Thank you, Edinborgarhúsið, for hosting us, and thank you, Hamraborg, for the extra prizes. We'd also like to thank everyone who helped make it happen. And thanks to everyone who came: you're the ones who made the day so much fun.",
         "We're already looking forward to the next tournament.",
         {
-          "stokkur": "The winning deck",
+          "stokkur": "Ármann's winning deck (UR)",
           "spil": [
             "1 Ajani Unrelenting",
             "1 Chandra's Emberling",
