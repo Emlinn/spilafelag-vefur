@@ -180,11 +180,12 @@ section { position: relative; padding: clamp(5rem, 11vw, 9rem) 0; }
 .feature .copy p { color: var(--muted); margin: 0.3rem 0 0; font-size: 1.06rem; line-height: 1.4; }
 
 .f-bordspil { --card-bg: radial-gradient(120% 80% at 30% 10%, #3c5a35 0%, #1d2d1b 45%, #0d140c 100%); --card-photo: url('img/bordspil.jpg'); }
-/* No photos yet: add img/commander.jpg etc. and set --card-photo: url('img/commander.jpg') here. */
-.f-safnkort { --card-bg: radial-gradient(120% 80% at 60% 20%, #2e5a52 0%, #173430 45%, #0a1615 100%); }
-.f-commander { --card-bg: radial-gradient(120% 80% at 35% 15%, #3a3560 0%, #1d1a33 45%, #0c0b14 100%); }
+.f-safnkort { --card-bg: radial-gradient(120% 80% at 60% 20%, #2e5a52 0%, #173430 45%, #0a1615 100%); --card-photo: url('img/safnkortaspil.jpg'); }
+.f-commander { --card-bg: radial-gradient(120% 80% at 35% 15%, #3a3560 0%, #1d1a33 45%, #0c0b14 100%); --card-photo: url('img/commander.jpg'); }
 .cards.two { grid-template-columns: repeat(2, 1fr); max-width: 1180px; }
-.cards.two .feature { min-height: 300px; justify-content: flex-end; }
+.cards.two .feature { min-height: 500px; justify-content: flex-end; }
+/* real photos: the top shows the room, the copy sits on a dark lower part */
+.cards.two .feature::after { background: linear-gradient(180deg, rgba(15,16,17,0.1) 0%, rgba(15,16,17,0.5) 30%, rgba(15,16,17,0.9) 58%, rgba(15,16,17,0.95) 100%); }
 .feature .copy h3 { font: 300 clamp(2.2rem, 3.4vw, 3rem)/1 var(--serif); letter-spacing: -0.02em; margin-bottom: 0.9rem; }
 .cards.two .feature .copy { max-width: 30rem; }
 .tags { list-style: none; display: flex; flex-wrap: wrap; gap: 6px; margin: 1.3rem 0 0; padding: 0; }
@@ -215,7 +216,10 @@ section { position: relative; padding: clamp(5rem, 11vw, 9rem) 0; }
 /* closing band with the landscape again */
 .cta { overflow: hidden; isolation: isolate; text-align: center; padding: clamp(7rem, 16vw, 13rem) 0; }
 .cta .hero-media::after {
-  background: linear-gradient(180deg, var(--bg) 0%, rgba(15,16,17,0.4) 35%, rgba(15,16,17,0.4) 65%, var(--bg) 100%);
+  /* a busy room photo: the middle, where the headline sits, needs a real scrim */
+  background:
+    radial-gradient(60% 45% at 50% 50%, rgba(15,16,17,0.55), transparent 80%),
+    linear-gradient(180deg, var(--bg) 0%, rgba(15,16,17,0.62) 30%, rgba(15,16,17,0.62) 70%, var(--bg) 100%);
 }
 /* the closing band's photo is an <img> in the page, so it never shows a placeholder first */
 .cta .actions { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-top: 2rem; }
@@ -599,7 +603,7 @@ dialog.m-dialog p { margin: 0; color: var(--muted); }
 .governance h3 { font: 300 1.5rem/1.1 var(--serif); letter-spacing: -0.01em; margin-bottom: 0.5rem; }
 .governance p { margin: 0; color: var(--muted); }
 .lang-switch { font-weight: 500; }
-@media (max-width: 760px) { .governance { grid-template-columns: 1fr; } .cards.two .feature { min-height: 360px; } }
+@media (max-width: 760px) { .governance { grid-template-columns: 1fr; } .cards.two .feature { min-height: 560px; } }
 .fb-line + .volunteer { margin-top: clamp(2.5rem, 5vw, 4rem); }
 
 

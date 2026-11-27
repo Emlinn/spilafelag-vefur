@@ -2,6 +2,8 @@ Myndir / photos
 ===============
 
 Drop real photos here with these exact names and they appear automatically.
+commander.jpg, safnkortaspil.jpg and cta.jpg are real photos from the club's nights
+(Rögnvaldssalur, autumn 2026), from the club's Facebook page.
 Until then, the drawn fjord (fjord.svg) and dark gradients stand in.
 
   hero.jpg            front page, full screen behind the headline   (landscape, ~2400 px wide)
