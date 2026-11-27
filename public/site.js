@@ -452,6 +452,52 @@ function renderContent(c) {
     });
     if (!upcoming.length) document.querySelector('.dates-empty')?.removeAttribute('hidden');
   }
+  // news: newest first; the full list on /frettir, and the latest post on the front page while it's fresh
+  const news = (c.frettir ?? [])
+    .filter((n) => tx(n, 'titill') && /^\d{4}-\d{2}-\d{2}$/.test(n.dags ?? '') && n.dags <= today)
+    .sort((x, y) => y.dags.localeCompare(x.dags));
+  const longDate = (iso) => { const p = parts(iso), y = iso.slice(0, 4); return EN ? `${p.day} ${p.month} ${y}` : `${p.day}. ${p.month} ${y}`; };
+  const slug = (n) => (/^[a-z0-9-]+$/.test(n.slod ?? '') ? n.slod : null);
+  const newsHref = EN ? 'en/news' : 'frettir';
+  const newsList = slot('frettir');
+  if (newsList) {
+    if (!news.length) newsList.append(el('p', { class: 'sub' }, L('Engar fréttir enn.', 'No news yet.')));
+    for (const n of news) {
+      const body = el('div', { class: 'news-body' });
+      for (const b of (EN && Array.isArray(n.efni_en) ? n.efni_en : n.efni) ?? []) {
+        if (typeof b === 'string') body.append(el('p', {}, b));
+        else if (b && Array.isArray(b.listi)) {
+          if (b.titill) body.append(el('h3', {}, b.titill));
+          const ol = el('ol', { class: 'news-list' });
+          b.listi.forEach((x) => ol.append(el('li', {}, String(x))));
+          body.append(ol);
+        } else if (b && Array.isArray(b.spil)) {
+          const pre = el('pre', { class: 'decklist' }, b.spil.join('\n'));
+          body.append(el('details', { class: 'deck' }, el('summary', {}, b.stokkur ?? L('Stokkurinn', 'The deck')), pre));
+        }
+      }
+      const img = localImg(n.mynd);
+      const time = el('time', { datetime: n.dags }, longDate(n.dags));
+      newsList.append(el('article', { class: 'news-post', id: slug(n) },
+        el('p', { class: 'news-date' }, time),
+        el('h2', {}, tx(n, 'titill')),
+        img ? el('img', { class: 'news-img', src: img, alt: tx(n, 'mynd_alt') ?? '', loading: 'lazy', decoding: 'async' }) : null,
+        body));
+    }
+    // a link to a post (frettir#slod) lands on it once it exists
+    if (location.hash) document.getElementById(decodeURIComponent(location.hash.slice(1)))?.scrollIntoView();
+  }
+  const latest = slot('frettir-nyjast');
+  const fresh = news[0] && (Date.parse(today) - Date.parse(news[0].dags)) / 86_400_000 <= 60;
+  if (latest && fresh) {
+    const n = news[0];
+    latest.append(
+      el('span', { class: 'news-latest-date' }, longDate(n.dags)),
+      el('a', { href: `${newsHref}${slug(n) ? `#${slug(n)}` : ''}` }, tx(n, 'titill')),
+      el('a', { class: 'news-latest-all', href: newsHref }, L('Allar fréttir', 'All news')));
+    latest.hidden = false;
+  }
+
   const next = slot('naest');
   if (next && upcoming[0]) {
     const v = upcoming[0], p = parts(v.dags), time = (v.klukkan ?? '').split(/[–-]/)[0].trim();

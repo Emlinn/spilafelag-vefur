@@ -194,3 +194,10 @@ catches form bots; strict CSP (scripts from self only).
 - Email notifications (to the board on a new application, to the member on approval).
 - Members-area content (events, registrations) — could read from the board dashboard later.
 - Password reset (the login page points people to the félag email for now).
+
+## Fréttir / News
+
+`/frettir` and `/en/news` list the posts in `efni.json` → `frettir`, newest first (posts dated in the future stay hidden until their day).
+Each post: `slod` (anchor, `frettir#slod`), `dags`, `titill`/`titill_en`, optional `mynd` + `mynd_alt`/`mynd_alt_en`,
+and `efni`/`efni_en`: a list where a string is a paragraph, `{"titill","listi"}` a numbered list and `{"stokkur","spil"}` a collapsible decklist.
+The newest post also shows under the events on the front page for 60 days. A proper editor (CMS) can come later.

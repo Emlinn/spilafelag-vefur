@@ -1,5 +1,5 @@
 {
-  "_lesmer": "Efni vefsins. Breyttu þessari skrá og endurhlaðaðu síðuna, engin forritun. Tóm gildi (\"\") eru ekki sýnd. Viðburðir: \"dags\" á forminu ÁÁÁÁ-MM-DD; \"tegund\" (t.d. \"commander\") segir hvers konar viðburður það er; liðnir viðburðir hverfa sjálfkrafa og sá næsti birtist líka efst á forsíðu. Hagnýtt: spurningar og svör fyrir þau sem mæta í fyrsta sinn. Myndir: settu skrána í public/img/... og skrifaðu slóðina, t.d. \"/img/stjorn/emil.jpg\". Stjórn: \"texti\" er stutt lína á spjaldinu; \"um\" er kynning sem opnast þegar smellt er (auð lína = ný málsgrein); \"uppahaldsspil\" er listi. Styrkir: styrkur birtist aðeins ef \"veittur\" er true, og þá líka línan um Sóknaráætlun í fætinum; \"merki_alt\" er textinn sem skjálesarar lesa fyrir merkið (nafnið á merkinu). \"felagsgjald\" birtist á forsíðu og umsóknarsíðu; uppfærðu eftir aðalfund. \"facebook\" er slóð á Facebook-síðu félagsins og \"facebook_hopur\" á hópinn MTG Vestfirðir. \"kennitala\" birtist undir Um félagið ef hún er fyllt út. Enska: hvert textasvið getur átt enskan tvíbura með \"_en\" aftan við (t.d. \"heiti_en\"), sem birtist á /en; vanti hann birtist íslenski textinn.",
+  "_lesmer": "Efni vefsins. Breyttu þessari skrá og endurhlaðaðu síðuna, engin forritun. Tóm gildi (\"\") eru ekki sýnd. Viðburðir: \"dags\" á forminu ÁÁÁÁ-MM-DD; \"tegund\" (t.d. \"commander\") segir hvers konar viðburður það er; liðnir viðburðir hverfa sjálfkrafa og sá næsti birtist líka efst á forsíðu. Hagnýtt: spurningar og svör fyrir þau sem mæta í fyrsta sinn. Myndir: settu skrána í public/img/... og skrifaðu slóðina, t.d. \"/img/stjorn/emil.jpg\". Stjórn: \"texti\" er stutt lína á spjaldinu; \"um\" er kynning sem opnast þegar smellt er (auð lína = ný málsgrein); \"uppahaldsspil\" er listi. Styrkir: styrkur birtist aðeins ef \"veittur\" er true, og þá líka línan um Sóknaráætlun í fætinum; \"merki_alt\" er textinn sem skjálesarar lesa fyrir merkið (nafnið á merkinu). \"felagsgjald\" birtist á forsíðu og umsóknarsíðu; uppfærðu eftir aðalfund. \"facebook\" er slóð á Facebook-síðu félagsins og \"facebook_hopur\" á hópinn MTG Vestfirðir. \"kennitala\" birtist undir Um félagið ef hún er fyllt út. Enska: hvert textasvið getur átt enskan tvíbura með \"_en\" aftan við (t.d. \"heiti_en\"), sem birtist á /en; vanti hann birtist íslenski textinn. Fréttir (\"frettir\") má setja inn í hvaða röð sem er; vefurinn raðar þeim eftir dagsetningu. \"slod\" er stutt heiti í slóðinni (frettir#slod), \"dags\" er birtingardagur (ÁÁÁÁ-MM-DD). \"efni\" er listi: texti verður málsgrein, {\"titill\", \"listi\"} verður númeraður listi og {\"stokkur\", \"spil\"} verður stokkalisti sem hægt er að opna. Nýjasta fréttin birtist á forsíðunni í 60 daga.",
   "vidburdir": [
     {
       "dags": "2026-12-03",
@@ -127,5 +127,218 @@
   "facebook_hopur": "https://www.facebook.com/groups/2612492249215869",
   "styrkja_netfang": "spilafelagvestfjarda@gmail.com",
   "samband_netfang": "spilafelagvestfjarda@gmail.com",
-  "kennitala": ""
+  "kennitala": "",
+  "frettir": [
+    {
+      "slod": "styrkur-uppbyggingarsjods",
+      "dags": "2026-11-27",
+      "titill": "Styrkur úr Uppbyggingarsjóði Vestfjarða",
+      "titill_en": "A grant from Uppbyggingarsjóður Vestfjarða",
+      "efni": [
+        "Spilafélag Vestfjarða hlaut styrk úr Uppbyggingarsjóði Vestfjarða fyrir árið 2027, og styrkirnir voru afhentir við athöfn 26. nóvember. Við erum ótrúlega þakklát.",
+        "Styrkurinn fer í nýliðastarf og spilaviðburði á Vestfjörðum. Við stefnum á sex til tíu viðburði í Edinborgarhúsinu á næsta ári, og kennsla fyrir byrjendur verður fastur hluti af Commander-kvöldunum.",
+        "Einar Ægir Hlynsson, formaður félagsins, hélt utan um umsóknina. Takk fyrir stuðninginn, Sóknaráætlun Vestfjarða!"
+      ],
+      "efni_en": [
+        "Spilafélag Vestfjarða has received a grant from Uppbyggingarsjóður Vestfjarða for 2027, presented at a ceremony on 26 November. We're incredibly grateful.",
+        "The grant goes towards welcoming new players and running game events in the Westfjords. We're aiming for six to ten events at Edinborgarhúsið next year, and teaching beginners will be a regular part of the Commander nights.",
+        "Einar Ægir Hlynsson, the club's chair, led the application. Thank you for the support, Sóknaráætlun Vestfjarða!"
+      ]
+    },
+    {
+      "slod": "star-trek-prerelease",
+      "dags": "2026-11-14",
+      "titill": "Star Trek prerelease: takk fyrir frábæran dag!",
+      "titill_en": "Star Trek prerelease: thanks for a great day!",
+      "efni": [
+        "Veðrið reyndi sitt besta til að stoppa okkur, en fólk mokaði sig út, Dynjandisheiðin var mokuð um morguninn og kassinn komst á leiðarenda. Ragnar fær sérstakar þakkir fyrir að koma honum til okkar! 18 manns spiluðu og allir fóru heim með verðlaun.",
+        {
+          "titill": "Sigurvegarar dagsins",
+          "listi": [
+            "Agnar",
+            "Ragnar",
+            "Hilmir"
+          ]
+        },
+        "Hilmir mætti fyrst á sealed-mótið í Dokkunni um páskana, hefur mætt á öll Commander-kvöld síðan og brennur fyrir Magic. Algjör meistari!",
+        "Kærar þakkir til Nexus fyrir samstarfið, kittin og land station-ið. Þetta var fyrsta prerelease-ið sem við höldum með Nexus, og vonandi ekki það síðasta.",
+        {
+          "stokkur": "Vinningsstokkur Agnars (GW)",
+          "spil": [
+            "2 Picard, Leading by Example",
+            "2 Pure Energy",
+            "2 Free Borg Revolutionaries",
+            "1 Federation Field Medic",
+            "1 Tricorder",
+            "1 Cold-Blooded Crew",
+            "1 Phlox, Unorthodox Doctor",
+            "1 General Picard, Earth Warlord",
+            "1 U.S.S. Voyager, Lone Wanderer",
+            "1 Class-F Shuttlecraft",
+            "1 Xenobotanist",
+            "1 I'm a Doctor, Not a . . .",
+            "1 Moopsy",
+            "1 Holo-Engineer",
+            "1 Conquest Mission",
+            "1 Common Goal",
+            "1 Mugato",
+            "1 Emergency Medical Hologram",
+            "1 Command Decision",
+            "1 Test of Conviction",
+            "1 Troubling Tribbles",
+            "1 Federation Outpost",
+            "1 Unexplored Territory",
+            "7 Forest",
+            "7 Plains"
+          ]
+        },
+        "Sjáumst á næsta Commander-kvöldi í Edinborgarhúsinu!"
+      ],
+      "efni_en": [
+        "The weather did its best to stop us, but people dug themselves out, Dynjandisheiði was cleared in the morning and the box made it all the way. Special thanks to Ragnar for getting it to us! 18 people played and everyone went home with a prize.",
+        {
+          "titill": "Winners of the day",
+          "listi": [
+            "Agnar",
+            "Ragnar",
+            "Hilmir"
+          ]
+        },
+        "Hilmir first came to the sealed tournament at Dokkan over Easter, has been to every Commander night since and loves Magic. A true champion!",
+        "Many thanks to Nexus for the partnership, the kits and the land station. This was the first prerelease we've run with Nexus, and hopefully not the last.",
+        {
+          "stokkur": "Agnar's winning deck (GW)",
+          "spil": [
+            "2 Picard, Leading by Example",
+            "2 Pure Energy",
+            "2 Free Borg Revolutionaries",
+            "1 Federation Field Medic",
+            "1 Tricorder",
+            "1 Cold-Blooded Crew",
+            "1 Phlox, Unorthodox Doctor",
+            "1 General Picard, Earth Warlord",
+            "1 U.S.S. Voyager, Lone Wanderer",
+            "1 Class-F Shuttlecraft",
+            "1 Xenobotanist",
+            "1 I'm a Doctor, Not a . . .",
+            "1 Moopsy",
+            "1 Holo-Engineer",
+            "1 Conquest Mission",
+            "1 Common Goal",
+            "1 Mugato",
+            "1 Emergency Medical Hologram",
+            "1 Command Decision",
+            "1 Test of Conviction",
+            "1 Troubling Tribbles",
+            "1 Federation Outpost",
+            "1 Unexplored Territory",
+            "7 Forest",
+            "7 Plains"
+          ]
+        },
+        "See you at the next Commander night at Edinborgarhúsið!"
+      ]
+    },
+    {
+      "slod": "reality-fracture-sealed",
+      "dags": "2026-10-03",
+      "titill": "Reality Fracture sealed: takk kærlega fyrir daginn!",
+      "titill_en": "Reality Fracture sealed: thank you for a great day!",
+      "mynd": "img/frettir/reality-fracture.jpg",
+      "mynd_alt": "Fullur salur í Edinborgarhúsinu, spilarar við löng borð á sealed-mótinu",
+      "mynd_alt_en": "A full hall at Edinborgarhúsið, players at long tables during the sealed tournament",
+      "efni": [
+        "Sealed-mótið okkar í Reality Fracture tókst frábærlega. 16 spilarar mættu í Edinborgarhúsið og það var tappað, galdrað og barist fram á síðustu umferð.",
+        {
+          "titill": "Efstu sex sætin",
+          "listi": [
+            "Ármann Haraldsson (3-0)",
+            "Karl Sigurðsson (3-0)",
+            "Agnar Thoroddsen (2-1)",
+            "Sigurjón Snær Jóhannsson (2-1)",
+            "Aðalsteinn Stefánsson (2-1)",
+            "Þórdís Ólafsdóttir (2-1)"
+          ]
+        },
+        "Til hamingju öll!",
+        "Takk, Edinborgarhúsið, fyrir að hýsa okkur, og takk, Hamraborg, fyrir aukaverðlaunin. Við viljum líka þakka öllum sem hjálpuðu til við að láta þetta ganga upp. Og takk öll sem mættuð, það eruð þið sem gerðuð daginn svona skemmtilegan.",
+        "Við erum strax farin að hlakka til næsta móts.",
+        {
+          "stokkur": "Vinningsstokkurinn",
+          "spil": [
+            "1 Ajani Unrelenting",
+            "1 Chandra's Emberling",
+            "1 Command the Stage",
+            "1 Cryotheory Adept",
+            "1 Fblthp, Impossibly Lost",
+            "1 Geist of Saint Thalia",
+            "1 Icy Reception",
+            "1 Identity Echo",
+            "1 Infinite Coursework",
+            "1 Kiora of Fire and Ashes",
+            "1 No Admittance",
+            "1 Protege's Awakening",
+            "2 Ruric Thar, Biomagus",
+            "1 Stingerquill Voxmancer",
+            "1 Tam's Resistance",
+            "1 Tomik, Izzet Sparkmage",
+            "1 Twinned Vision",
+            "1 Unsummon",
+            "1 Variable Chaser",
+            "1 Way of the Cryomancer",
+            "1 Whiplash Wordsmith",
+            "1 Wrath of the Bloodmane",
+            "9 Mountain",
+            "8 Island"
+          ]
+        }
+      ],
+      "efni_en": [
+        "Our Reality Fracture sealed tournament was a great success. 16 players came to Edinborgarhúsið, and there was tapping, casting and battling right up to the final round.",
+        {
+          "titill": "Top six",
+          "listi": [
+            "Ármann Haraldsson (3-0)",
+            "Karl Sigurðsson (3-0)",
+            "Agnar Thoroddsen (2-1)",
+            "Sigurjón Snær Jóhannsson (2-1)",
+            "Aðalsteinn Stefánsson (2-1)",
+            "Þórdís Ólafsdóttir (2-1)"
+          ]
+        },
+        "Congratulations, everyone!",
+        "Thank you, Edinborgarhúsið, for hosting us, and thank you, Hamraborg, for the extra prizes. We'd also like to thank everyone who helped make it happen. And thanks to everyone who came: you're the ones who made the day so much fun.",
+        "We're already looking forward to the next tournament.",
+        {
+          "stokkur": "The winning deck",
+          "spil": [
+            "1 Ajani Unrelenting",
+            "1 Chandra's Emberling",
+            "1 Command the Stage",
+            "1 Cryotheory Adept",
+            "1 Fblthp, Impossibly Lost",
+            "1 Geist of Saint Thalia",
+            "1 Icy Reception",
+            "1 Identity Echo",
+            "1 Infinite Coursework",
+            "1 Kiora of Fire and Ashes",
+            "1 No Admittance",
+            "1 Protege's Awakening",
+            "2 Ruric Thar, Biomagus",
+            "1 Stingerquill Voxmancer",
+            "1 Tam's Resistance",
+            "1 Tomik, Izzet Sparkmage",
+            "1 Twinned Vision",
+            "1 Unsummon",
+            "1 Variable Chaser",
+            "1 Way of the Cryomancer",
+            "1 Whiplash Wordsmith",
+            "1 Wrath of the Bloodmane",
+            "9 Mountain",
+            "8 Island"
+          ]
+        }
+      ]
+    }
+  ]
 }

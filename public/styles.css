@@ -605,7 +605,7 @@ dialog.m-dialog p { margin: 0; color: var(--muted); }
 .governance p { margin: 0; color: var(--muted); }
 .lang-switch { font-weight: 500; }
 @media (max-width: 760px) { .governance { grid-template-columns: 1fr; } .cards.two .feature { min-height: 560px; } }
-.fb-line + .volunteer { margin-top: clamp(2.5rem, 5vw, 4rem); }
+.fb-line ~ .volunteer { margin-top: clamp(2.5rem, 5vw, 4rem); }
 
 
 /* Upcoming sets on the members page: a countdown per set, the next one lit. */
@@ -710,3 +710,22 @@ html { scroll-padding-top: 88px; }
   .nav-right > .nav-link.plain.lang-switch { display: none; }
   .nav-center .m-only[lang] { display: block; }
 }
+
+/* ── news (Fréttir) ───────────────────────────────────────────────── */
+.news-post { padding: 2.6rem 0; border-top: 1px solid var(--line); scroll-margin-top: 90px; }
+.news-post:first-child { border-top: 0; padding-top: 0; }
+.news-date { margin: 0 0 0.5rem; font: 500 14px/1.4 var(--sans); color: var(--faint); }
+.news-post h2 { font-size: clamp(1.7rem, 3vw, 2.3rem); margin: 0 0 1.2rem; }
+.news-img { display: block; width: 100%; height: auto; border-radius: 14px; margin: 0 0 1.4rem; }
+.news-body p { margin: 0 0 1rem; line-height: 1.6; color: var(--muted); }
+.news-body h3 { font: 500 1rem/1.4 var(--sans); color: var(--fg-2); margin: 1.4rem 0 0.5rem; }
+.news-list { margin: 0 0 1.2rem; padding-left: 1.4rem; color: var(--muted); line-height: 1.6; }
+.deck { margin: 1.2rem 0; border: 1px solid var(--line); border-radius: 12px; background: var(--bg-2); }
+.deck summary { cursor: pointer; padding: 0.8rem 1rem; font: 500 15px/1.4 var(--sans); color: var(--fg-2); }
+.deck summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 12px; }
+.decklist { margin: 0; padding: 0 1rem 1rem; font: 400 14px/1.6 var(--sans); color: var(--muted); white-space: pre-wrap; columns: 2 14rem; }
+/* the latest post, under the events on the front page */
+.news-latest { max-width: 1180px; margin: 1.6rem auto 0; display: flex; flex-wrap: wrap; justify-content: center; align-items: baseline; gap: 0.4rem 0.9rem; text-align: center; color: var(--muted); }
+.news-latest-date { font: 500 14px/1.4 var(--sans); color: var(--faint); }
+.news-latest a { text-underline-offset: 3px; }
+.news-latest-all { font-size: 0.95rem; color: var(--muted); }

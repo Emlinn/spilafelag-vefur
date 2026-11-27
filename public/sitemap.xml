@@ -6,4 +6,6 @@
   <url><loc>https://spilvest.is/en/join</loc><xhtml:link rel="alternate" hreflang="is" href="https://spilvest.is/ganga-i-felagid"/><xhtml:link rel="alternate" hreflang="en" href="https://spilvest.is/en/join"/></url>
   <url><loc>https://spilvest.is/personuvernd</loc><xhtml:link rel="alternate" hreflang="is" href="https://spilvest.is/personuvernd"/><xhtml:link rel="alternate" hreflang="en" href="https://spilvest.is/en/privacy"/></url>
   <url><loc>https://spilvest.is/en/privacy</loc><xhtml:link rel="alternate" hreflang="is" href="https://spilvest.is/personuvernd"/><xhtml:link rel="alternate" hreflang="en" href="https://spilvest.is/en/privacy"/></url>
+  <url><loc>https://spilvest.is/frettir</loc><xhtml:link rel="alternate" hreflang="is" href="https://spilvest.is/frettir"/><xhtml:link rel="alternate" hreflang="en" href="https://spilvest.is/en/news"/></url>
+  <url><loc>https://spilvest.is/en/news</loc><xhtml:link rel="alternate" hreflang="is" href="https://spilvest.is/frettir"/><xhtml:link rel="alternate" hreflang="en" href="https://spilvest.is/en/news"/></url>
 </urlset>

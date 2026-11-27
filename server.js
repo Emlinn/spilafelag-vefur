@@ -41,12 +41,14 @@ const PAGES = {
   '/innskraning': 'innskraning.html',
   '/felagar': 'felagar.html',
   '/personuvernd': 'personuvernd.html',
+  '/frettir': 'frettir.html',
   // English
   '/en': 'en/index.html',
   '/en/join': 'en/join.html',
   '/en/login': 'en/login.html',
   '/en/members': 'en/members.html',
   '/en/privacy': 'en/privacy.html',
+  '/en/news': 'en/news.html',
 };
 
 const SECURITY_HEADERS = {
