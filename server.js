@@ -173,7 +173,7 @@ async function api(req, res, path) {
     // A script-less post gets a plain page instead of JSON.
     const reply = (status, data) => {
       if (!req.isForm) return json(res, status, data);
-      if (status < 300) return formReply(req, res, 200, t('Takk fyrir umsóknina!', 'Thanks, your application is in'), [t('Stjórnin fer yfir umsóknina og þú færð að vita hvað gerist næst.', 'The board will go through it and let you know what happens next.'), t('Ef þú hefur sótt um áður þarftu ekki að gera neitt meira.', "If you've applied before, there's nothing more you need to do.")], req.lang === 'en' ? 'en' : '');
+      if (status < 300) return formReply(req, res, 200, t('Takk fyrir umsóknina!', 'Thanks, your application is in'), [t('Stjórnin fer yfir umsóknina og þú færð að vita hvað gerist næst.', 'The board will go through it and let you know what happens next.')], req.lang === 'en' ? 'en' : '');
       const lines = data.errors ? Object.values(data.errors) : [data.error];
       return formReply(req, res, status, t('Athugaðu umsóknina', 'Please check your application'), lines, back);
     };
