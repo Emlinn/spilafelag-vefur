@@ -1,5 +1,5 @@
 {
-  "_lesmer": "Efni vefsins. Breyttu þessari skrá og endurhlaðaðu síðuna, engin forritun. Tóm gildi (\"\") eru ekki sýnd. Viðburðir: \"dags\" á forminu ÁÁÁÁ-MM-DD; \"tegund\" (t.d. \"commander\") segir hvers konar viðburður það er; liðnir viðburðir hverfa sjálfkrafa og sá næsti birtist líka efst á forsíðu. Hagnýtt: spurningar og svör fyrir þau sem mæta í fyrsta sinn. Myndir: settu skrána í public/img/... og skrifaðu slóðina, t.d. \"/img/stjorn/emil.jpg\". Stjórn: \"texti\" er stutt lína á spjaldinu; \"um\" er kynning sem opnast þegar smellt er (auð lína = ný málsgrein); \"uppahaldsspil\" er listi. Styrkir: styrkur birtist aðeins ef \"veittur\" er true, og þá líka línan um Sóknaráætlun í fætinum; \"merki_alt\" er textinn sem skjálesarar lesa fyrir merkið (nafnið á merkinu). \"felagsgjald\" birtist á forsíðu og umsóknarsíðu; uppfærðu eftir aðalfund. \"facebook\" er slóð á Facebook-síðu félagsins og \"facebook_hopur\" á hópinn MTG Vestfirðir. \"kennitala\" birtist undir Um félagið ef hún er fyllt út. Enska: hvert textasvið getur átt enskan tvíbura með \"_en\" aftan við (t.d. \"heiti_en\"), sem birtist á /en; vanti hann birtist íslenski textinn. Fréttir (\"frettir\") má setja inn í hvaða röð sem er; vefurinn raðar þeim eftir dagsetningu. \"slod\" er stutt heiti í slóðinni (frettir#slod), \"dags\" er birtingardagur (ÁÁÁÁ-MM-DD). \"efni\" er listi: texti verður málsgrein, {\"titill\", \"listi\"} verður númeraður listi og {\"stokkur\", \"spil\"} verður stokkalisti sem hægt er að opna. Nýjasta fréttin birtist á forsíðunni í 60 daga.",
+  "_lesmer": "Efni vefsins. Breyttu þessari skrá og endurhlaðaðu síðuna, engin forritun. Tóm gildi (\"\") eru ekki sýnd. Viðburðir: \"dags\" á forminu ÁÁÁÁ-MM-DD; \"tegund\" (t.d. \"commander\") segir hvers konar viðburður það er; liðnir viðburðir hverfa sjálfkrafa og sá næsti birtist líka efst á forsíðu. Hagnýtt: spurningar og svör fyrir þau sem mæta í fyrsta sinn. Myndir: settu skrána í public/img/... og skrifaðu slóðina, t.d. \"/img/stjorn/emil.jpg\". Stjórn: \"texti\" er stutt lína á spjaldinu; \"um\" er kynning sem opnast þegar smellt er (auð lína = ný málsgrein); \"uppahaldsspil\" er listi. Styrkir: styrkur birtist aðeins ef \"veittur\" er true, og þá líka línan um Sóknaráætlun í fætinum; \"merki_alt\" er textinn sem skjálesarar lesa fyrir merkið (nafnið á merkinu). \"felagsgjald\" birtist á forsíðu og umsóknarsíðu; uppfærðu eftir aðalfund. \"facebook\" er slóð á Facebook-síðu félagsins og \"facebook_hopur\" á hópinn MTG Vestfirðir. \"kennitala\" birtist undir Um félagið ef hún er fyllt út. Enska: hvert textasvið getur átt enskan tvíbura með \"_en\" aftan við (t.d. \"heiti_en\"), sem birtist á /en; vanti hann birtist íslenski textinn. Fréttir (\"frettir\") má setja inn í hvaða röð sem er; vefurinn raðar þeim eftir dagsetningu. \"slod\" er stutt heiti í slóðinni (frettir#slod), \"dags\" er birtingardagur (ÁÁÁÁ-MM-DD). \"efni\" er listi: texti verður málsgrein, {\"titill\", \"listi\"} verður númeraður listi og {\"stokkur\", \"spil\"} verður stokkalisti sem hægt er að opna, {\"millifyrirsogn\"} verður millifyrirsögn og {\"hnappur\", \"href\"} verður hnappur. \"mynd_texti\" fer undir myndina. Nýjasta fréttin birtist á forsíðunni í 60 daga.",
   "vidburdir": [
     {
       "dags": "2026-12-03",
@@ -101,8 +101,8 @@
       "heiti": "Uppbyggingarsjóður Vestfjarða",
       "ar": "2027",
       "veittur": true,
-      "texti": "Spilafélag Vestfjarða hlaut styrk úr Uppbyggingarsjóði Vestfjarða fyrir árið 2027 til nýliðastarfs og spilaviðburða á Vestfjörðum. Takk fyrir stuðninginn!",
-      "texti_en": "Spilafélag Vestfjarða received a grant from Uppbyggingarsjóður Vestfjarða for 2027 for beginner nights and game events in the Westfjords. Thank you for the support!",
+      "texti": "Spilafélag Vestfjarða hlaut 250.000 kr. styrk úr Uppbyggingarsjóði Vestfjarða fyrir verkefnið „Nýliðastarf og spilaviðburðir á Ísafirði 2027“. Takk fyrir stuðninginn!",
+      "texti_en": "Spilafélag Vestfjarða received a grant of 250,000 kr from Uppbyggingarsjóður Vestfjarða for the project “Beginner nights and game events in Ísafjörður 2027”. Thank you for the support!",
       "studningur": "Með stuðningi Sóknaráætlunar Vestfjarða",
       "studningur_en": "Supported by Sóknaráætlun Vestfjarða",
       "vefur": "https://www.vestfirdir.is/is/verkefni/soknaraaetlun/uppbyggingarsjodur",
@@ -134,15 +134,36 @@
       "dags": "2026-11-27",
       "titill": "Styrkur úr Uppbyggingarsjóði Vestfjarða",
       "titill_en": "A grant from Uppbyggingarsjóður Vestfjarða",
+      "mynd": "img/frettir/styrkur-afhending.jpg",
+      "mynd_alt": "Fjórir menn standa fyrir framan vegg Uppbyggingarsjóðs Vestfjarða, þrír með rósir og einn með styrkjaskjal",
+      "mynd_alt_en": "Four men in front of the Uppbyggingarsjóður Vestfjarða backdrop, three holding roses and one holding the grant certificate",
+      "mynd_texti": "Stjórn félagsins ásamt Loga Einarssyni, menningar-, nýsköpunar- og háskólaráðherra. Frá vinstri: Ármann Haraldsson, Einar Ægir Hlynsson, Logi Einarsson og Emil Ragnarsson. Mynd: Haukur Sig",
+      "mynd_texti_en": "The club's board with Logi Einarsson, Minister of Culture, Innovation and Higher Education. From left: Ármann Haraldsson, Einar Ægir Hlynsson, Logi Einarsson and Emil Ragnarsson. Photo: Haukur Sig",
       "efni": [
-        "Spilafélag Vestfjarða hlaut styrk úr Uppbyggingarsjóði Vestfjarða fyrir árið 2027, og styrkirnir voru afhentir við athöfn 26. nóvember. Við erum ótrúlega þakklát.",
-        "Styrkurinn fer í nýliðastarf og spilaviðburði á Vestfjörðum. Við stefnum á sex til tíu viðburði í Edinborgarhúsinu á næsta ári, og kennsla fyrir byrjendur verður fastur hluti af Commander-kvöldunum.",
-        "Einar Ægir Hlynsson, formaður félagsins, hélt utan um umsóknina. Takk fyrir stuðninginn, Sóknaráætlun Vestfjarða!"
+        "Fimmtudaginn 26. nóvember tókum við á móti 250.000 kr. styrk úr Uppbyggingarsjóði Vestfjarða fyrir verkefnið „Nýliðastarf og spilaviðburðir á Ísafirði 2027“. Við erum ótrúlega þakklát fyrir stuðninginn og traustið.",
+        {
+          "millifyrirsogn": "Hvað þýðir þetta?"
+        },
+        "Styrkurinn gerir okkur kleift að halda fleiri viðburði á næsta ári og byggja upp nýliðastarf félagsins. Á nýju ári hefjum við nýliðakvöld samhliða Commander-kvöldunum annan hvern fimmtudag í Edinborgarhúsinu, þar sem reyndir spilarar taka vel á móti nýju fólki og kenna leikinn. Félagið kemur sér líka upp fleiri lánsstokkum og búnaði, svo þú þarft ekki að eiga neitt til að prófa. Hvort sem þú hefur aldrei spilað Magic eða ert að snúa aftur eftir langt hlé, þá hjálpum við þér af stað.",
+        "Félagið var stofnað í september og síðan þá höfum við haldið tvö mót auk reglubundinna Commander-kvölda. Takk öll sem hafið mætt, það eruð þið sem gerið þetta að veruleika.",
+        "Kærar þakkir til Uppbyggingarsjóðs Vestfjarða og Vestfjarðastofu!",
+        {
+          "hnappur": "Viltu styðja félagið? Gakktu í félagið",
+          "href": "ganga-i-felagid"
+        }
       ],
       "efni_en": [
-        "Spilafélag Vestfjarða has received a grant from Uppbyggingarsjóður Vestfjarða for 2027, presented at a ceremony on 26 November. We're incredibly grateful.",
-        "The grant goes towards welcoming new players and running game events in the Westfjords. We're aiming for six to ten events at Edinborgarhúsið next year, and teaching beginners will be a regular part of the Commander nights.",
-        "Einar Ægir Hlynsson, the club's chair, led the application. Thank you for the support, Sóknaráætlun Vestfjarða!"
+        "On Thursday 26 November we received a grant of 250,000 kr from Uppbyggingarsjóður Vestfjarða for the project “Beginner nights and game events in Ísafjörður 2027”. We're incredibly grateful for the support and the trust.",
+        {
+          "millifyrirsogn": "What does this mean?"
+        },
+        "The grant lets us run more events next year and build up the club's work with new players. In the new year we're starting beginner nights alongside the Commander nights, every other Thursday at Edinborgarhúsið, where experienced players welcome new people and teach the game. The club is also getting more loaner decks and equipment, so you don't need to own anything to give it a try. Whether you've never played Magic or are coming back after a long break, we'll help you get started.",
+        "The club was founded in September, and since then we've held two tournaments as well as the regular Commander nights. Thanks to everyone who has come along: you're the ones making this happen.",
+        "Many thanks to Uppbyggingarsjóður Vestfjarða and Vestfjarðastofa!",
+        {
+          "hnappur": "Want to support the club? Join the club",
+          "href": "en/join"
+        }
       ]
     },
     {

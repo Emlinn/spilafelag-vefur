@@ -466,7 +466,12 @@ function renderContent(c) {
       const body = el('div', { class: 'news-body' });
       for (const b of (EN && Array.isArray(n.efni_en) ? n.efni_en : n.efni) ?? []) {
         if (typeof b === 'string') body.append(el('p', {}, b));
-        else if (b && Array.isArray(b.listi)) {
+        else if (b && typeof b.millifyrirsogn === 'string') body.append(el('h3', {}, b.millifyrirsogn));
+        else if (b && typeof b.hnappur === 'string' && /^[a-z0-9/#-]+$/.test(b.href ?? '')) {
+          const a = el('a', { class: 'btn', href: b.href }, b.hnappur);
+          a.append(svg('<svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></svg>'));
+          body.append(el('p', { class: 'news-action' }, a));
+        } else if (b && Array.isArray(b.listi)) {
           if (b.titill) body.append(el('h3', {}, b.titill));
           const ol = el('ol', { class: 'news-list' });
           b.listi.forEach((x) => ol.append(el('li', {}, String(x))));
@@ -481,7 +486,9 @@ function renderContent(c) {
       newsList.append(el('article', { class: 'news-post', id: slug(n) },
         el('p', { class: 'news-date' }, time),
         el('h2', {}, tx(n, 'titill')),
-        img ? el('img', { class: 'news-img', src: img, alt: tx(n, 'mynd_alt') ?? '', loading: 'lazy', decoding: 'async' }) : null,
+        img ? el('figure', { class: 'news-figure' },
+          el('img', { class: 'news-img', src: img, alt: tx(n, 'mynd_alt') ?? '', loading: 'lazy', decoding: 'async' }),
+          tx(n, 'mynd_texti') ? el('figcaption', {}, tx(n, 'mynd_texti')) : null) : null,
         body));
     }
     // a link to a post (frettir#slod) lands on it once it exists
