@@ -22,6 +22,17 @@
       "texti": "Síðasta kvöld ársins.",
       "texti_en": "Last night of the year.",
       "tengill": ""
+    },
+    {
+      "dags": "2027-01-14",
+      "tegund": "commander",
+      "heiti": "Commander-kvöld",
+      "heiti_en": "Commander night",
+      "klukkan": "19:00–22:00",
+      "stadur": "Edinborgarhúsið",
+      "texti": "Fyrsta kvöld ársins.",
+      "texti_en": "First night of the year.",
+      "tengill": ""
     }
   ],
   "hagnyt": [
